@@ -1,0 +1,15 @@
+#!/bin/sh
+# Branch rules, file naming, style rules, then formatting of staged files.
+set -e
+root="$(git rev-parse --show-toplevel)"
+run="bash $root/scripts/hooks/run.sh"
+
+$run scripts/validate-branch-name.mjs --no-commit-on-protected
+$run scripts/check-naming.mjs
+$run scripts/check-styles.mjs
+
+staged="$(git diff --cached --name-only --diff-filter=ACM)"
+if [ -n "$staged" ]; then
+  # shellcheck disable=SC2086
+  echo "$staged" | tr '\n' '\0' | xargs -0 "$root/node_modules/.bin/prettier" --check --ignore-unknown --log-level warn
+fi

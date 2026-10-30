@@ -1,0 +1,13 @@
+---
+import { row, type RowVariants } from './layout.variants';
+
+interface Props extends RowVariants {
+  class?: string;
+}
+
+const { gap, justify, class: className } = Astro.props;
+---
+
+<div class={row({ gap, justify, class: className })}>
+  <slot />
+</div>

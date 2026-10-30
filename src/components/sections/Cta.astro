@@ -1,0 +1,22 @@
+---
+import { Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
+import type { CtaProps } from '@/cms/schemas';
+
+type Props = CtaProps;
+
+const { heading, body, cta } = Astro.props;
+---
+
+<Section>
+  <Container>
+    <Stack align="center" gap="lg">
+      <Heading>{heading}</Heading>
+      {body && <Text size="lead">{body}</Text>}
+      {cta.label && cta.href && (
+        <Button href={cta.href} size="lg">
+          {cta.label}
+        </Button>
+      )}
+    </Stack>
+  </Container>
+</Section>

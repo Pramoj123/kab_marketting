@@ -1,0 +1,31 @@
+---
+import { Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { buildSeo } from '@/lib/seo';
+import { getSiteSettings } from '@/lib/site';
+
+const site = await getSiteSettings();
+const seo = buildSeo({
+  site,
+  page: {
+    title: 'Page not found',
+    seo: { title: '', description: '', noindex: true, schemaType: 'WebPage' },
+    blocks: [],
+  },
+  path: '/404/',
+  siteUrl: Astro.site?.toString() ?? 'http://localhost:4321',
+  isProduction: false,
+});
+---
+
+<BaseLayout seo={seo} siteName={site.siteName} path="/404/">
+  <Section>
+    <Container>
+      <Stack>
+        <Heading as="h1">Page not found</Heading>
+        <Text>The page you are looking for does not exist.</Text>
+        <Button href="/">Back to home</Button>
+      </Stack>
+    </Container>
+  </Section>
+</BaseLayout>

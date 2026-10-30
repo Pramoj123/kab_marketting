@@ -1,0 +1,14 @@
+---
+import { text, type TextVariants } from './text.variants';
+
+interface Props extends TextVariants {
+  as?: 'p' | 'span' | 'div';
+  class?: string;
+}
+
+const { as: Tag = 'p', tone, size, class: className } = Astro.props;
+---
+
+<Tag class={text({ tone, size, class: className })}>
+  <slot />
+</Tag>

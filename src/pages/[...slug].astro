@@ -1,0 +1,28 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BlockRenderer from '@/components/sections/BlockRenderer.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getPublishedPages, pageIdToPath, pageIdToSlug } from '@/lib/pages';
+import { buildSeo } from '@/lib/seo';
+import { getSiteSettings, isProduction } from '@/lib/site';
+
+export const getStaticPaths = (async () => {
+  const pages = await getPublishedPages();
+  return pages.map((page) => ({ params: { slug: pageIdToSlug(page.id) }, props: { page } }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const site = await getSiteSettings();
+const path = pageIdToPath(page.id);
+const seo = buildSeo({
+  site,
+  page: page.data,
+  path,
+  siteUrl: Astro.site?.toString() ?? 'http://localhost:4321',
+  isProduction: isProduction(),
+});
+---
+
+<BaseLayout seo={seo} siteName={site.siteName} path={path}>
+  <BlockRenderer blocks={page.data.blocks} />
+</BaseLayout>

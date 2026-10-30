@@ -1,0 +1,13 @@
+---
+import { card } from './surface.variants';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={card({ class: className })}>
+  <slot />
+</div>
