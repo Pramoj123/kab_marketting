@@ -1,0 +1,17 @@
+---
+import { disclosure } from './surface.variants';
+
+interface Props {
+  summary: string;
+}
+
+const { summary } = Astro.props;
+const styles = disclosure();
+---
+
+<details class={styles.root()}>
+  <summary class={styles.summary()}>{summary}</summary>
+  <div class={styles.body()}>
+    <slot />
+  </div>
+</details>

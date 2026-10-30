@@ -1,0 +1,32 @@
+---
+import { Button, Container, Heading, Media, Row, Section, Stack, Text } from '@/components/ui';
+import type { HeroProps } from '@/cms/schemas';
+
+type Props = HeroProps;
+
+const { headline, subheadline, primaryCta, secondaryCta, image, imageAlt } = Astro.props;
+---
+
+<Section>
+  <Container>
+    <Stack gap="lg">
+      <Heading as="h1" size="display">
+        {headline}
+      </Heading>
+      {subheadline && <Text size="lead">{subheadline}</Text>}
+      <Row>
+        {primaryCta.label && primaryCta.href && (
+          <Button href={primaryCta.href} size="lg">
+            {primaryCta.label}
+          </Button>
+        )}
+        {secondaryCta.label && secondaryCta.href && (
+          <Button href={secondaryCta.href} intent="secondary" size="lg">
+            {secondaryCta.label}
+          </Button>
+        )}
+      </Row>
+      {image && <Media src={image} alt={imageAlt} />}
+    </Stack>
+  </Container>
+</Section>

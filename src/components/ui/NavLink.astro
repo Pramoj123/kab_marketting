@@ -1,0 +1,14 @@
+---
+import { navLink } from './surface.variants';
+
+interface Props {
+  href: string;
+  current?: boolean;
+}
+
+const { href, current = false } = Astro.props;
+---
+
+<a href={href} aria-current={current ? 'page' : undefined} class={navLink({ current })}>
+  <slot />
+</a>

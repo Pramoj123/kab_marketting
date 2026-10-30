@@ -1,0 +1,14 @@
+---
+import { section, type SectionVariants } from './layout.variants';
+
+interface Props extends SectionVariants {
+  id?: string;
+  class?: string;
+}
+
+const { id, tone, class: className } = Astro.props;
+---
+
+<section id={id} class={section({ tone, class: className })}>
+  <slot />
+</section>

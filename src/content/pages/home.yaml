@@ -1,0 +1,46 @@
+title: Home
+status: published
+seo:
+  title: ''
+  description: ''
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: WebPage
+blocks:
+  - discriminant: hero
+    value:
+      headline: Placeholder headline
+      subheadline: Replace this copy in the CMS. Each section on this page is an editable block.
+      primaryCta:
+        label: Learn more
+        href: /about/
+      secondaryCta:
+        label: Our services
+        href: /services/overview/
+      image: null
+      imageAlt: ''
+  - discriminant: features
+    value:
+      heading: Placeholder features
+      intro: Three example items to show the grid layout.
+      items:
+        - title: First feature
+          description: Describe the first benefit here.
+        - title: Second feature
+          description: Describe the second benefit here.
+        - title: Third feature
+          description: Describe the third benefit here.
+  - discriminant: faq
+    value:
+      heading: Questions
+      items:
+        - question: Can I add a new page without a developer?
+          answer: Yes. Create a page in the CMS, set its status to published, and it appears after the next build.
+  - discriminant: cta
+    value:
+      heading: Ready to start?
+      body: Placeholder call to action.
+      cta:
+        label: Get in touch
+        href: /about/

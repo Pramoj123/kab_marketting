@@ -1,0 +1,17 @@
+---
+import { heading, type HeadingVariants } from './heading.variants';
+
+type Level = 'h1' | 'h2' | 'h3';
+
+interface Props {
+  as?: Level;
+  size?: NonNullable<HeadingVariants['size']>;
+  class?: string;
+}
+
+const { as: Tag = 'h2', size, class: className } = Astro.props;
+---
+
+<Tag class={heading({ size: size ?? Tag, class: className })}>
+  <slot />
+</Tag>

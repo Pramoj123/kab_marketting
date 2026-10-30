@@ -1,0 +1,17 @@
+title: About
+status: published
+seo:
+  title: ''
+  description: Placeholder about page.
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: AboutPage
+blocks:
+  - discriminant: cta
+    value:
+      heading: About us
+      body: Placeholder content for the about page.
+      cta:
+        label: Back home
+        href: /

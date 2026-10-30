@@ -1,0 +1,27 @@
+---
+// Maps CMS block types to section components. Adding a section means one more branch here.
+import type { Block } from '@/cms/schemas';
+import Cta from './Cta.astro';
+import Faq from './Faq.astro';
+import Features from './Features.astro';
+import Hero from './Hero.astro';
+
+interface Props {
+  blocks: Block[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{blocks.map((block) => {
+  switch (block.discriminant) {
+    case 'hero':
+      return <Hero {...block.value} />;
+    case 'features':
+      return <Features {...block.value} />;
+    case 'cta':
+      return <Cta {...block.value} />;
+    case 'faq':
+      return <Faq {...block.value} />;
+  }
+})}
