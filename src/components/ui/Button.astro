@@ -1,0 +1,22 @@
+---
+import { button, type ButtonVariants } from './button.variants';
+
+interface Props extends ButtonVariants {
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+
+const { href, type = 'button', intent, size, class: className } = Astro.props;
+const classes = button({ intent, size, class: className });
+---
+
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <slot />
+  </button>
+)}

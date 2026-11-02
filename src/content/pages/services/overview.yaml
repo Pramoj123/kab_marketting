@@ -1,0 +1,19 @@
+title: Services overview
+status: published
+seo:
+  title: ''
+  description: Placeholder services overview.
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: Service
+blocks:
+  - discriminant: features
+    value:
+      heading: Services
+      intro: A nested page at /services/overview/ to prove nested slugs work.
+      items:
+        - title: Service one
+          description: Placeholder.
+        - title: Service two
+          description: Placeholder.

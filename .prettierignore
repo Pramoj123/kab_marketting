@@ -1,0 +1,8 @@
+node_modules
+.devcontainer
+dist
+.astro
+.wrangler
+pnpm-lock.yaml
+src/content
+public/images

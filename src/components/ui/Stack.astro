@@ -1,0 +1,13 @@
+---
+import { stack, type StackVariants } from './layout.variants';
+
+interface Props extends StackVariants {
+  class?: string;
+}
+
+const { gap, align, class: className } = Astro.props;
+---
+
+<div class={stack({ gap, align, class: className })}>
+  <slot />
+</div>

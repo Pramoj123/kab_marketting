@@ -1,0 +1,21 @@
+---
+import { Container, Disclosure, Heading, Section, Stack } from '@/components/ui';
+import type { FaqProps } from '@/cms/schemas';
+
+type Props = FaqProps;
+
+const { heading, items } = Astro.props;
+---
+
+<Section tone="muted">
+  <Container>
+    <Stack gap="lg">
+      <Heading>{heading}</Heading>
+      <Stack>
+        {items.map((item) => (
+          <Disclosure summary={item.question}>{item.answer}</Disclosure>
+        ))}
+      </Stack>
+    </Stack>
+  </Container>
+</Section>

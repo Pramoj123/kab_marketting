@@ -1,0 +1,13 @@
+---
+import { grid, type GridVariants } from './layout.variants';
+
+interface Props extends GridVariants {
+  class?: string;
+}
+
+const { columns, class: className } = Astro.props;
+---
+
+<div class={grid({ columns, class: className })}>
+  <slot />
+</div>

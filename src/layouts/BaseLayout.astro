@@ -1,0 +1,31 @@
+---
+import '@/styles/global.css';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import Seo from '@/components/layout/Seo.astro';
+import type { SeoData } from '@/lib/seo';
+
+interface Props {
+  seo: SeoData;
+  siteName: string;
+  path: string;
+}
+
+const { seo, siteName, path } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <Seo seo={seo} />
+  </head>
+  <body>
+    <Header siteName={siteName} currentPath={path} />
+    <main>
+      <slot />
+    </main>
+    <Footer siteName={siteName} />
+  </body>
+</html>

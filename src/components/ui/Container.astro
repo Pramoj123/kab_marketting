@@ -1,0 +1,13 @@
+---
+import { container } from './layout.variants';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class={container({ class: className })}>
+  <slot />
+</div>

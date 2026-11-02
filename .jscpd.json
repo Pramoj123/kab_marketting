@@ -1,0 +1,11 @@
+{
+  "path": ["src", "scripts", "tests"],
+  "format": ["typescript", "javascript", "tsx", "markup"],
+  "formatsExts": { "markup": ["astro"] },
+  "ignore": ["**/content/**", "**/*.test.*"],
+  "minLines": 6,
+  "minTokens": 60,
+  "threshold": 0,
+  "reporters": ["console"],
+  "gitignore": true
+}

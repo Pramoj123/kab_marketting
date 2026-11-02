@@ -1,0 +1,11 @@
+#!/bin/sh
+# Validate the branch being pushed and every commit message on it.
+set -e
+root="$(git rev-parse --show-toplevel)"
+run="bash $root/scripts/hooks/run.sh"
+
+$run scripts/validate-branch-name.mjs
+
+if git rev-parse --verify --quiet origin/main >/dev/null; then
+  $run scripts/validate-commit-msg.mjs --range origin/main..HEAD
+fi

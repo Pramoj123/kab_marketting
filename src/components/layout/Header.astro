@@ -1,0 +1,31 @@
+---
+import { Container, NavLink, Row } from '@/components/ui';
+import { getPrimaryNavigation } from '@/lib/navigation';
+
+interface Props {
+  siteName: string;
+  currentPath: string;
+}
+
+const { siteName, currentPath } = Astro.props;
+const items = await getPrimaryNavigation();
+---
+
+<header>
+  <Container>
+    <Row justify="between" class="py-4">
+      <NavLink href="/" current={currentPath === '/'}>
+        {siteName}
+      </NavLink>
+      <nav aria-label="Primary">
+        <Row gap="lg">
+          {items.map((item) => (
+            <NavLink href={item.href} current={currentPath === item.href}>
+              {item.label}
+            </NavLink>
+          ))}
+        </Row>
+      </nav>
+    </Row>
+  </Container>
+</header>

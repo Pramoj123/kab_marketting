@@ -1,0 +1,29 @@
+---
+import { Card, Container, Grid, Heading, Section, Stack, Text } from '@/components/ui';
+import type { FeaturesProps } from '@/cms/schemas';
+
+type Props = FeaturesProps;
+
+const { heading, intro, items } = Astro.props;
+---
+
+<Section tone="muted">
+  <Container>
+    <Stack gap="lg">
+      <Stack>
+        <Heading>{heading}</Heading>
+        {intro && <Text size="lead">{intro}</Text>}
+      </Stack>
+      <Grid>
+        {items.map((item) => (
+          <Card>
+            <Stack gap="sm">
+              <Heading as="h3">{item.title}</Heading>
+              <Text>{item.description}</Text>
+            </Stack>
+          </Card>
+        ))}
+      </Grid>
+    </Stack>
+  </Container>
+</Section>
