@@ -25,6 +25,14 @@ export const text = tv({
 // Inline text link: brand blue with an underline that strengthens on hover.
 export const textLink = tv({
   base: 'font-medium text-brand-600 underline decoration-brand-600/30 underline-offset-4 transition-colors hover:text-brand-700 hover:decoration-brand-700',
+  variants: {
+    tone: {
+      default: '',
+      inverse: 'text-on-brand decoration-on-brand/40 hover:text-on-brand hover:decoration-on-brand',
+    },
+  },
+  defaultVariants: { tone: 'default' },
 });
 
 export type TextVariants = VariantProps<typeof text>;
+export type TextLinkVariants = VariantProps<typeof textLink>;

@@ -1,15 +1,16 @@
 ---
-import { media } from './surface.variants';
+import { media, type MediaVariants } from './surface.variants';
 
 interface Props {
   src: string;
   alt: string;
   /** eager for the first-screen image, so it is not loaded late. */
   loading?: 'lazy' | 'eager';
+  shape?: MediaVariants['shape'];
   class?: string;
 }
 
-const { src, alt, loading = 'lazy', class: className } = Astro.props;
+const { src, alt, loading = 'lazy', shape, class: className } = Astro.props;
 ---
 
 <img
@@ -18,5 +19,5 @@ const { src, alt, loading = 'lazy', class: className } = Astro.props;
   loading={loading}
   fetchpriority={loading === 'eager' ? 'high' : undefined}
   decoding="async"
-  class={media({ class: className })}
+  class={media({ shape, class: className })}
 />

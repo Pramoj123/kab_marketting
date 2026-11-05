@@ -1,7 +1,7 @@
 // Page section blocks. One entry per component in src/components/sections/.
 import { fields } from '@keystatic/core';
 import { PRODUCT_FILTERS } from '../product-options';
-import { headedItemsField, imageField, linkField } from './fields';
+import { headedItemsField, imageField, linkField, photoFields } from './fields';
 
 export const pageBlocks = fields.blocks(
   {
@@ -77,7 +77,11 @@ export const pageBlocks = fields.blocks(
     features: {
       label: 'Features',
       itemLabel: (props) => props.fields.heading.value || 'Features',
-      schema: headedItemsField('Items (up to 4)', 4),
+      schema: headedItemsField(
+        'Items (up to 4)',
+        4,
+        photoFields('Photo beside the items (optional)'),
+      ),
     },
     cta: {
       label: 'Call to action',
@@ -86,6 +90,7 @@ export const pageBlocks = fields.blocks(
         heading: fields.text({ label: 'Heading' }),
         body: fields.text({ label: 'Body', multiline: true }),
         cta: linkField('Button'),
+        ...photoFields('Photo behind the words (optional)'),
       }),
     },
     steps: {

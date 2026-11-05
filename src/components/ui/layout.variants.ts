@@ -20,6 +20,8 @@ export const section = tv({
       mist: 'bg-mist',
       aurora: 'bg-aurora',
       band: 'bg-aurora-band',
+      // The dark ground with drifting glows: one section a page, words in the inverse tone.
+      ink: 'animate-drift bg-aurora-ink text-on-brand',
     },
   },
   defaultVariants: { tone: 'default', space: 'default' },
@@ -80,6 +82,8 @@ export const banner = tv({
     size: {
       full: { root: 'min-h-hero py-24' },
       compact: { root: 'py-24 lg:py-32' },
+      // A rounded photo panel inside the page width, like a large product tile.
+      panel: { root: 'rounded-tile px-6 py-16 sm:px-12 sm:py-24' },
     },
   },
   defaultVariants: { size: 'compact' },

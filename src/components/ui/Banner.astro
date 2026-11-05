@@ -4,21 +4,25 @@ import { banner, type BannerVariants } from './layout.variants';
 interface Props extends BannerVariants {
   /** Decorative: the words on top carry the meaning. */
   image: string;
+  /** section on its own; div when it sits inside another section (the panel). */
+  as?: 'section' | 'div';
+  /** eager for the first screen; lazy further down the page. */
+  loading?: 'eager' | 'lazy';
 }
 
-const { image, size } = Astro.props;
+const { image, size, as: Tag = 'section', loading = 'eager' } = Astro.props;
 const styles = banner({ size });
 ---
 
-<section class={styles.root()}>
+<Tag class={styles.root()}>
   <img
     src={image}
     alt=""
-    loading="eager"
-    fetchpriority="high"
+    loading={loading}
+    fetchpriority={loading === 'eager' ? 'high' : undefined}
     decoding="async"
     class={styles.media()}
   />
   <span class={styles.scrim()} aria-hidden="true"></span>
   <slot />
-</section>
+</Tag>

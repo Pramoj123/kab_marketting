@@ -81,7 +81,11 @@ export const navigationField = () =>
   );
 
 /** A heading, an intro and a list of titled items. Used by Features and Steps. */
-export const headedItemsField = (itemsLabel: string, max?: number) =>
+export const headedItemsField = (
+  itemsLabel: string,
+  max?: number,
+  extra: Record<string, ReturnType<typeof imageField> | ReturnType<typeof fields.text>> = {},
+) =>
   fields.object({
     heading: fields.text({ label: 'Heading' }),
     intro: fields.text({ label: 'Intro', multiline: true }),
@@ -96,4 +100,11 @@ export const headedItemsField = (itemsLabel: string, max?: number) =>
         ...(max ? { validation: { length: { max } } } : {}),
       },
     ),
+    ...extra,
   });
+
+/** An optional photograph and its description, for sections that can carry one. */
+export const photoFields = (label: string) => ({
+  image: imageField(label),
+  imageAlt: fields.text({ label: 'Photo description (alt text)' }),
+});

@@ -1,29 +1,55 @@
 ---
-import { Card, Container, Grid, Heading, Section, Stack, Text } from '@/components/ui';
+import {
+  Card,
+  Container,
+  DefinitionList,
+  Grid,
+  Heading,
+  Media,
+  Section,
+  Split,
+  Stack,
+  Text,
+} from '@/components/ui';
 import type { FeaturesProps } from '@/cms/schemas';
 
 type Props = FeaturesProps;
 
-const { heading, intro, items } = Astro.props;
+const { heading, intro, items, image, imageAlt } = Astro.props;
+// With a photo: the photo beside the points, set as rows. Without one: a row of cards.
+const rows = items.map((item) => ({ term: item.title, detail: item.description }));
 ---
 
-<Section tone="mist">
+<Section tone={image ? 'blush' : 'mist'}>
   <Container>
-    <Stack gap="lg">
-      <Stack>
-        <Heading>{heading}</Heading>
-        {intro && <Text size="lead">{intro}</Text>}
+    {image ? (
+      <Split>
+        <Media src={image} alt={imageAlt} shape="portrait" />
+        <Stack gap="lg">
+          <Stack>
+            <Heading>{heading}</Heading>
+            {intro && <Text size="lead">{intro}</Text>}
+          </Stack>
+          <DefinitionList items={rows} />
+        </Stack>
+      </Split>
+    ) : (
+      <Stack gap="lg">
+        <Stack>
+          <Heading>{heading}</Heading>
+          {intro && <Text size="lead">{intro}</Text>}
+        </Stack>
+        <Grid columns="row" stagger>
+          {items.map((item) => (
+            <Card>
+              <Stack gap="sm">
+                <Heading as="h3">{item.title}</Heading>
+                <Text>{item.description}</Text>
+              </Stack>
+            </Card>
+          ))}
+        </Grid>
       </Stack>
-      <Grid columns="row">
-        {items.map((item) => (
-          <Card>
-            <Stack gap="sm">
-              <Heading as="h3">{item.title}</Heading>
-              <Text>{item.description}</Text>
-            </Stack>
-          </Card>
-        ))}
-      </Grid>
-    </Stack>
+    )}
   </Container>
 </Section>

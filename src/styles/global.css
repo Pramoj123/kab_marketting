@@ -125,6 +125,7 @@
   --animate-hero-zoom: hero-zoom 2.4s var(--ease-soft) both; /* hero photo settling */
   --animate-sheet-up: sheet-up 0.45s var(--ease-soft) both; /* product sheet opening */
   --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-drift: drift 18s ease-in-out infinite alternate; /* the dark ground's glows */
 
   @keyframes rise {
     from {
@@ -141,6 +142,14 @@
     from {
       opacity: 0;
       translate: 0 2rem;
+    }
+  }
+  @keyframes drift {
+    from {
+      background-position: 0% 0%;
+    }
+    to {
+      background-position: 100% 100%;
     }
   }
   @keyframes fade-in {
@@ -183,6 +192,26 @@
     var(--color-surface) 50%,
     var(--color-brand-100) 100%
   );
+}
+
+/*
+ * The dark ground: ink with soft pink and blue glows that drift slowly (animate-drift).
+ * Used for one dark section a page (Steps) and the footer, so the page alternates light and dark.
+ */
+@utility bg-aurora-ink {
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(
+      45% 60% at 15% 10%,
+      color-mix(in oklch, var(--color-accent-500) 16%, transparent),
+      /* low, so pink over navy never reads violet */ transparent 70%
+    ),
+    radial-gradient(
+      50% 65% at 85% 90%,
+      color-mix(in oklch, var(--color-brand-600) 45%, transparent),
+      transparent 70%
+    );
+  background-size: 140% 140%;
 }
 
 /* Photo scrims: keep light text readable over any photograph. Built from the ink token. */

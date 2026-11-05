@@ -56,6 +56,8 @@ blocks:
           description: "Bento cakes and gift boxes can carry your message and colours."
         - title: "Delivered across Chennai"
           description: "We arrange delivery to your door and confirm the charge on WhatsApp."
+      image: "/images/products/assorted-mini-cookie-box.jpg"
+      imageAlt: "A stack of chocolate chip cookies beside a cup of tea"
   - discriminant: "cta"
     value:
       heading: "Custom cakes and gift boxes"
@@ -63,3 +65,5 @@ blocks:
       cta:
         label: "Order a custom cake"
         href: "/custom-order/"
+      image: "/images/products/chocolate-bento-cake.jpg"
+      imageAlt: "A small chocolate cake with red heart decorations"

@@ -41,3 +41,5 @@ blocks:
       cta:
         label: "Order a custom cake"
         href: "/custom-order/"
+      image: "/images/products/chocolate-bento-cake.jpg"
+      imageAlt: "A small chocolate cake with red heart decorations"

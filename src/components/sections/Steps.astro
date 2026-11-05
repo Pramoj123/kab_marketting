@@ -7,14 +7,18 @@ type Props = StepsProps;
 const { heading, intro, items } = Astro.props;
 ---
 
-<Section tone="blush">
+<Section tone="ink">
   <Container>
     <Stack gap="lg">
       <Stack>
-        <Heading>{heading}</Heading>
-        {intro && <Text size="lead">{intro}</Text>}
+        <Heading tone="inverse">{heading}</Heading>
+        {intro && (
+          <Text size="lead" tone="inverse">
+            {intro}
+          </Text>
+        )}
       </Stack>
-      <StepList items={items} />
+      <StepList items={items} tone="inverse" stagger />
     </Stack>
   </Container>
 </Section>

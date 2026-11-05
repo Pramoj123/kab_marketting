@@ -31,7 +31,7 @@ const order = orderAction(site.whatsappNumber);
 <footer class={styles.root()}>
   <Container>
     <div class={styles.close()}>
-      <Heading>Homemade bakes, delivered across Chennai</Heading>
+      <Heading tone="inverse">Homemade bakes, delivered across Chennai</Heading>
       <Button href={action.href} size="lg">
         {action.label}
       </Button>
@@ -41,15 +41,24 @@ const order = orderAction(site.whatsappNumber);
         <nav aria-label={column.title} class={styles.column()}>
           <p class={styles.title()}>{column.title}</p>
           {column.links.map((link) => (
-            <NavLink href={link.href}>{link.label}</NavLink>
+            <NavLink href={link.href} tone="inverse">
+              {link.label}
+            </NavLink>
           ))}
         </nav>
       ))}
     </div>
     <div class={styles.legal()}>
-      {site.allergenNotice && <Text size="small">{site.allergenNotice}</Text>}
-      <Text size="small" measure={false}>
-        {`© ${year} ${siteName}`} · <TextLink href="/photo-credits/">Photo credits</TextLink>
+      {site.allergenNotice && (
+        <Text size="small" tone="inverse">
+          {site.allergenNotice}
+        </Text>
+      )}
+      <Text size="small" measure={false} tone="inverse">
+        {`© ${year} ${siteName}`} ·{' '}
+        <TextLink href="/photo-credits/" tone="inverse">
+          Photo credits
+        </TextLink>
       </Text>
     </div>
   </Container>

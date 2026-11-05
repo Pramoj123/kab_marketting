@@ -1,24 +1,29 @@
 ---
 import Heading from './Heading.astro';
 import Text from './Text.astro';
-import { stepList } from './list.variants';
+import { stepList, type StepListVariants } from './list.variants';
 
-interface Props {
+interface Props extends Pick<StepListVariants, 'tone'> {
   items: { title: string; description: string }[];
+  /** Steps rise in one after another as the list scrolls into view. */
+  stagger?: boolean;
 }
 
-const { items } = Astro.props;
-const { root, item, number } = stepList({ columns: items.length >= 4 ? 4 : 3 });
+const { items, tone, stagger = false } = Astro.props;
+const { root, item, number } = stepList({ columns: items.length >= 4 ? 4 : 3, tone });
+const words = tone === 'inverse' ? 'inverse' : 'default';
 ---
 
-<ol class={root()}>
+<ol class={root()} data-stagger={stagger ? '' : undefined}>
   {items.map((step, index) => (
     <li class={item()}>
       <span class={number()} aria-hidden="true">
         {index + 1}
       </span>
-      <Heading as="h3">{step.title}</Heading>
-      {step.description && <Text>{step.description}</Text>}
+      <Heading as="h3" tone={words}>
+        {step.title}
+      </Heading>
+      {step.description && <Text tone={words}>{step.description}</Text>}
     </li>
   ))}
 </ol>

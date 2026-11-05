@@ -1,25 +1,48 @@
 ---
-import { Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
+import { Banner, Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
 import type { CtaProps } from '@/cms/schemas';
 import { resolveLink } from '@/lib/actions';
 import { getSiteSettings } from '@/lib/site';
 
 type Props = CtaProps;
 
-const { heading, body, cta } = Astro.props;
+const { heading, body, cta, image } = Astro.props;
 const action = resolveLink(cta, (await getSiteSettings()).whatsappNumber);
+const tone = image ? 'inverse' : 'default';
 ---
 
-<Section tone="band">
-  <Container>
-    <Stack gap="lg">
-      <Heading>{heading}</Heading>
-      {body && <Text size="lead">{body}</Text>}
-      {action && (
-        <Button href={action.href} size="lg">
-          {action.label}
-        </Button>
-      )}
-    </Stack>
-  </Container>
-</Section>
+{image ? (
+  <Section>
+    <Container>
+      <Banner image={image} size="panel" as="div" loading="lazy">
+        <Stack gap="lg">
+          <Heading tone={tone}>{heading}</Heading>
+          {body && (
+            <Text size="lead" tone={tone}>
+              {body}
+            </Text>
+          )}
+          {action && (
+            <Button href={action.href} size="lg">
+              {action.label}
+            </Button>
+          )}
+        </Stack>
+      </Banner>
+    </Container>
+  </Section>
+) : (
+  <Section tone="band">
+    <Container>
+      <Stack gap="lg">
+        <Heading>{heading}</Heading>
+        {body && <Text size="lead">{body}</Text>}
+        {action && (
+          <Button href={action.href} size="lg">
+            {action.label}
+          </Button>
+        )}
+      </Stack>
+    </Container>
+  </Section>
+)}

@@ -1,14 +1,14 @@
 ---
-import { textLink } from './text.variants';
+import { textLink, type TextLinkVariants } from './text.variants';
 
-interface Props {
+interface Props extends TextLinkVariants {
   href: string;
   class?: string;
 }
 
-const { href, class: className } = Astro.props;
+const { href, tone, class: className } = Astro.props;
 ---
 
-<a href={href} class={textLink({ class: className })}>
+<a href={href} class={textLink({ tone, class: className })}>
   <slot />
 </a>

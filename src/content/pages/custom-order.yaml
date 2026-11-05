@@ -36,6 +36,8 @@ blocks:
           description: "Brownies, brookies and cookies packed together for gifting."
         - title: "Bulk and office orders"
           description: "Boxes for teams, events and parties. Share the quantity and date."
+      image: "/images/products/vanilla-bento-cake.jpg"
+      imageAlt: "A small layered birthday cake with cream rosettes"
   - discriminant: "steps"
     value:
       heading: "How custom orders work"

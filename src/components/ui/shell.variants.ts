@@ -42,12 +42,13 @@ export const actionBar = tv({
 
 export const footer = tv({
   slots: {
-    root: 'border-t border-line bg-mist',
+    // The dark close of the page, matching the dark hero that opens it.
+    root: 'bg-aurora-ink text-on-brand',
     close:
-      'flex flex-col items-start gap-6 border-b border-line py-section-bottom md:flex-row md:items-end md:justify-between',
+      'flex flex-col items-start gap-6 border-b border-on-brand/15 py-section-bottom md:flex-row md:items-end md:justify-between',
     columns: 'grid gap-10 py-12 sm:grid-cols-3',
     column: 'flex flex-col items-start gap-1',
-    title: 'pb-2 text-label font-medium text-ink',
-    legal: 'flex flex-col gap-4 border-t border-line py-8 sm:flex-row sm:justify-between',
+    title: 'pb-2 text-label font-medium text-accent-300',
+    legal: 'flex flex-col gap-4 border-t border-on-brand/15 py-8 sm:flex-row sm:justify-between',
   },
 });

@@ -36,6 +36,9 @@ const heroSchema = z.object({
   size: z.enum(['full', 'compact']).default('compact'),
 });
 
+/** An optional photograph and its alt text. */
+const photoShape = { image: z.string().nullish(), imageAlt: text };
+
 const featuresSchema = z.object({
   heading: z.string(),
   intro: text,
@@ -44,9 +47,10 @@ const featuresSchema = z.object({
     .array(z.object({ title: z.string(), description: text }))
     .max(4)
     .default([]),
+  ...photoShape,
 });
 
-const ctaSchema = z.object({ heading: z.string(), body: text, cta: linkSchema });
+const ctaSchema = z.object({ heading: z.string(), body: text, cta: linkSchema, ...photoShape });
 
 const faqSchema = z.object({
   heading: z.string(),
