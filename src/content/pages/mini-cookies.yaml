@@ -22,7 +22,7 @@ blocks:
       secondaryCta:
         label: ""
         href: ""
-      image: null
+      image: "/images/products/choco-chip-mini-cookies.jpg"
       imageAlt: ''
       size: "compact"
   - discriminant: "productGrid"

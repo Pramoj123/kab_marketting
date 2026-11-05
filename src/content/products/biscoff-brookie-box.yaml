@@ -2,8 +2,8 @@ name: "Biscoff Brookie Box"
 status: "published"
 category: "brookies"
 summary: "A brookie baked with Biscoff, caramel notes and a little crunch."
-photo: null
-photoAlt: ''
+photo: "/images/products/biscoff-brookie-box.jpg"
+photoAlt: "A thick chocolate brownie cookie"
 flavours: []
 sizes:
   - "Box of 2"

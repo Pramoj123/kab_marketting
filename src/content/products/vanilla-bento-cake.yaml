@@ -2,8 +2,8 @@ name: "Vanilla Bento Cake"
 status: "published"
 category: "bento-cakes"
 summary: "Soft vanilla sponge with buttercream, made to match your occasion."
-photo: null
-photoAlt: ''
+photo: "/images/products/vanilla-bento-cake.jpg"
+photoAlt: "A small layered birthday cake with cream rosettes"
 flavours: []
 sizes: []
 diet: "egg"

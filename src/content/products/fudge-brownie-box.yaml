@@ -2,8 +2,8 @@ name: "Fudge Brownie Box"
 status: "published"
 category: "brownies"
 summary: "Dense, glossy and deeply chocolatey, with a crackly top and a soft centre."
-photo: null
-photoAlt: ''
+photo: "/images/products/fudge-brownie-box.jpg"
+photoAlt: "Stacked squares of fudge brownie"
 flavours:
   - "Classic fudge"
   - "Walnut"

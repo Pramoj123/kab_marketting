@@ -22,7 +22,7 @@ blocks:
       secondaryCta:
         label: ""
         href: ""
-      image: null
+      image: "/images/products/red-velvet-bento-cake.jpg"
       imageAlt: ''
       size: "compact"
   - discriminant: "features"

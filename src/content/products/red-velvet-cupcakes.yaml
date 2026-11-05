@@ -2,8 +2,8 @@ name: "Red Velvet Cupcakes"
 status: "published"
 category: "cupcakes"
 summary: "Soft red velvet sponge with vanilla frosting."
-photo: null
-photoAlt: ''
+photo: "/images/products/red-velvet-cupcakes.jpg"
+photoAlt: "Cupcakes with pink frosting, each topped with a cherry"
 flavours: []
 sizes:
   - "Box of 4"

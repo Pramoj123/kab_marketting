@@ -2,8 +2,8 @@ name: "Classic Brookie Box"
 status: "published"
 category: "brookies"
 summary: "Half chewy cookie, half fudgy brownie, with chocolate chips in every bite."
-photo: null
-photoAlt: ''
+photo: "/images/products/classic-brookie-box.jpg"
+photoAlt: "Layered brownie bars stacked on a glass plate"
 flavours: []
 sizes:
   - "Box of 2"

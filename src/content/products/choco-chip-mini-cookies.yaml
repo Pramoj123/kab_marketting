@@ -2,8 +2,8 @@ name: "Choco Chip Mini Cookies"
 status: "published"
 category: "mini-cookies"
 summary: "Small, golden and buttery, loaded with chocolate chips."
-photo: null
-photoAlt: ''
+photo: "/images/products/choco-chip-mini-cookies.jpg"
+photoAlt: "Chocolate chip cookies on a wooden board"
 flavours: []
 sizes:
   - "Small jar"

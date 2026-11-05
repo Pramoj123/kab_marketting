@@ -2,8 +2,8 @@ name: "Chocolate Cupcakes"
 status: "published"
 category: "cupcakes"
 summary: "Moist chocolate sponge topped with silky chocolate frosting."
-photo: null
-photoAlt: ''
+photo: "/images/products/chocolate-cupcakes.jpg"
+photoAlt: "Chocolate cupcakes with white frosting and chocolate decorations"
 flavours: []
 sizes:
   - "Box of 4"

@@ -2,8 +2,8 @@ name: "Biscoff Brownie Box"
 status: "published"
 category: "brownies"
 summary: "Fudgy brownie swirled with caramelised Biscoff and finished with a crunchy crumb."
-photo: null
-photoAlt: ''
+photo: "/images/products/biscoff-brownie-box.jpg"
+photoAlt: "Brownie slices topped with chopped nuts"
 flavours: []
 sizes:
   - "Box of 4"

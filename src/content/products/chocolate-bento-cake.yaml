@@ -2,8 +2,8 @@ name: "Chocolate Bento Cake"
 status: "published"
 category: "bento-cakes"
 summary: "A single-serve chocolate cake in a box, with a message of your choice on top."
-photo: null
-photoAlt: ''
+photo: "/images/products/chocolate-bento-cake.jpg"
+photoAlt: "A small chocolate cake with red heart decorations in a takeaway box"
 flavours: []
 sizes: []
 diet: "egg"

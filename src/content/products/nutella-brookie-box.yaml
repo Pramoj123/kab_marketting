@@ -2,8 +2,8 @@ name: "Nutella Brookie Box"
 status: "published"
 category: "brookies"
 summary: "Our brookie with a gooey Nutella centre."
-photo: null
-photoAlt: ''
+photo: "/images/products/nutella-brookie-box.jpg"
+photoAlt: "A fudge brownie beside chocolate chip cookies on a plate"
 flavours: []
 sizes:
   - "Box of 2"

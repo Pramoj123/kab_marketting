@@ -22,7 +22,7 @@ blocks:
       secondaryCta:
         label: ""
         href: ""
-      image: null
+      image: "/images/products/chocolate-bento-cake.jpg"
       imageAlt: ''
       size: "compact"
   - discriminant: "productGrid"

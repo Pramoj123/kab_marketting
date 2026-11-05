@@ -2,8 +2,8 @@ name: "Double Chocolate Mini Cookies"
 status: "published"
 category: "mini-cookies"
 summary: "Cocoa cookie dough with dark chocolate chunks."
-photo: null
-photoAlt: ''
+photo: "/images/products/double-chocolate-mini-cookies.jpg"
+photoAlt: "Two dark double chocolate cookies"
 flavours: []
 sizes:
   - "Small jar"

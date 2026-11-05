@@ -2,8 +2,8 @@ name: "Red Velvet Bento Cake"
 status: "published"
 category: "bento-cakes"
 summary: "Red velvet sponge with smooth vanilla frosting and your own message."
-photo: null
-photoAlt: ''
+photo: "/images/products/red-velvet-bento-cake.jpg"
+photoAlt: "A small white cake topped with red piped roses"
 flavours: []
 sizes: []
 diet: "egg"

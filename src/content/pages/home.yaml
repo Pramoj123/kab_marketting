@@ -22,7 +22,7 @@ blocks:
       secondaryCta:
         label: "See the menu"
         href: "/menu/"
-      image: null
+      image: "/images/hero/brownie-chunks.jpg"
       imageAlt: ''
       size: "full"
   - discriminant: "productGrid"
