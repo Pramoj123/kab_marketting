@@ -1,7 +1,7 @@
 ---
 import { ActionBar, Button, Container, Heading, NavLink, Text } from '@/components/ui';
 import { footer } from '@/components/ui/shell.variants';
-import { MAIN_ACTION_LABEL, mainAction } from '@/lib/actions';
+import { mainAction, orderAction } from '@/lib/actions';
 import { instagramProfile } from '@/lib/contact';
 import { getFooterNavigation, getPrimaryNavigation } from '@/lib/navigation';
 import { getSiteSettings } from '@/lib/site';
@@ -25,7 +25,7 @@ const columns = [
   { title: 'Follow', links: instagram ? [{ label: 'Instagram', href: instagram }] : [] },
 ].filter((column) => column.links.length > 0);
 const styles = footer();
-const ordersOpen = action.label === MAIN_ACTION_LABEL;
+const order = orderAction(site.whatsappNumber);
 ---
 
 <footer class={styles.root()}>
@@ -52,4 +52,4 @@ const ordersOpen = action.label === MAIN_ACTION_LABEL;
     </div>
   </Container>
 </footer>
-{ordersOpen && <ActionBar action={action} />}
+{order && <ActionBar action={order} />}

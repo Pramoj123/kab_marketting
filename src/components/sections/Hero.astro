@@ -53,7 +53,7 @@ const space = !full ? 'compact' : image ? 'hero' : 'default';
           </Row>
         )}
       </Stack>
-      {image && <Media src={image} alt={imageAlt} />}
+      {image && <Media src={image} alt={imageAlt} loading="eager" />}
     </Layout>
   </Container>
 </Section>

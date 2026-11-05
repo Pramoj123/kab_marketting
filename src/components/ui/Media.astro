@@ -4,10 +4,19 @@ import { media } from './surface.variants';
 interface Props {
   src: string;
   alt: string;
+  /** eager for the first-screen image, so it is not loaded late. */
+  loading?: 'lazy' | 'eager';
   class?: string;
 }
 
-const { src, alt, class: className } = Astro.props;
+const { src, alt, loading = 'lazy', class: className } = Astro.props;
 ---
 
-<img src={src} alt={alt} loading="lazy" decoding="async" class={media({ class: className })} />
+<img
+  src={src}
+  alt={alt}
+  loading={loading}
+  fetchpriority={loading === 'eager' ? 'high' : undefined}
+  decoding="async"
+  class={media({ class: className })}
+/>

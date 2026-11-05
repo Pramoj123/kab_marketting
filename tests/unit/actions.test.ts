@@ -5,6 +5,8 @@ import {
   MENU_ACTION,
   isExternal,
   mainAction,
+  orderAction,
+  resolveLink,
   resolveActions,
 } from '../../src/lib/actions.ts';
 
@@ -31,6 +33,20 @@ test('CMS links: blanks dropped, whatsapp resolved, repeats removed', () => {
   assert.equal(withNumber.length, 2);
   assert.equal(withNumber[0].label, MAIN_ACTION_LABEL);
   assert.equal(withNumber[1].href, '/menu/');
+});
+
+test('order action exists only once a number is set', () => {
+  assert.equal(orderAction(''), null);
+  assert.equal(orderAction(NUMBER)?.label, MAIN_ACTION_LABEL);
+});
+
+test('a single CMS link resolves the whatsapp keyword or is dropped when blank', () => {
+  assert.equal(resolveLink({ label: '', href: '' }, NUMBER), null);
+  assert.deepEqual(resolveLink({ label: 'Order now', href: 'whatsapp' }, ''), MENU_ACTION);
+  assert.deepEqual(resolveLink({ label: 'Menu', href: '/menu/' }, ''), {
+    label: 'Menu',
+    href: '/menu/',
+  });
 });
 
 test('external links are detected', () => {

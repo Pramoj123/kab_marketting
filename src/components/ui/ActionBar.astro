@@ -13,8 +13,8 @@ const { spacer, bar } = actionBar();
 
 <!-- Keeps the end of the page clear of the fixed bar on phones. -->
 <div class={spacer()} aria-hidden="true"></div>
-<div class={bar()}>
+<aside class={bar()} aria-label="Order">
   <Button href={action.href} block>
     {action.label}
   </Button>
-</div>
+</aside>

@@ -5,13 +5,19 @@ import { logo } from './shell.variants';
 
 interface Props {
   siteName: string;
+  /** Logo uploaded in Site settings. Falls back to the emblem in src/assets. */
+  src?: string | null;
 }
 
-const { siteName } = Astro.props;
+const { siteName, src } = Astro.props;
 const { root, mark, name } = logo();
 ---
 
 <a href="/" class={root()} aria-label={`${siteName} home`}>
-  <Image src={emblem} alt="" width={96} height={96} class={mark()} loading="eager" />
+  {src ? (
+    <img src={src} alt="" width="48" height="48" class={mark()} />
+  ) : (
+    <Image src={emblem} alt="" width={96} height={96} class={mark()} loading="eager" />
+  )}
   <span class={name()}>{siteName}</span>
 </a>

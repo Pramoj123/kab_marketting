@@ -1,10 +1,13 @@
 ---
 import { Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
 import type { CtaProps } from '@/cms/schemas';
+import { resolveLink } from '@/lib/actions';
+import { getSiteSettings } from '@/lib/site';
 
 type Props = CtaProps;
 
 const { heading, body, cta } = Astro.props;
+const action = resolveLink(cta, (await getSiteSettings()).whatsappNumber);
 ---
 
 <Section tone="band">
@@ -12,9 +15,9 @@ const { heading, body, cta } = Astro.props;
     <Stack gap="lg">
       <Heading>{heading}</Heading>
       {body && <Text size="lead">{body}</Text>}
-      {cta.label && cta.href && (
-        <Button href={cta.href} size="lg">
-          {cta.label}
+      {action && (
+        <Button href={action.href} size="lg">
+          {action.label}
         </Button>
       )}
     </Stack>

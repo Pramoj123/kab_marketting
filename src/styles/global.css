@@ -158,6 +158,13 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* Phones: focused fields and anchors stay clear of the fixed order bar. */
+  @media (width < 40rem) {
+    html {
+      scroll-padding-bottom: var(--spacing-bar);
+    }
+  }
+
   body {
     @apply bg-surface font-sans text-body text-ink antialiased;
   }

@@ -45,7 +45,7 @@ const site = await getSiteSettings();
                 kind="date"
                 required
                 hint="Most bakes need a day's notice, bento cakes two days."
-                errorMessage="Choose the date you need it on."
+                errorMessage="Choose a date from tomorrow onwards."
               />
               <Field name="flavour" label="Flavour" />
               <Field
@@ -97,16 +97,30 @@ const site = await getSiteSettings();
     date.min = tomorrow.toISOString().slice(0, 10);
   }
 
-  /** Marks each empty required field and returns the first one, or null when all are filled. */
+  /** Shows or hides a field's error, and links it to the field only while it shows. */
+  function setError(control: Control, invalid: boolean) {
+    const error = document.getElementById(`${control.id}-error`);
+    const described = (control.getAttribute('aria-describedby') ?? '')
+      .split(' ')
+      .filter((id) => id && id !== error?.id);
+    if (invalid && error) described.push(error.id);
+    if (described.length > 0) control.setAttribute('aria-describedby', described.join(' '));
+    else control.removeAttribute('aria-describedby');
+    if (invalid) control.setAttribute('aria-invalid', 'true');
+    else control.removeAttribute('aria-invalid');
+    if (error) error.hidden = !invalid;
+  }
+
+  // Empty, or out of range (a date before tomorrow). Validity still works under novalidate.
+  const isInvalid = (control: Control) => !control.value.trim() || !control.validity.valid;
+
+  /** Marks each invalid required field and returns the first one, or null when all are fine. */
   function firstInvalid(fields: Control[]) {
     let first: Control | null = null;
     for (const control of fields) {
-      const empty = !control.value.trim();
-      const error = document.getElementById(`${control.id}-error`);
-      if (empty) control.setAttribute('aria-invalid', 'true');
-      else control.removeAttribute('aria-invalid');
-      if (error) error.hidden = !empty;
-      if (empty && !first) first = control;
+      const invalid = isInvalid(control);
+      setError(control, invalid);
+      if (invalid && !first) first = control;
     }
     return first;
   }
@@ -133,6 +147,6 @@ const site = await getSiteSettings();
   // Clear a field's error as soon as it is filled in.
   form?.addEventListener('input', (event) => {
     const control = event.target as Control;
-    if (control.required && control.value.trim()) firstInvalid([control]);
+    if (control.required && !isInvalid(control)) setError(control, false);
   });
 </script>

@@ -12,9 +12,13 @@ interface Props {
   secondary: NavItem[];
   secondaryLabel: string;
   action: Action | null;
+  currentPath: string;
+  /** CMS logo, if set. */
+  logo?: string | null;
 }
 
-const { siteName, primary, secondary, secondaryLabel, action } = Astro.props;
+const { siteName, primary, secondary, secondaryLabel, action, currentPath, logo } = Astro.props;
+const current = (href: string) => (href === currentPath ? 'page' : undefined);
 const { root, top, list, link, group } = menuSheet();
 const { menuButton } = shell();
 ---
@@ -25,20 +29,20 @@ const { menuButton } = shell();
 <dialog class={root()} aria-label="Site menu" data-menu-sheet>
   <Container>
     <div class={top()}>
-      <Logo siteName={siteName} />
+      <Logo siteName={siteName} src={logo} />
       <Button intent="secondary" size="sm" data-menu-close>
         Close
       </Button>
     </div>
     <nav aria-label="Pages" class={list()}>
       {primary.map((item) => (
-        <a href={item.href} class={link()}>
+        <a href={item.href} class={link()} aria-current={current(item.href)}>
           {item.label}
         </a>
       ))}
       {secondary.length > 0 && <p class={group()}>{secondaryLabel}</p>}
       {secondary.map((item) => (
-        <a href={item.href} class={link()}>
+        <a href={item.href} class={link()} aria-current={current(item.href)}>
           {item.label}
         </a>
       ))}

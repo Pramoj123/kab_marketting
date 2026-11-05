@@ -25,7 +25,8 @@ const {
 const id = `field-${name}`;
 const hintId = `${id}-hint`;
 const errorId = `${id}-error`;
-const describedBy = [hint && hintId, required && errorId].filter(Boolean).join(' ') || undefined;
+// The error joins aria-describedby only while it shows (the form script adds it), so it is not read out early.
+const describedBy = hint ? hintId : undefined;
 const classes = field({ kind });
 const control = { id, name, required, 'aria-describedby': describedBy, class: classes.control() };
 ---

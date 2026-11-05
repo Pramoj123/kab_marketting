@@ -77,7 +77,7 @@ export const pageBlocks = fields.blocks(
     features: {
       label: 'Features',
       itemLabel: (props) => props.fields.heading.value || 'Features',
-      schema: headedItemsField('Items'),
+      schema: headedItemsField('Items (up to 4)', 4),
     },
     cta: {
       label: 'Call to action',

@@ -16,12 +16,14 @@ import { describeProduct, groupByCategory, selectProducts } from '@/lib/product-
 import { getPublishedProducts } from '@/lib/products';
 import { CUSTOM_ORDER_PATH, getSiteSettings } from '@/lib/site';
 import { orderMessage, whatsappLink } from '@/lib/whatsapp';
+import { resolveLink } from '@/lib/actions';
 
 type Props = ProductGridProps;
 
 const { heading, intro, category, featuredOnly, link } = Astro.props;
 
 const site = await getSiteSettings();
+const footerLink = resolveLink(link, site.whatsappNumber);
 const products = selectProducts(await getPublishedProducts(), { category, featuredOnly });
 // A full menu is grouped under category headings with a jump row. A category or featured list is flat.
 const grouped = category === 'all' && !featuredOnly;
@@ -70,15 +72,18 @@ const cardProps = (product: (typeof products)[number]) => {
             {group.label && <Heading as={heading ? 'h3' : 'h2'}>{group.label}</Heading>}
             <Grid>
               {group.products.map((product) => (
-                <ProductCard {...cardProps(product)} />
+                <ProductCard
+                  {...cardProps(product)}
+                  headingLevel={heading || group.label ? 'h3' : 'h2'}
+                />
               ))}
             </Grid>
           </Stack>
         </div>
       ))}
-      {link.label && link.href && (
-        <Button href={link.href} intent="secondary">
-          {link.label}
+      {footerLink && (
+        <Button href={footerLink.href} intent="secondary">
+          {footerLink.label}
         </Button>
       )}
     </Stack>

@@ -14,11 +14,15 @@ export interface Action {
   href: string;
 }
 
-/** Order on WhatsApp, or See the menu while no WhatsApp number is set. */
-export function mainAction(whatsappNumber: string): Action {
+/** Order on WhatsApp, or null while no WhatsApp number is set (ordering is not open yet). */
+export function orderAction(whatsappNumber: string): Action | null {
   const href = whatsappLink(whatsappNumber, ORDER_MESSAGE);
-  return href ? { label: MAIN_ACTION_LABEL, href } : { ...MENU_ACTION };
+  return href ? { label: MAIN_ACTION_LABEL, href } : null;
 }
+
+/** Order on WhatsApp, or See the menu while no WhatsApp number is set. */
+export const mainAction = (whatsappNumber: string): Action =>
+  orderAction(whatsappNumber) ?? { ...MENU_ACTION };
 
 export const isWhatsappHref = (href: string) => href.trim().toLowerCase() === WHATSAPP_HREF;
 
@@ -34,6 +38,10 @@ export function resolveActions(links: readonly Action[], whatsappNumber: string)
     (link, index) => resolved.findIndex((other) => other.href === link.href) === index,
   );
 }
+
+/** One CMS link as an action, or null when it is blank. Every CMS button goes through this. */
+export const resolveLink = (link: Action, whatsappNumber: string): Action | null =>
+  resolveActions([link], whatsappNumber)[0] ?? null;
 
 /** Links to another site open in a new tab. */
 export const isExternal = (href: string) => /^https?:\/\//.test(href);

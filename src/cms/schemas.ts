@@ -39,7 +39,11 @@ const heroSchema = z.object({
 const featuresSchema = z.object({
   heading: z.string(),
   intro: text,
-  items: z.array(z.object({ title: z.string(), description: text })).default([]),
+  // Four at most: they sit on one row from tablet width.
+  items: z
+    .array(z.object({ title: z.string(), description: text }))
+    .max(4)
+    .default([]),
 });
 
 const ctaSchema = z.object({ heading: z.string(), body: text, cta: linkSchema });

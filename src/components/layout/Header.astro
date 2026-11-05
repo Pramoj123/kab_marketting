@@ -1,7 +1,7 @@
 ---
 import { Button, Container, Logo, MenuSheet, NavLink } from '@/components/ui';
 import { shell } from '@/components/ui/shell.variants';
-import { MAIN_ACTION_LABEL, mainAction } from '@/lib/actions';
+import { orderAction } from '@/lib/actions';
 import { getFooterNavigation, getPrimaryNavigation } from '@/lib/navigation';
 import { getSiteSettings } from '@/lib/site';
 
@@ -16,9 +16,8 @@ const [primary, secondary, site] = await Promise.all([
   getFooterNavigation(),
   getSiteSettings(),
 ]);
-const main = mainAction(site.whatsappNumber);
-// The order button and phone bar appear once WhatsApp ordering is switched on.
-const action = main.label === MAIN_ACTION_LABEL ? main : null;
+// The order button and phone menu action appear once WhatsApp ordering is switched on.
+const action = orderAction(site.whatsappNumber);
 const styles = shell();
 ---
 
@@ -28,7 +27,7 @@ const styles = shell();
 <header class={styles.header()}>
   <Container>
     <div class={styles.bar()}>
-      <Logo siteName={siteName} />
+      <Logo siteName={siteName} src={site.logo} />
       <nav aria-label="Primary" class={styles.nav()}>
         {primary.map((item) => (
           <NavLink href={item.href} current={currentPath === item.href}>
@@ -47,6 +46,8 @@ const styles = shell();
           primary={primary}
           secondary={secondary}
           secondaryLabel="Menu by category"
+          currentPath={currentPath}
+          logo={site.logo}
           action={action}
         />
       </div>

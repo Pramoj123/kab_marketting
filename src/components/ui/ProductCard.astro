@@ -11,6 +11,8 @@ import { productCard } from './product.variants';
 interface Props {
   /** Unique on the page; names the radio groups. */
   id: string;
+  /** h2 when no other heading sits above the grid, so heading levels do not skip. */
+  headingLevel?: 'h2' | 'h3';
   name: string;
   summary?: string;
   photo?: string | null;
@@ -33,6 +35,7 @@ interface Props {
 
 const {
   id,
+  headingLevel = 'h3',
   name,
   summary,
   photo,
@@ -75,7 +78,9 @@ const styles = productCard({ unavailable: !orderable });
     )}
   </div>
   <div class={styles.body()}>
-    <Heading as="h3">{name}</Heading>
+    <Heading as={headingLevel} size="h3">
+      {name}
+    </Heading>
     {summary && <Text>{summary}</Text>}
     {tags.length > 0 && (
       <div class={styles.tags()}>
@@ -109,18 +114,27 @@ const styles = productCard({ unavailable: !orderable });
   import { orderMessage, whatsappLink } from '@/lib/whatsapp';
 
   // Rebuilds each card's WhatsApp link from the chosen size, flavour and egg option.
-  document.querySelectorAll<HTMLElement>('[data-order-card]').forEach((card) => {
+  // Also runs on load and on back/forward, when the browser may restore other choices.
+  const syncCards = () =>
+    document.querySelectorAll<HTMLElement>('[data-order-card]').forEach(syncCard);
+
+  function syncCard(card: HTMLElement) {
     const link = card.querySelector<HTMLAnchorElement>('[data-order-link]');
     if (!link) return;
-    card.addEventListener('change', () => {
-      const choices = [...card.querySelectorAll<HTMLInputElement>('[data-choice]:checked')].map(
-        (input) => input.value,
-      );
-      const href = whatsappLink(
-        card.dataset.phone ?? '',
-        orderMessage(card.dataset.product ?? '', choices),
-      );
-      if (href) link.href = href;
-    });
+    const choices = [...card.querySelectorAll<HTMLInputElement>('[data-choice]:checked')].map(
+      (input) => input.value,
+    );
+    const href = whatsappLink(
+      card.dataset.phone ?? '',
+      orderMessage(card.dataset.product ?? '', choices),
+    );
+    if (href) link.href = href;
+  }
+
+  document.addEventListener('change', (event) => {
+    const card = (event.target as HTMLElement).closest<HTMLElement>('[data-order-card]');
+    if (card) syncCard(card);
   });
+  window.addEventListener('pageshow', syncCards);
+  syncCards();
 </script>
