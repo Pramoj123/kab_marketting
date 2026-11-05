@@ -1,0 +1,19 @@
+name: "Assorted Mini Cookie Box"
+status: "published"
+category: "mini-cookies"
+summary: "A tasting box of our mini cookie flavours, made for gifting."
+photo: null
+photoAlt: ''
+flavours:
+  - "Choco chip"
+  - "Double chocolate"
+sizes:
+  - "Box of 12"
+  - "Box of 24"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 3

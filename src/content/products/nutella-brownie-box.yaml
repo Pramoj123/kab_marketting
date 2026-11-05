@@ -1,0 +1,17 @@
+name: "Nutella Brownie Box"
+status: "published"
+category: "brownies"
+summary: "Rich brownie layered with creamy Nutella for a melt-in-the-mouth bite."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Box of 4"
+  - "Box of 6"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 3

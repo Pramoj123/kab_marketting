@@ -1,0 +1,41 @@
+title: "Custom orders"
+status: "published"
+navigation:
+  placement: "header"
+  order: 2
+seo:
+  title: "Custom Orders | Kookies & Brookies"
+  description: "Order a custom bento cake, gift box or bulk order from Kookies & Brookies in Chennai. Send your brief on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Custom orders and gifting"
+      subheadline: "Celebration cakes, gift boxes and bulk orders, made to your brief."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "features"
+    value:
+      heading: "Made for the moment"
+      intro: "Tell us what you have in mind and we will shape it around you."
+      items:
+        - title: "Bento cakes"
+          description: "Single-serve cakes with your message, colours and flavour."
+        - title: "Gift boxes and hampers"
+          description: "Brownies, brookies and cookies packed together for gifting."
+        - title: "Bulk and corporate orders"
+          description: "Boxes for offices, events and parties. Tell us the quantity and the date."
+  - discriminant: "customOrder"
+    value:
+      heading: "Tell us what you would like"
+      intro: "Fill in what you can and send it to us on WhatsApp. We will take it from there."
+      note: "We confirm the price, availability and delivery on WhatsApp. An advance payment confirms your order."

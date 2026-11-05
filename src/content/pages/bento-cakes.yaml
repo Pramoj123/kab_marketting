@@ -1,0 +1,38 @@
+title: "Bento cakes"
+status: "published"
+navigation:
+  placement: "footer"
+  order: 4
+seo:
+  title: "Bento Cakes in Chennai | Kookies & Brookies"
+  description: "Custom homemade bento cakes in Chennai for birthdays and celebrations. Add your message and order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Bento cakes"
+      subheadline: "Single-serve cakes in a box, made for birthdays, anniversaries and thank-yous. Add your own message."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "bento-cakes"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

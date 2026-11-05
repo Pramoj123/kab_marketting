@@ -1,0 +1,17 @@
+name: "Red Velvet Cupcakes"
+status: "published"
+category: "cupcakes"
+summary: "Soft red velvet sponge with vanilla frosting."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Box of 4"
+  - "Box of 6"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 3

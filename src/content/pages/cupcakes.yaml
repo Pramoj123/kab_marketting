@@ -1,0 +1,38 @@
+title: "Cupcakes"
+status: "published"
+navigation:
+  placement: "footer"
+  order: 5
+seo:
+  title: "Homemade Cupcakes in Chennai | Kookies & Brookies"
+  description: "Fresh homemade cupcakes in Chennai, boxed and ready to share. Order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Cupcakes"
+      subheadline: "Soft, fresh cupcakes with swirled frosting, boxed and ready to share."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "cupcakes"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

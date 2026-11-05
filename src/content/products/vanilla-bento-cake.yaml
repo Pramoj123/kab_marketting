@@ -1,0 +1,15 @@
+name: "Vanilla Bento Cake"
+status: "published"
+category: "bento-cakes"
+summary: "Soft vanilla sponge with buttercream, made to match your occasion."
+photo: null
+photoAlt: ''
+flavours: []
+sizes: []
+diet: "egg"
+customisable: true
+leadTimeDays: 2
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 2

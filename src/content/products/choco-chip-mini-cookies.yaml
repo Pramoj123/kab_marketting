@@ -1,0 +1,17 @@
+name: "Choco Chip Mini Cookies"
+status: "published"
+category: "mini-cookies"
+summary: "Small, golden and buttery, loaded with chocolate chips."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Small jar"
+  - "Large jar"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: true
+order: 1

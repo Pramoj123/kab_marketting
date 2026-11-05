@@ -1,0 +1,38 @@
+title: "Brookies"
+status: "published"
+navigation:
+  placement: "footer"
+  order: 2
+seo:
+  title: "Brookies in Chennai | Kookies & Brookies"
+  description: "Homemade brookies in Chennai: a chewy cookie baked around a fudgy brownie. Order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Brookies"
+      subheadline: "The best of both: a chewy cookie baked around a fudgy brownie."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "brookies"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

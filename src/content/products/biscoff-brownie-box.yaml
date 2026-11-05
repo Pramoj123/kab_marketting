@@ -1,0 +1,17 @@
+name: "Biscoff Brownie Box"
+status: "published"
+category: "brownies"
+summary: "Fudgy brownie swirled with caramelised Biscoff and finished with a crunchy crumb."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Box of 4"
+  - "Box of 6"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 2

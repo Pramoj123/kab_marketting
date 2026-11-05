@@ -1,46 +1,49 @@
-title: Home
-status: published
+title: "Home"
+status: "published"
+navigation:
+  placement: "hidden"
+  order: 0
 seo:
-  title: ''
-  description: ''
+  title: "Kookies & Brookies | Homemade Bakes in Chennai"
+  description: "Homemade brownies, brookies, mini cookies, bento cakes and cupcakes, baked fresh in Chennai. Order on WhatsApp."
   ogImage: null
   canonical: null
   noindex: false
-  schemaType: WebPage
+  schemaType: "WebPage"
 blocks:
-  - discriminant: hero
+  - discriminant: "hero"
     value:
-      headline: Placeholder headline
-      subheadline: Replace this copy in the CMS. Each section on this page is an editable block.
+      headline: "Homemade bakes, made with love."
+      subheadline: "Brownies, brookies, mini cookies, bento cakes and cupcakes, baked fresh at home in Chennai."
       primaryCta:
-        label: Learn more
-        href: /about/
+        label: "View the menu"
+        href: "/menu/"
       secondaryCta:
-        label: Our services
-        href: /services/overview/
+        label: "Order a custom cake"
+        href: "/custom-order/"
       image: null
       imageAlt: ''
-  - discriminant: features
+  - discriminant: "productGrid"
     value:
-      heading: Placeholder features
-      intro: Three example items to show the grid layout.
+      heading: "Fresh from our kitchen"
+      intro: "A few favourites to start with. See the full menu for everything we bake."
+      category: "all"
+      featuredOnly: true
+  - discriminant: "features"
+    value:
+      heading: "Why you will love us"
+      intro: "Small details that make every box feel special."
       items:
-        - title: First feature
-          description: Describe the first benefit here.
-        - title: Second feature
-          description: Describe the second benefit here.
-        - title: Third feature
-          description: Describe the third benefit here.
-  - discriminant: faq
+        - title: "Baked at home"
+          description: "Every order is baked in our home kitchen, not in a factory."
+        - title: "Made fresh to order"
+          description: "We bake after you order, so your treats arrive fresh."
+        - title: "Made for your moments"
+          description: "From a thank-you box to a birthday cake, we make it personal."
+  - discriminant: "cta"
     value:
-      heading: Questions
-      items:
-        - question: Can I add a new page without a developer?
-          answer: Yes. Create a page in the CMS, set its status to published, and it appears after the next build.
-  - discriminant: cta
-    value:
-      heading: Ready to start?
-      body: Placeholder call to action.
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
       cta:
-        label: Get in touch
-        href: /about/
+        label: "Start a custom order"
+        href: "/custom-order/"

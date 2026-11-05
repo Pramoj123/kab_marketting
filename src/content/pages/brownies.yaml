@@ -1,0 +1,38 @@
+title: "Brownies"
+status: "published"
+navigation:
+  placement: "footer"
+  order: 1
+seo:
+  title: "Homemade Brownies in Chennai | Kookies & Brookies"
+  description: "Fudgy homemade brownies baked fresh in Chennai. Choose your flavour and box size, then order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Brownies"
+      subheadline: "Fudgy, glossy and made to share. Choose your flavour and box size."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "brownies"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

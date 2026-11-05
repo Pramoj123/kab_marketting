@@ -1,0 +1,38 @@
+title: "Mini cookies"
+status: "published"
+navigation:
+  placement: "footer"
+  order: 3
+seo:
+  title: "Mini Cookies in Chennai | Kookies & Brookies"
+  description: "Homemade mini cookies in jars and gift boxes, baked fresh in Chennai. Order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "Mini cookies"
+      subheadline: "Small, golden and made for gifting. Order a jar or a tasting box."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "mini-cookies"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

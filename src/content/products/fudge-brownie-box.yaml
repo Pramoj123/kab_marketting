@@ -1,0 +1,21 @@
+name: "Fudge Brownie Box"
+status: "published"
+category: "brownies"
+summary: "Dense, glossy and deeply chocolatey, with a crackly top and a soft centre."
+photo: null
+photoAlt: ''
+flavours:
+  - "Classic fudge"
+  - "Walnut"
+  - "Double chocolate"
+sizes:
+  - "Box of 4"
+  - "Box of 6"
+  - "Box of 9"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: true
+order: 1

@@ -1,0 +1,17 @@
+name: "Double Chocolate Mini Cookies"
+status: "published"
+category: "mini-cookies"
+summary: "Cocoa cookie dough with dark chocolate chunks."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Small jar"
+  - "Large jar"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 2

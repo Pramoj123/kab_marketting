@@ -1,0 +1,38 @@
+title: "Menu"
+status: "published"
+navigation:
+  placement: "header"
+  order: 1
+seo:
+  title: "Brownies, Cookies and Cakes in Chennai | Kookies & Brookies"
+  description: "Homemade brownies, brookies, mini cookies, bento cakes and cupcakes baked in Chennai. Pick a treat and order on WhatsApp."
+  ogImage: null
+  canonical: null
+  noindex: false
+  schemaType: "WebPage"
+blocks:
+  - discriminant: "hero"
+    value:
+      headline: "The menu"
+      subheadline: "Everything is baked at home, to order. Choose a treat and tap Order to message us on WhatsApp."
+      primaryCta:
+        label: ''
+        href: ''
+      secondaryCta:
+        label: ''
+        href: ''
+      image: null
+      imageAlt: ''
+  - discriminant: "productGrid"
+    value:
+      heading: ''
+      intro: ''
+      category: "all"
+      featuredOnly: false
+  - discriminant: "cta"
+    value:
+      heading: "Planning something special?"
+      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      cta:
+        label: "Start a custom order"
+        href: "/custom-order/"

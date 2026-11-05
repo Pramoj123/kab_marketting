@@ -1,0 +1,15 @@
+name: "Red Velvet Bento Cake"
+status: "published"
+category: "bento-cakes"
+summary: "Red velvet sponge with smooth vanilla frosting and your own message."
+photo: null
+photoAlt: ''
+flavours: []
+sizes: []
+diet: "egg"
+customisable: true
+leadTimeDays: 2
+availability: "available"
+availabilityNote: ''
+featured: false
+order: 3

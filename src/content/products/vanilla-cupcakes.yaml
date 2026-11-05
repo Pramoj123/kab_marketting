@@ -1,0 +1,17 @@
+name: "Vanilla Cupcakes"
+status: "published"
+category: "cupcakes"
+summary: "Light vanilla sponge with swirled buttercream."
+photo: null
+photoAlt: ''
+flavours: []
+sizes:
+  - "Box of 4"
+  - "Box of 6"
+diet: "egg"
+customisable: false
+leadTimeDays: 1
+availability: "available"
+availabilityNote: ''
+featured: true
+order: 1

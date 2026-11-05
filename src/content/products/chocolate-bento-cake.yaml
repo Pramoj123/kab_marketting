@@ -1,0 +1,15 @@
+name: "Chocolate Bento Cake"
+status: "published"
+category: "bento-cakes"
+summary: "A single-serve chocolate cake in a box, with a message of your choice on top."
+photo: null
+photoAlt: ''
+flavours: []
+sizes: []
+diet: "egg"
+customisable: true
+leadTimeDays: 2
+availability: "available"
+availabilityNote: ''
+featured: true
+order: 1
