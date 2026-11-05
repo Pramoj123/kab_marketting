@@ -47,7 +47,7 @@ The theme and its rules: `docs/design-system.md`. Overrides that win over the sk
 - Site kind is **product, site-kind other** (an online-only home bakery): photographs lead, flat grounds, no shader effects, scenes, moments, card loops or dark grounds.
 - One deliberate exception: the aurora gradient (`bg-aurora`, `bg-aurora-band`), only in the hero and in one brand band per page.
 - Fonts are Instrument Serif and Instrument Sans through the Astro Fonts API. Never use the Anthropic fonts or branding named in the `claude` skill.
-- The skills' browser checkers (`consistency.mjs`, `check.mjs`, `shoot.mjs`) need Chrome, which this container does not have. Ask before adding it.
+- The skills' browser checkers (`consistency.mjs`, `check.mjs`, `shoot.mjs`) use Chromium, installed in the dev container with `sudo apt-get install -y chromium` (not a site dependency; reinstall if a rebuilt container lacks it). In a container it needs `--no-sandbox`: point `CHROME_PATH` at a wrapper script that adds it. Run them on the build with `--root dist/client` and a full path to the page. Rules written for one-page sites (one section per screen, section heights) do not apply to this multi-page site.
 
 ## Definition of done
 
