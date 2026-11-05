@@ -1,0 +1,85 @@
+---
+import Badge from './Badge.astro';
+import Button from './Button.astro';
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import type { BadgeVariants } from './badge.variants';
+import { productCard } from './product.variants';
+
+interface Props {
+  name: string;
+  summary?: string;
+  photo?: string | null;
+  photoAlt?: string;
+  tags?: { label: string; tone?: BadgeVariants['tone'] }[];
+  details?: { label: string; value: string }[];
+  /** Set when the product cannot be ordered, for example "Sold out. Back on Friday". */
+  statusLabel?: string;
+  orderHref?: string | null;
+  orderLabel?: string;
+  customHref?: string | null;
+  customLabel?: string;
+}
+
+const {
+  name,
+  summary,
+  photo,
+  photoAlt,
+  tags = [],
+  details = [],
+  statusLabel,
+  orderHref,
+  orderLabel = 'Order on WhatsApp',
+  customHref,
+  customLabel = 'Customise',
+} = Astro.props;
+
+const {
+  root,
+  media,
+  placeholder,
+  body,
+  tags: tagList,
+  actions,
+} = productCard({
+  unavailable: Boolean(statusLabel),
+});
+---
+
+<article class={root()}>
+  {photo ? (
+    <img src={photo} alt={photoAlt || name} loading="lazy" decoding="async" class={media()} />
+  ) : (
+    <div class={placeholder()}>Photo coming soon</div>
+  )}
+  <div class={body()}>
+    <Heading as="h3">{name}</Heading>
+    {summary && <Text>{summary}</Text>}
+    {tags.length > 0 && (
+      <div class={tagList()}>
+        {tags.map((tag) => (
+          <Badge tone={tag.tone}>{tag.label}</Badge>
+        ))}
+      </div>
+    )}
+    {details.map((detail) => (
+      <Text size="small">
+        <span class="font-semibold text-ink">{detail.label}:</span> {detail.value}
+      </Text>
+    ))}
+    <div class={actions()}>
+      {statusLabel && <Badge tone="accent">{statusLabel}</Badge>}
+      {!statusLabel && orderHref && (
+        <Button href={orderHref} size="sm">
+          {orderLabel}
+        </Button>
+      )}
+      {!statusLabel && customHref && (
+        <Button href={customHref} intent="secondary" size="sm">
+          {customLabel}
+        </Button>
+      )}
+    </div>
+  </div>
+</article>

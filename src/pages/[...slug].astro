@@ -2,7 +2,8 @@
 import type { GetStaticPaths } from 'astro';
 import BlockRenderer from '@/components/sections/BlockRenderer.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getPublishedPages, pageIdToPath, pageIdToSlug } from '@/lib/pages';
+import { pageIdToPath, pageIdToSlug } from '@/lib/page-paths';
+import { getPublishedPages } from '@/lib/pages';
 import { buildSeo } from '@/lib/seo';
 import { getSiteSettings, isProduction } from '@/lib/site';
 

@@ -1,10 +1,13 @@
 ---
 // Maps CMS block types to section components. Adding a section means one more branch here.
 import type { Block } from '@/cms/schemas';
+import Contact from './Contact.astro';
 import Cta from './Cta.astro';
+import CustomOrder from './CustomOrder.astro';
 import Faq from './Faq.astro';
 import Features from './Features.astro';
 import Hero from './Hero.astro';
+import ProductGrid from './ProductGrid.astro';
 
 interface Props {
   blocks: Block[];
@@ -17,6 +20,12 @@ const { blocks } = Astro.props;
   switch (block.discriminant) {
     case 'hero':
       return <Hero {...block.value} />;
+    case 'customOrder':
+      return <CustomOrder {...block.value} />;
+    case 'contact':
+      return <Contact {...block.value} />;
+    case 'productGrid':
+      return <ProductGrid {...block.value} />;
     case 'features':
       return <Features {...block.value} />;
     case 'cta':

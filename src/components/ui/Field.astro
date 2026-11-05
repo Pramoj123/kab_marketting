@@ -1,0 +1,62 @@
+---
+import { field, type FieldVariants } from './form.variants';
+
+interface Props extends FieldVariants {
+  label: string;
+  name: string;
+  options?: readonly string[];
+  required?: boolean;
+  placeholder?: string;
+  hint?: string;
+}
+
+const { label, name, kind = 'text', options = [], required, placeholder, hint } = Astro.props;
+const id = `field-${name}`;
+const hintId = hint ? `${id}-hint` : undefined;
+const classes = field({ kind });
+---
+
+<div class={classes.root()}>
+  <label for={id} class={classes.label()}>
+    {label}
+  </label>
+  {kind === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      rows={4}
+      required={required}
+      placeholder={placeholder}
+      aria-describedby={hintId}
+      class={classes.control()}
+    />
+  ) : kind === 'select' ? (
+    <select
+      id={id}
+      name={name}
+      required={required}
+      aria-describedby={hintId}
+      class={classes.control()}
+    >
+      <option value="">Choose one</option>
+      {options.map((option) => (
+        <option value={option}>{option}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      id={id}
+      name={name}
+      type={kind}
+      required={required}
+      placeholder={placeholder}
+      aria-describedby={hintId}
+      class={classes.control()}
+    />
+  )}
+  {hint && (
+    <p id={hintId} class={classes.hint()}>
+      {hint}
+    </p>
+  )}
+</div>

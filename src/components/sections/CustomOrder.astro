@@ -1,0 +1,85 @@
+---
+import { Button, Container, Field, Grid, Heading, Section, Stack, Text } from '@/components/ui';
+import type { CustomOrderProps } from '@/cms/schemas';
+import { CUSTOM_ORDER_TYPES } from '@/cms/product-options';
+import { getSiteSettings } from '@/lib/site';
+
+type Props = CustomOrderProps;
+
+const { heading, intro, note } = Astro.props;
+const site = await getSiteSettings();
+---
+
+<Section>
+  <Container>
+    <Stack gap="lg">
+      <Stack>
+        <Heading>{heading}</Heading>
+        {intro && <Text size="lead">{intro}</Text>}
+      </Stack>
+      <form data-custom-order data-phone={site.whatsappNumber}>
+        <Stack gap="lg">
+          <Grid columns={2}>
+            <Field name="name" label="Your name" />
+            <Field
+              name="product"
+              label="What would you like?"
+              kind="select"
+              options={CUSTOM_ORDER_TYPES}
+              required
+            />
+            <Field
+              name="occasion"
+              label="Occasion"
+              placeholder="Birthday, anniversary, office party"
+            />
+            <Field
+              name="date"
+              label="Needed on"
+              kind="date"
+              hint="Please allow the notice shown for your item."
+            />
+            <Field name="flavour" label="Flavour" />
+            <Field name="size" label="Size or quantity" />
+          </Grid>
+          <Field name="message" label="Message on the cake or card" kind="textarea" />
+          <Field name="notes" label="Anything else we should know?" kind="textarea" />
+          <Stack gap="sm">
+            <Button type="submit" size="lg">
+              Send on WhatsApp
+            </Button>
+            {note && <Text size="small">{note}</Text>}
+            <div role="status" aria-live="polite" data-status class="text-sm text-ink"></div>
+          </Stack>
+        </Stack>
+      </form>
+    </Stack>
+  </Container>
+</Section>
+
+<script>
+  import { customOrderMessage, whatsappLink, type CustomOrderBrief } from '@/lib/whatsapp';
+
+  const form = document.querySelector<HTMLFormElement>('[data-custom-order]');
+  const status = form?.querySelector<HTMLElement>('[data-status]');
+  const date = form?.querySelector<HTMLInputElement>('input[name="date"]');
+
+  if (date) {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    date.min = now.toISOString().slice(0, 10);
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const brief = Object.fromEntries(new FormData(form)) as CustomOrderBrief;
+    const link = whatsappLink(form.dataset.phone ?? '', customOrderMessage(brief));
+    if (!status) return;
+    if (!link) {
+      status.textContent = 'WhatsApp ordering is not switched on yet. Please check back soon.';
+      return;
+    }
+    status.textContent = 'Opening WhatsApp. Send the message there to place your request.';
+    window.open(link, '_blank', 'noopener,noreferrer');
+  });
+</script>

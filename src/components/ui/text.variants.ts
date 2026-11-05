@@ -8,6 +8,7 @@ export const text = tv({
       muted: 'text-ink-muted',
     },
     size: {
+      small: 'text-sm leading-6',
       base: 'text-base leading-7',
       lead: 'text-lg leading-8 sm:text-xl',
     },

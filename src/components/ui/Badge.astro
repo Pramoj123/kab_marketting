@@ -1,0 +1,13 @@
+---
+import { badge, type BadgeVariants } from './badge.variants';
+
+interface Props extends BadgeVariants {
+  class?: string;
+}
+
+const { tone, class: className } = Astro.props;
+---
+
+<span class={badge({ tone, class: className })}>
+  <slot />
+</span>

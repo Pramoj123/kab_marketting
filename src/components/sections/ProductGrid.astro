@@ -1,0 +1,54 @@
+---
+import { Container, Grid, Heading, ProductCard, Section, Stack, Text } from '@/components/ui';
+import type { ProductGridProps } from '@/cms/schemas';
+import { describeProduct, groupByCategory, selectProducts } from '@/lib/product-rules';
+import { getPublishedProducts } from '@/lib/products';
+import { CUSTOM_ORDER_PATH, getSiteSettings } from '@/lib/site';
+import { orderMessage, whatsappLink } from '@/lib/whatsapp';
+
+type Props = ProductGridProps;
+
+const { heading, intro, category, featuredOnly } = Astro.props;
+
+const site = await getSiteSettings();
+const products = selectProducts(await getPublishedProducts(), { category, featuredOnly });
+// A full menu is grouped under category headings. A single category or a featured list is flat.
+const groups =
+  category === 'all' && !featuredOnly
+    ? groupByCategory(products)
+    : [{ category, label: '', products }];
+
+const cardProps = (product: (typeof products)[number]) => ({
+  name: product.name,
+  summary: product.summary,
+  photo: product.photo,
+  photoAlt: product.photoAlt,
+  ...describeProduct(product),
+  orderHref: whatsappLink(site.whatsappNumber, orderMessage(product.name)),
+  customHref: product.customisable ? CUSTOM_ORDER_PATH : null,
+});
+---
+
+<Section tone="muted">
+  <Container>
+    <Stack gap="lg">
+      {(heading || intro) && (
+        <Stack>
+          {heading && <Heading>{heading}</Heading>}
+          {intro && <Text size="lead">{intro}</Text>}
+        </Stack>
+      )}
+      {products.length === 0 && <Text>New bakes are coming soon. Check back shortly.</Text>}
+      {groups.map((group) => (
+        <Stack>
+          {group.label && <Heading as={heading ? 'h3' : 'h2'}>{group.label}</Heading>}
+          <Grid>
+            {group.products.map((product) => (
+              <ProductCard {...cardProps(product)} />
+            ))}
+          </Grid>
+        </Stack>
+      ))}
+    </Stack>
+  </Container>
+</Section>

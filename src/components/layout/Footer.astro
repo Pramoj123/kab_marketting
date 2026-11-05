@@ -1,5 +1,7 @@
 ---
-import { Container, Text } from '@/components/ui';
+import { Container, NavLink, Row, Stack, Text } from '@/components/ui';
+import { getFooterNavigation } from '@/lib/navigation';
+import { getSiteSettings } from '@/lib/site';
 
 interface Props {
   siteName: string;
@@ -7,12 +9,26 @@ interface Props {
 
 const { siteName } = Astro.props;
 const year = new Date().getFullYear();
+const items = await getFooterNavigation();
+const site = await getSiteSettings();
 ---
 
-<footer>
+<footer class="border-t border-line bg-surface-muted">
   <Container class="py-8">
-    <Text size="base">
-      © {year} {siteName}
-    </Text>
+    <Stack gap="lg">
+      {items.length > 0 && (
+        <nav aria-label="Footer">
+          <Row gap="lg">
+            {items.map((item) => (
+              <NavLink href={item.href}>{item.label}</NavLink>
+            ))}
+          </Row>
+        </nav>
+      )}
+      {site.allergenNotice && <Text size="small">{site.allergenNotice}</Text>}
+      <Text size="small">
+        © {year} {siteName}
+      </Text>
+    </Stack>
   </Container>
 </footer>

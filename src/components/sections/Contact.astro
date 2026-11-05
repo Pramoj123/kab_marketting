@@ -1,0 +1,36 @@
+---
+import { Button, Container, Heading, Row, Section, Stack, Text } from '@/components/ui';
+import type { ContactProps } from '@/cms/schemas';
+import { ENQUIRY_MESSAGE, instagramProfile } from '@/lib/contact';
+import { getSiteSettings } from '@/lib/site';
+import { whatsappLink } from '@/lib/whatsapp';
+
+type Props = ContactProps;
+
+const { heading, intro, hours } = Astro.props;
+const site = await getSiteSettings();
+const whatsapp = whatsappLink(site.whatsappNumber, ENQUIRY_MESSAGE);
+const instagram = instagramProfile(site.socialProfiles);
+---
+
+<Section>
+  <Container>
+    <Stack align="center" gap="lg">
+      <Heading>{heading}</Heading>
+      {intro && <Text size="lead">{intro}</Text>}
+      <Row justify="center">
+        {whatsapp && (
+          <Button href={whatsapp} size="lg">
+            Message us on WhatsApp
+          </Button>
+        )}
+        {instagram && (
+          <Button href={instagram} intent="secondary" size="lg">
+            Follow on Instagram
+          </Button>
+        )}
+      </Row>
+      {hours && <Text size="small">{hours}</Text>}
+    </Stack>
+  </Container>
+</Section>
