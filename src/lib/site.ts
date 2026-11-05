@@ -1,5 +1,8 @@
 import { getEntry } from 'astro:content';
 
+/** Where "Customise" buttons point. The page itself is a CMS page with this slug. */
+export const CUSTOM_ORDER_PATH = '/custom-order/';
+
 export async function getSiteSettings() {
   const entry = await getEntry('settings', 'site');
   if (!entry)

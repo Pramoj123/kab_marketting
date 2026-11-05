@@ -1,5 +1,6 @@
 // Reusable Keystatic field builders. Add shared fields here, never copy them between schemas.
 import { fields } from '@keystatic/core';
+import { NAV_PLACEMENTS } from '../page-options';
 
 const UPLOAD_DIRECTORY = 'public/images/uploads';
 const UPLOAD_PUBLIC_PATH = '/images/uploads/';
@@ -13,10 +14,10 @@ export const linkField = (label: string) =>
     { label },
   );
 
-export const statusField = () =>
+export const statusField = (noun = 'pages') =>
   fields.select({
     label: 'Status',
-    description: 'Only published pages are built and listed in the sitemap.',
+    description: `Only published ${noun} appear on the site.`,
     options: [
       { label: 'Draft', value: 'draft' },
       { label: 'Published', value: 'published' },
@@ -53,4 +54,21 @@ export const seoField = () =>
       }),
     },
     { label: 'SEO' },
+  );
+
+export const navigationField = () =>
+  fields.object(
+    {
+      placement: fields.select({
+        label: 'Show this page in',
+        options: [...NAV_PLACEMENTS],
+        defaultValue: 'header',
+      }),
+      order: fields.integer({
+        label: 'Menu order',
+        description: 'Lower numbers come first. Pages with the same number sort by title.',
+        defaultValue: 0,
+      }),
+    },
+    { label: 'Menus' },
   );

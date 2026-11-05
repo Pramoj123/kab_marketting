@@ -1,15 +1,10 @@
-import { getPublishedPages, pageIdToPath } from './pages';
+import { selectNavigation } from './nav-rules';
+import { getPublishedPages } from './pages';
 
-export interface NavItem {
-  label: string;
-  href: string;
-}
+export type { NavItem } from './nav-rules';
 
-/** Top-level published pages, in alphabetical order. Nested pages are reachable from their parent. */
-export async function getPrimaryNavigation(): Promise<NavItem[]> {
-  const pages = await getPublishedPages();
-  return pages
-    .filter((page) => page.id !== 'home' && !page.id.includes('/'))
-    .map((page) => ({ label: page.data.title, href: pageIdToPath(page.id) }))
-    .sort((a, b) => a.label.localeCompare(b.label));
-}
+export const getPrimaryNavigation = async () =>
+  selectNavigation(await getPublishedPages(), 'header');
+
+export const getFooterNavigation = async () =>
+  selectNavigation(await getPublishedPages(), 'footer');

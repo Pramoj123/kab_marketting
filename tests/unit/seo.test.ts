@@ -9,6 +9,8 @@ const site: SeoInput['site'] = {
   defaultOgImage: '/images/default.png',
   logo: null,
   socialProfiles: [],
+  whatsappNumber: '',
+  allergenNotice: '',
 };
 
 const emptySeo = { title: '', description: '', noindex: false, schemaType: 'WebPage' as const };

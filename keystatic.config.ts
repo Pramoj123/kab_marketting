@@ -1,5 +1,5 @@
 import { config } from '@keystatic/core';
-import { pages, siteSettings } from './src/cms/keystatic/collections';
+import { pages, products, siteSettings } from './src/cms/keystatic/collections';
 
 const repo = import.meta.env.PUBLIC_KEYSTATIC_GITHUB_REPO as `${string}/${string}` | undefined;
 
@@ -9,6 +9,6 @@ export default config({
     import.meta.env.PROD && repo
       ? { kind: 'github', repo, branchPrefix: 'content/' }
       : { kind: 'local' },
-  collections: { pages },
+  collections: { pages, products },
   singletons: { siteSettings },
 });
