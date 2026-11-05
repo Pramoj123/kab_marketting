@@ -3,12 +3,18 @@ import { section, type SectionVariants } from './layout.variants';
 
 interface Props extends SectionVariants {
   id?: string;
+  /** Rise into view on scroll (the hero sets false: it animates on load). */
+  reveal?: boolean;
   class?: string;
 }
 
-const { id, tone, space, class: className } = Astro.props;
+const { id, tone, space, reveal = true, class: className } = Astro.props;
 ---
 
-<section id={id} class={section({ tone, space, class: className })}>
+<section
+  id={id}
+  class={section({ tone, space, class: className })}
+  data-reveal={reveal ? '' : undefined}
+>
   <slot />
 </section>

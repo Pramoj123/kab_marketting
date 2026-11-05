@@ -3,6 +3,7 @@ import { Font } from 'astro:assets';
 import '@/styles/global.css';
 import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
+import Reveal from '@/components/layout/Reveal.astro';
 import Seo from '@/components/layout/Seo.astro';
 import type { SeoData } from '@/lib/seo';
 
@@ -19,6 +20,10 @@ const { seo, siteName, path } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <!-- Scroll reveal hides content only when scripts run. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <Font cssVariable="--font-instrument-serif" preload={[{ style: 'normal' }]} />
     <Font cssVariable="--font-instrument-sans" preload />
@@ -30,5 +35,6 @@ const { seo, siteName, path } = Astro.props;
       <slot />
     </main>
     <Footer siteName={siteName} />
+    <Reveal />
   </body>
 </html>

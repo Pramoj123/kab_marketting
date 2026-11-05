@@ -86,6 +86,7 @@
   --container-page: calc(80rem + 2 * var(--spacing-gutter)); /* 1280 of content on every page */
   --container-narrow: 48rem; /* 768: a block inside the page width, forms and FAQ, left-aligned */
   --container-measure: 62ch; /* longest comfortable line */
+  --container-sheet: 60rem; /* 960: the product sheet on tablet and desktop */
 
   /*
    * Spacing. Tailwind's 4px scale (p-1 = 4px ... p-32 = 128px) for small gaps,
@@ -103,16 +104,50 @@
   ); /* phone bar height, kept free under content */
   --spacing-control-sm: 2.5rem; /* 40, buttons inside cards */
   --spacing-control: 3rem; /* 48, buttons and fields */
+  --spacing-tile: clamp(
+    16rem,
+    6rem + 15vw,
+    21rem
+  ); /* one mosaic row: tiles read as vertical cards */
+  --spacing-sheet: 90dvh; /* tallest the product sheet gets; it scrolls inside */
 
   /* Radius: soft. Buttons and badges use rounded-full. */
   --radius-control: 0.5rem; /* 8, fields */
   --radius-panel: 0.75rem; /* 12, panels, disclosure */
   --radius-card: 1.25rem; /* 20, cards and photographs */
+  --radius-tile: 1.75rem; /* 28, product tiles and the product sheet */
 
-  /* Motion: quiet, short, one curve. */
+  /* Motion: medium, one curve. Everything rests under prefers-reduced-motion (base layer). */
   --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
   --default-transition-duration: 200ms;
   --default-transition-timing-function: var(--ease-soft);
+  --animate-rise: rise 0.9s var(--ease-soft) both; /* hero words entering */
+  --animate-hero-zoom: hero-zoom 2.4s var(--ease-soft) both; /* hero photo settling */
+  --animate-sheet-up: sheet-up 0.45s var(--ease-soft) both; /* product sheet opening */
+  --animate-fade-in: fade-in 0.3s ease-out both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 1.5rem;
+    }
+  }
+  @keyframes hero-zoom {
+    from {
+      scale: 1.12;
+    }
+  }
+  @keyframes sheet-up {
+    from {
+      opacity: 0;
+      translate: 0 2rem;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
 }
 
 /* Font families read the variables injected by Astro's <Font /> (astro.config.mjs). */
@@ -150,6 +185,25 @@
   );
 }
 
+/* Photo scrims: keep light text readable over any photograph. Built from the ink token. */
+@utility bg-scrim-side {
+  background-image: linear-gradient(
+    100deg,
+    color-mix(in oklch, var(--color-ink) 88%, transparent) 0%,
+    color-mix(in oklch, var(--color-ink) 62%, transparent) 45%,
+    color-mix(in oklch, var(--color-ink) 15%, transparent) 100%
+  );
+}
+
+@utility bg-scrim-bottom {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in oklch, var(--color-ink) 90%, transparent) 0%,
+    color-mix(in oklch, var(--color-ink) 45%, transparent) 40%,
+    transparent 70%
+  );
+}
+
 @layer base {
   html {
     color-scheme: light;
@@ -177,6 +231,55 @@
   ::selection {
     background-color: var(--color-accent-100);
     color: var(--color-ink);
+  }
+
+  /*
+   * Scroll reveal: sections rise in as they enter the screen; children of [data-stagger] follow
+   * one after another. Only once JS has marked <html class="js">, so nothing hides without it.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal],
+    .js [data-stagger] > * {
+      transition:
+        opacity 0.8s var(--ease-soft),
+        translate 0.8s var(--ease-soft);
+    }
+    .js [data-reveal]:not(.is-revealed),
+    .js [data-stagger]:not(.is-revealed) > * {
+      opacity: 0;
+      translate: 0 2rem;
+    }
+    .js [data-stagger] > :nth-child(2) {
+      transition-delay: 80ms;
+    }
+    .js [data-stagger] > :nth-child(3) {
+      transition-delay: 160ms;
+    }
+    .js [data-stagger] > :nth-child(4) {
+      transition-delay: 240ms;
+    }
+    .js [data-stagger] > :nth-child(5) {
+      transition-delay: 320ms;
+    }
+    .js [data-stagger] > :nth-child(n + 6) {
+      transition-delay: 400ms;
+    }
+    /* Hero words enter one after another. */
+    [data-hero-words] > * {
+      animation: var(--animate-rise);
+    }
+    [data-hero-words] > :nth-child(2) {
+      animation-delay: 120ms;
+    }
+    [data-hero-words] > :nth-child(3) {
+      animation-delay: 240ms;
+    }
+    [data-hero-words] > :nth-child(4) {
+      animation-delay: 360ms;
+    }
+    dialog[open]::backdrop {
+      animation: var(--animate-fade-in);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

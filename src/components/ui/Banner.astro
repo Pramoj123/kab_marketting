@@ -1,0 +1,24 @@
+---
+import { banner, type BannerVariants } from './layout.variants';
+
+interface Props extends BannerVariants {
+  /** Decorative: the words on top carry the meaning. */
+  image: string;
+}
+
+const { image, size } = Astro.props;
+const styles = banner({ size });
+---
+
+<section class={styles.root()}>
+  <img
+    src={image}
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    class={styles.media()}
+  />
+  <span class={styles.scrim()} aria-hidden="true"></span>
+  <slot />
+</section>

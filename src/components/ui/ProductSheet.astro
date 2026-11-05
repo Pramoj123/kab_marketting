@@ -1,0 +1,165 @@
+---
+import Badge from './Badge.astro';
+import Button from './Button.astro';
+import ChoiceGroup from './ChoiceGroup.astro';
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import TextLink from './TextLink.astro';
+import type { BadgeVariants } from './badge.variants';
+import { productSheet } from './product.variants';
+
+interface Props {
+  /** Unique on the page: the dialog id, and the radio group names. */
+  id: string;
+  name: string;
+  summary?: string;
+  photo?: string | null;
+  photoAlt?: string;
+  tags?: { label: string; tone?: BadgeVariants['tone'] }[];
+  /** Choices with two or more options, shown as pickers. */
+  pickers?: { name: string; label: string; options: string[] }[];
+  /** Fixed facts, for example a single size. */
+  details?: { label: string; value: string }[];
+  /** Set when the product cannot be ordered, for example "Sold out. Back on Friday". */
+  statusLabel?: string;
+  /** WhatsApp number, read by the script to rebuild the order link when a choice changes. */
+  phone?: string;
+  /** Link for the default choices. Null hides the button (no WhatsApp number yet). */
+  orderHref?: string | null;
+  customHref?: string | null;
+}
+
+const {
+  id,
+  name,
+  summary,
+  photo,
+  photoAlt,
+  tags = [],
+  pickers = [],
+  details = [],
+  statusLabel,
+  phone = '',
+  orderHref,
+  customHref,
+} = Astro.props;
+
+const orderable = !statusLabel;
+// Pickers only make sense when the choice goes into an order link; otherwise list the options.
+const showPickers = orderable && Boolean(orderHref);
+const facts = showPickers
+  ? details
+  : [
+      ...details,
+      ...pickers.map((picker) => ({ label: picker.label, value: picker.options.join(', ') })),
+    ];
+const styles = productSheet();
+const headingId = `${id}-name`;
+---
+
+<dialog
+  id={id}
+  class={styles.root()}
+  aria-labelledby={headingId}
+  data-product-sheet
+  data-order-card
+  data-phone={phone}
+  data-product={name}
+>
+  <div class={styles.layout()}>
+    <div class={styles.frame()}>
+      {photo && (
+        <img
+          src={photo}
+          alt={photoAlt || name}
+          loading="lazy"
+          decoding="async"
+          class={styles.media()}
+        />
+      )}
+    </div>
+    <div class={styles.body()}>
+      <div class={styles.head()}>
+        <Heading as="h2" size="h2">
+          <span id={headingId}>{name}</span>
+        </Heading>
+        <Button intent="secondary" size="sm" data-sheet-close>
+          Close
+        </Button>
+      </div>
+      {summary && <Text>{summary}</Text>}
+      {tags.length > 0 && (
+        <div class={styles.tags()}>
+          {tags.map((tag) => (
+            <Badge tone={tag.tone}>{tag.label}</Badge>
+          ))}
+        </div>
+      )}
+      {facts.map((detail) => (
+        <Text size="small">
+          <span class={styles.detailLabel()}>{detail.label}:</span> {detail.value}
+        </Text>
+      ))}
+      {showPickers &&
+        pickers.map((picker) => (
+          <ChoiceGroup
+            name={`${id}-${picker.name}`}
+            legend={picker.label}
+            options={picker.options}
+          />
+        ))}
+      <div class={styles.actions()}>
+        {statusLabel && <Badge tone="accent">{statusLabel}</Badge>}
+        {orderable && orderHref && (
+          <Button href={orderHref} block data-order-link>
+            Order this bake
+          </Button>
+        )}
+        {orderable && customHref && <TextLink href={customHref}>Customise this bake</TextLink>}
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import { orderMessage, whatsappLink } from '@/lib/whatsapp';
+
+  // Open a sheet from its tile; close it with its button, Esc, or a tap on the backdrop.
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const opener = target.closest<HTMLElement>('[data-sheet-open]');
+    if (opener) {
+      document
+        .querySelector<HTMLDialogElement>(`#${opener.getAttribute('aria-controls')}`)
+        ?.showModal();
+      return;
+    }
+    const sheet = target.closest<HTMLDialogElement>('[data-product-sheet]');
+    if (!sheet) return;
+    if (target === sheet || target.closest('[data-sheet-close]')) sheet.close();
+  });
+
+  // Rebuilds each sheet's WhatsApp link from the chosen size, flavour and egg option.
+  // Also runs on load and on back/forward, when the browser may restore other choices.
+  function syncCard(card: HTMLElement) {
+    const link = card.querySelector<HTMLAnchorElement>('[data-order-link]');
+    if (!link) return;
+    const choices = [...card.querySelectorAll<HTMLInputElement>('[data-choice]:checked')].map(
+      (input) => input.value,
+    );
+    const href = whatsappLink(
+      card.dataset.phone ?? '',
+      orderMessage(card.dataset.product ?? '', choices),
+    );
+    if (href) link.href = href;
+  }
+  const syncCards = () =>
+    document.querySelectorAll<HTMLElement>('[data-order-card]').forEach(syncCard);
+
+  document.addEventListener('change', (event) => {
+    const card = (event.target as HTMLElement).closest<HTMLElement>('[data-order-card]');
+    if (card) syncCard(card);
+  });
+  window.addEventListener('pageshow', syncCards);
+  syncCards();
+</script>

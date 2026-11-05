@@ -1,0 +1,45 @@
+---
+// The words of a Hero: notice, headline, sub-line and buttons. Hero.astro picks the ground.
+import { Badge, Button, Container, Heading, Row, Stack, Text } from '@/components/ui';
+import type { Action } from '@/lib/actions';
+
+interface Props {
+  notice: string;
+  headline: string;
+  subheadline: string;
+  actions: Action[];
+  full: boolean;
+  /** Light words, glass label and glass secondary button for a photograph behind. */
+  onPhoto: boolean;
+}
+
+const { notice, headline, subheadline, actions, full, onPhoto } = Astro.props;
+const tone = onPhoto ? 'inverse' : 'default';
+---
+
+<Container>
+  <Stack gap="lg" data-hero-words>
+    {notice && <Badge tone={onPhoto ? 'glass' : 'brand'}>{notice}</Badge>}
+    <Heading as="h1" size={full ? 'display' : 'h1'} tone={tone}>
+      {headline}
+    </Heading>
+    {subheadline && (
+      <Text size="lead" tone={tone}>
+        {subheadline}
+      </Text>
+    )}
+    {actions.length > 0 && (
+      <Row>
+        {actions.map((action, index) => (
+          <Button
+            href={action.href}
+            intent={index > 0 ? (onPhoto ? 'glass' : 'secondary') : 'primary'}
+            size="lg"
+          >
+            {action.label}
+          </Button>
+        ))}
+      </Row>
+    )}
+  </Stack>
+</Container>

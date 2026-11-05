@@ -6,6 +6,7 @@ export const text = tv({
     tone: {
       default: 'text-ink',
       muted: 'text-ink-muted',
+      inverse: 'text-on-brand/85',
     },
     size: {
       label: 'text-label font-medium',

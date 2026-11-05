@@ -8,6 +8,8 @@ export const badge = tv({
       neutral: 'bg-mist text-ink-muted',
       accent: 'bg-accent-100 text-ink',
       brand: 'bg-brand-100 text-brand-800',
+      // Frosted glass, for labels on a photograph.
+      glass: 'bg-ink/55 text-on-brand ring-1 ring-on-brand/25 backdrop-blur-md',
     },
   },
   defaultVariants: { tone: 'neutral' },

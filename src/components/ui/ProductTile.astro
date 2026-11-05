@@ -1,0 +1,57 @@
+---
+import type { TileShape } from '@/lib/mosaic';
+import Badge from './Badge.astro';
+import ProductSheet from './ProductSheet.astro';
+import type { BadgeVariants } from './badge.variants';
+import { productTile } from './product.variants';
+
+type SheetProps = Parameters<typeof ProductSheet>[0];
+
+interface Props extends SheetProps {
+  shape?: TileShape;
+  /** Place this tile after its group's others (mirrored layout). */
+  last?: boolean;
+  tags?: { label: string; tone?: BadgeVariants['tone'] }[];
+  /** h2 when no other heading sits above the grid, so heading levels do not skip. */
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { shape = 'tile', last = false, headingLevel: Name = 'h3', ...sheet } = Astro.props;
+const { id, name, summary, photo, statusLabel, tags = [] } = sheet;
+const styles = productTile({ shape, last, unavailable: Boolean(statusLabel) });
+const sheetId = `sheet-${id}`;
+---
+
+<article class={styles.root()}>
+  {photo ? (
+    <img src={photo} alt="" loading="lazy" decoding="async" class={styles.media()} />
+  ) : (
+    <span class={styles.placeholder()} aria-hidden="true"></span>
+  )}
+  <span class={styles.scrim()} aria-hidden="true"></span>
+  <div class={styles.labels()}>
+    {statusLabel && <Badge tone="glass">{statusLabel}</Badge>}
+    {tags.map((tag) => (
+      <Badge tone="glass">{tag.label}</Badge>
+    ))}
+  </div>
+  <div class={styles.body()}>
+    <Name class={styles.name()}>
+      <button
+        type="button"
+        class={styles.trigger()}
+        aria-haspopup="dialog"
+        aria-controls={sheetId}
+        data-sheet-open
+      >
+        {name}
+      </button>
+    </Name>
+    {summary && <p class={styles.summary()}>{summary}</p>}
+    <p class={styles.cue()} aria-hidden="true">
+      <span class={styles.arrow()}>→</span>
+      {statusLabel ? 'See details' : 'Choose and order'}
+    </p>
+  </div>
+  <ProductSheet {...sheet} id={sheetId} />
+</article>

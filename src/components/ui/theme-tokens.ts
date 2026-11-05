@@ -14,7 +14,9 @@ export const THEME_TOKENS = {
     'bar',
     'control-sm',
     'control',
+    'tile',
+    'sheet',
   ],
-  radius: ['control', 'panel', 'card'],
-  container: ['page', 'narrow', 'measure'],
+  radius: ['control', 'panel', 'card', 'tile'],
+  container: ['page', 'narrow', 'measure', 'sheet'],
 } as const;

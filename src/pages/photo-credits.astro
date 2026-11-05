@@ -1,0 +1,46 @@
+---
+// Credits for the stand-in photographs from Wikimedia Commons. Remove each line as your own photos replace them.
+import { Container, Heading, Section, Stack, Text, TextLink } from '@/components/ui';
+import credits from '@/data/photo-credits.json';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { buildSeo } from '@/lib/seo';
+import { getSiteSettings, isProduction } from '@/lib/site';
+
+const site = await getSiteSettings();
+const path = '/photo-credits/';
+const seo = buildSeo({
+  site,
+  page: {
+    title: 'Photo credits',
+    seo: {
+      title: '',
+      description: 'Credits for the photographs on this site.',
+      noindex: true,
+      schemaType: 'WebPage',
+    },
+    blocks: [],
+  },
+  path,
+  siteUrl: Astro.site?.toString() ?? 'http://localhost:4321',
+  isProduction: isProduction(),
+});
+---
+
+<BaseLayout seo={seo} siteName={site.siteName} path={path}>
+  <Section space="compact" reveal={false}>
+    <Container>
+      <Stack gap="lg" width="narrow">
+        <Heading as="h1">Photo credits</Heading>
+        <Text>Photographs from Wikimedia Commons, used under the licences named below.</Text>
+        <Stack>
+          {credits.map((credit) => (
+            <Text size="small">
+              {credit.title}, by {credit.author}, {credit.license}.{' '}
+              <TextLink href={credit.source}>Source</TextLink>
+            </Text>
+          ))}
+        </Stack>
+      </Stack>
+    </Container>
+  </Section>
+</BaseLayout>

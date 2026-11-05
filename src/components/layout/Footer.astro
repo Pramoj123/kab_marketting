@@ -1,5 +1,5 @@
 ---
-import { ActionBar, Button, Container, Heading, NavLink, Text } from '@/components/ui';
+import { ActionBar, Button, Container, Heading, NavLink, Text, TextLink } from '@/components/ui';
 import { footer } from '@/components/ui/shell.variants';
 import { mainAction, orderAction } from '@/lib/actions';
 import { instagramProfile } from '@/lib/contact';
@@ -48,7 +48,9 @@ const order = orderAction(site.whatsappNumber);
     </div>
     <div class={styles.legal()}>
       {site.allergenNotice && <Text size="small">{site.allergenNotice}</Text>}
-      <Text size="small" measure={false}>{`© ${year} ${siteName}`}</Text>
+      <Text size="small" measure={false}>
+        {`© ${year} ${siteName}`} · <TextLink href="/photo-credits/">Photo credits</TextLink>
+      </Text>
     </div>
   </Container>
 </footer>

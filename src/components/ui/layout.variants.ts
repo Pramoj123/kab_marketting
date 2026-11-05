@@ -53,6 +53,9 @@ export const grid = tv({
       3: 'sm:grid-cols-2 lg:grid-cols-3',
       // Up to four short cards in one row from tablet width, so none is left alone on a row.
       row: 'md:auto-cols-fr md:grid-flow-col',
+      // Product mosaic: tiles take shapes from src/lib/mosaic.ts; rows are one tile tall.
+      mosaic:
+        'w-full grid-flow-dense gap-4 sm:auto-rows-(--spacing-tile) sm:grid-cols-2 lg:grid-cols-4',
     },
   },
   defaultVariants: { columns: 3 },
@@ -65,3 +68,21 @@ export type SectionVariants = VariantProps<typeof section>;
 export type StackVariants = VariantProps<typeof stack>;
 export type RowVariants = VariantProps<typeof row>;
 export type GridVariants = VariantProps<typeof grid>;
+
+// A section with a photograph behind its words: the photo settles in, a scrim keeps text readable.
+export const banner = tv({
+  slots: {
+    root: 'relative isolate flex flex-col justify-center overflow-hidden bg-ink',
+    media: 'absolute inset-0 -z-20 size-full animate-hero-zoom object-cover',
+    scrim: 'absolute inset-0 -z-10 bg-scrim-side',
+  },
+  variants: {
+    size: {
+      full: { root: 'min-h-hero py-24' },
+      compact: { root: 'py-24 lg:py-32' },
+    },
+  },
+  defaultVariants: { size: 'compact' },
+});
+
+export type BannerVariants = VariantProps<typeof banner>;

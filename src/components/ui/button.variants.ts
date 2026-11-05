@@ -8,6 +8,9 @@ export const button = tv({
     intent: {
       primary: 'bg-brand-600 text-on-brand hover:bg-brand-700 active:bg-brand-800',
       secondary: 'border border-line-strong text-ink hover:border-ink hover:bg-surface-raised',
+      // The secondary button on a photograph: frosted glass with light text.
+      glass:
+        'border border-on-brand/40 bg-on-brand/10 text-on-brand backdrop-blur-md hover:bg-on-brand/20',
     },
     size: {
       sm: 'h-control-sm px-5 text-small',

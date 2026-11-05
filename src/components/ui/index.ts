@@ -1,5 +1,6 @@
 export { default as ActionBar } from './ActionBar.astro';
 export { default as Badge } from './Badge.astro';
+export { default as Banner } from './Banner.astro';
 export { default as Button } from './Button.astro';
 export { default as Card } from './Card.astro';
 export { default as Chip } from './Chip.astro';
@@ -14,7 +15,8 @@ export { default as Logo } from './Logo.astro';
 export { default as Media } from './Media.astro';
 export { default as MenuSheet } from './MenuSheet.astro';
 export { default as NavLink } from './NavLink.astro';
-export { default as ProductCard } from './ProductCard.astro';
+export { default as ProductSheet } from './ProductSheet.astro';
+export { default as ProductTile } from './ProductTile.astro';
 export { default as Row } from './Row.astro';
 export { default as Section } from './Section.astro';
 export { default as Split } from './Split.astro';

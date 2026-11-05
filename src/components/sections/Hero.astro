@@ -1,59 +1,30 @@
 ---
-import {
-  Badge,
-  Button,
-  Container,
-  Heading,
-  Media,
-  Row,
-  Section,
-  Split,
-  Stack,
-  Text,
-} from '@/components/ui';
+import { Banner, Section } from '@/components/ui';
 import type { HeroProps } from '@/cms/schemas';
 import { resolveActions } from '@/lib/actions';
 import { getSiteSettings } from '@/lib/site';
+import HeroWords from './HeroWords.astro';
 
 type Props = HeroProps;
 
-const { notice, headline, subheadline, primaryCta, secondaryCta, image, imageAlt, size } =
-  Astro.props;
+const { notice, headline, subheadline, primaryCta, secondaryCta, image, size } = Astro.props;
 const site = await getSiteSettings();
-const actions = resolveActions([primaryCta, secondaryCta], site.whatsappNumber);
-const full = size === 'full';
-// Text beside the photo when there is one; text alone across the page otherwise.
-const Layout = image ? Split : Fragment;
-// A full-screen hero needs its photo; without one the page rhythm keeps the first screen from looking empty.
-const space = !full ? 'compact' : image ? 'hero' : 'default';
+const words = {
+  notice,
+  headline,
+  subheadline,
+  actions: resolveActions([primaryCta, secondaryCta], site.whatsappNumber),
+  full: size === 'full',
+  onPhoto: Boolean(image),
+};
 ---
 
-<Section tone="aurora" space={space}>
-  <Container>
-    <Layout>
-      <Stack gap="lg">
-        <Stack>
-          {notice && <Badge tone="brand">{notice}</Badge>}
-          <Heading as="h1" size={full ? 'display' : 'h1'}>
-            {headline}
-          </Heading>
-          {subheadline && <Text size="lead">{subheadline}</Text>}
-        </Stack>
-        {actions.length > 0 && (
-          <Row>
-            {actions.map((action, index) => (
-              <Button
-                href={action.href}
-                intent={index === 0 ? 'primary' : 'secondary'}
-                size={full ? 'lg' : 'md'}
-              >
-                {action.label}
-              </Button>
-            ))}
-          </Row>
-        )}
-      </Stack>
-      {image && <Media src={image} alt={imageAlt} loading="eager" />}
-    </Layout>
-  </Container>
-</Section>
+{image ? (
+  <Banner image={image} size={words.full ? 'full' : 'compact'}>
+    <HeroWords {...words} />
+  </Banner>
+) : (
+  <Section tone="aurora" space="compact" reveal={false}>
+    <HeroWords {...words} />
+  </Section>
+)}

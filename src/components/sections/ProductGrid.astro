@@ -5,7 +5,7 @@ import {
   Container,
   Grid,
   Heading,
-  ProductCard,
+  ProductTile,
   Row,
   Section,
   Stack,
@@ -17,6 +17,7 @@ import { getPublishedProducts } from '@/lib/products';
 import { CUSTOM_ORDER_PATH, getSiteSettings } from '@/lib/site';
 import { orderMessage, whatsappLink } from '@/lib/whatsapp';
 import { resolveLink } from '@/lib/actions';
+import { mosaicLayout } from '@/lib/mosaic';
 
 type Props = ProductGridProps;
 
@@ -66,14 +67,15 @@ const cardProps = (product: (typeof products)[number]) => {
         </nav>
       )}
       {products.length === 0 && <Text>New bakes are coming soon. Check back shortly.</Text>}
-      {groups.map((group) => (
-        <div id={grouped ? group.category : undefined}>
+      {groups.map((group, groupIndex) => (
+        <div id={grouped ? group.category : undefined} class="w-full">
           <Stack>
             {group.label && <Heading as={heading ? 'h3' : 'h2'}>{group.label}</Heading>}
-            <Grid>
-              {group.products.map((product) => (
-                <ProductCard
+            <Grid columns="mosaic" stagger>
+              {group.products.map((product, index) => (
+                <ProductTile
                   {...cardProps(product)}
+                  {...mosaicLayout(group.products.length, groupIndex)[index]}
                   headingLevel={heading || group.label ? 'h3' : 'h2'}
                 />
               ))}

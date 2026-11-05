@@ -33,10 +33,15 @@ Use "must" for hard rules and "should" for defaults.
 - There must be exactly one filled button (`intent="primary"`) per view, for the main action: order, or send on WhatsApp. Everything else is `secondary`. No third button style, no gradient, ghost or shadowed buttons.
 - Pink must never be used for body text. A pink mark should take less than 3% of a screen.
 - Gradients: `bg-aurora` only on the hero (`Section tone="aurora"`), and `bg-aurora-band` only on one brand band per page (`Section tone="band"`). Never put a gradient over a photograph.
-- No shadows, blur, glass or glow. Surfaces separate by ground and a 1px hairline.
+- No shadows or glow. Surfaces separate by ground and a 1px hairline. Frosted glass (`tone="glass"`, `intent="glass"`) is used only on photographs.
 - Headlines use the display face at weight 400. Size and tracking carry them, never bold. Text uses 400 and 500 only.
 - Write in sentence case everywhere. No tracked capitals. Nothing under 13px. Reading text is 16px or more, at most 62 characters a line.
-- Hover layer: a linked card lifts 2px, a product photo zooms 1.03 inside its frame, buttons step up 1px and press down. No tilt, parallax, carousels or scroll-triggered reveals.
+- Motion is medium, on one curve (`ease-soft`):
+  - The hero words rise in one after another, and the hero photo settles from 112% to 100%.
+  - Sections rise in as they scroll into view (`Section` sets `data-reveal`), and grid children follow in turn (`Grid stagger`).
+  - A product tile lifts 4px, its photo zooms to 106% and its arrow turns. Buttons step up 1px and press down.
+  - The product sheet slides up.
+  - There is no tilt, parallax or carousel. Everything rests under `prefers-reduced-motion`, and nothing is hidden when JS is off: reveals apply only under `html.js`.
 - Never violet or lavender (OKLCH hue 270 to 330). Brand blue sits at hue 262.
 - No dark mode. The skill keeps dark grounds for tech sites.
 
@@ -54,13 +59,23 @@ Use "must" for hard rules and "should" for defaults.
 
 Two neighbouring sections should not share a ground.
 
+## Photographs, banner and product tiles
+
+- **Hero with an image:** a full-bleed photo banner (`Banner`) with the side scrim (`bg-scrim-side`) and light words (`tone="inverse"`). The secondary button and the notice use glass. Without an image, the hero falls back to the aurora.
+- **Products are vertical photo tiles in a mosaic** (`Grid columns="mosaic"`). Shapes come from `mosaicLayout()` in `src/lib/mosaic.ts`:
+  - The first product is a 2x2 feature, with tall or small tiles beside it, so every row is full at 4 columns (desktop) and 2 (tablet).
+  - Every second group of three mirrors, so categories alternate.
+- **Tile content:** the photo is the card. The name and short labels sit on the bottom scrim (`bg-scrim-bottom`).
+- **The product sheet:** tapping a tile opens it (`ProductSheet`, a native `<dialog>`). It holds the photo, the summary, the size, flavour and egg pickers, and "Order this bake". It's a bottom sheet on phones, with the order button pinned to its foot, and a two-column panel from tablet up.
+- **Stand-in photos:** files live in `public/images/products/` and `public/images/hero/`, and their credits in `src/data/photo-credits.json`. Replace a file, then delete its credit.
+
 ## The main action and the shell
 
 - **The main action is "Order on WhatsApp".** It comes from `mainAction()` in `src/lib/actions.ts` and reads the same, word for word, in the header button, the phone bar, the footer close and the home hero.
   - Until a WhatsApp number is set in Site settings, it falls back to "See the menu".
   - Until then, the header button and the phone bar are hidden.
 - **Editors can open WhatsApp from any CMS link** by typing `whatsapp` as the link URL.
-- **Product cards say "Order this bake"** in the secondary look, so the one filled button stays the main action.
+- **The product sheet says "Order this bake".** It is a different action from "Order on WhatsApp", so the main action keeps one look.
   - The card's size, flavour and egg pickers go into the WhatsApp message.
   - Before the number is set, the options show as text, not pickers.
 - **Header:** sticky, opaque, with a hairline.
