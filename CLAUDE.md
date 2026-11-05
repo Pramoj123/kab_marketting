@@ -33,6 +33,21 @@ Conventions (names, styles, reuse, commits, branches): `docs/conventions.md`. Ex
 
 `/new-branch`, `/commit`, `/new-component`, `/new-section`, `/new-page`, `/reuse-audit`, `/seo-check`, `/conventions`. The `reviewer` agent checks a change before a pull request.
 
+## Design skills
+
+Third-party design skills live in `.agents/skills/` and are symlinked into `.claude/skills/`. `.agents/` is git-ignored (about 38 MB); `skills-lock.json` records their sources so they can be reinstalled.
+
+- `design-taste-frontend` (tasteskill): load it before any visual, layout, section or copy work on public pages.
+- `claude`: editorial restraint (ivory ground, near-black ink, emphasis by type, not colour) and the structure for writing design guidance.
+
+The theme and its rules: `docs/design-system.md`. Overrides that win over the skills in this repo:
+
+- Take the skills' rules, never their kit. Do not copy `assets/`, `system.css`, `system.js` or `starter.html` into the project. Translate a rule into a token in `src/styles/global.css` or a variant in `src/components/ui/*.variants.ts`.
+- Site kind is **product, site-kind other** (an online-only home bakery): photographs lead, flat grounds, no shader effects, scenes, moments, card loops or dark grounds.
+- One deliberate exception: the aurora gradient (`bg-aurora`, `bg-aurora-band`), only in the hero and in one brand band per page.
+- Fonts are Instrument Serif and Instrument Sans through the Astro Fonts API. Never use the Anthropic fonts or branding named in the `claude` skill.
+- The skills' browser checkers (`consistency.mjs`, `check.mjs`, `shoot.mjs`) need Chrome, which this container does not have. Ask before adding it.
+
 ## Definition of done
 
 `pnpm verify` passes and the change has been viewed in the running site.
