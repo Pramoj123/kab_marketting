@@ -1,4 +1,5 @@
 export { default as ActionBar } from './ActionBar.astro';
+export { default as Aside } from './Aside.astro';
 export { default as Badge } from './Badge.astro';
 export { default as Banner } from './Banner.astro';
 export { default as Button } from './Button.astro';
@@ -15,6 +16,7 @@ export { default as Logo } from './Logo.astro';
 export { default as Media } from './Media.astro';
 export { default as MenuSheet } from './MenuSheet.astro';
 export { default as NavLink } from './NavLink.astro';
+export { default as Panel } from './Panel.astro';
 export { default as ProductSheet } from './ProductSheet.astro';
 export { default as ProductTile } from './ProductTile.astro';
 export { default as Row } from './Row.astro';

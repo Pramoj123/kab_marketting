@@ -1,5 +1,6 @@
 ---
-import { Button, Container, Heading, Section, Stack, Text } from '@/components/ui';
+import { Banner } from '@/components/ui';
+import HeroWords from '@/components/sections/HeroWords.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { buildSeo } from '@/lib/seo';
 import { getSiteSettings } from '@/lib/site';
@@ -19,13 +20,17 @@ const seo = buildSeo({
 ---
 
 <BaseLayout seo={seo} siteName={site.siteName} path="/404/">
-  <Section>
-    <Container>
-      <Stack>
-        <Heading as="h1">Page not found</Heading>
-        <Text>The page you are looking for does not exist.</Text>
-        <Button href="/">Back to home</Button>
-      </Stack>
-    </Container>
-  </Section>
+  <Banner image="/images/hero/brownie-chunks.jpg" size="full">
+    <HeroWords
+      notice="Error 404"
+      headline="This page is not on the menu"
+      subheadline="The link may be old or mistyped. Everything we bake is one tap away."
+      actions={[
+        { label: 'See the menu', href: '/menu/' },
+        { label: 'Back to home', href: '/' },
+      ]}
+      full={false}
+      onPhoto
+    />
+  </Banner>
 </BaseLayout>

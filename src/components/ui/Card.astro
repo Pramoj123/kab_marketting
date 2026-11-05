@@ -5,9 +5,9 @@ interface Props extends CardVariants {
   class?: string;
 }
 
-const { interactive, class: className } = Astro.props;
+const { interactive, size, class: className } = Astro.props;
 ---
 
-<div class={card({ interactive, class: className })}>
+<div class={card({ interactive, size, class: className })}>
   <slot />
 </div>

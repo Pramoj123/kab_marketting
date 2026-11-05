@@ -8,7 +8,13 @@ export const card = tv({
     interactive: {
       true: 'transition hover:-translate-y-0.5 hover:border-line-strong',
     },
+    // lg: the raised form card, rounded like the product tiles.
+    size: {
+      md: '',
+      lg: 'rounded-tile border-0 p-6 ring-1 ring-line sm:p-10',
+    },
   },
+  defaultVariants: { size: 'md' },
 });
 
 export const media = tv({

@@ -1,5 +1,5 @@
 ---
-import { Button, Container, Heading, Row, Section, Stack, Text } from '@/components/ui';
+import { Button, Container, Heading, Panel, Row, Section, Stack, Text } from '@/components/ui';
 import type { ContactProps } from '@/cms/schemas';
 import { ENQUIRY_MESSAGE, instagramProfile } from '@/lib/contact';
 import { getSiteSettings } from '@/lib/site';
@@ -15,22 +15,34 @@ const instagram = instagramProfile(site.socialProfiles);
 
 <Section>
   <Container>
-    <Stack gap="lg">
-      <Heading>{heading}</Heading>
-      {intro && <Text size="lead">{intro}</Text>}
-      <Row>
-        {whatsapp && (
-          <Button href={whatsapp} intent="secondary" size="lg">
-            Message us on WhatsApp
-          </Button>
+    <Panel>
+      <Stack gap="lg">
+        <Heading tone="inverse">{heading}</Heading>
+        {intro && (
+          <Text size="lead" tone="inverse">
+            {intro}
+          </Text>
         )}
-        {instagram && (
-          <Button href={instagram} intent="secondary" size="lg">
-            Follow on Instagram
-          </Button>
+        {(whatsapp || instagram) && (
+          <Row>
+            {whatsapp && (
+              <Button href={whatsapp} size="lg">
+                Message us on WhatsApp
+              </Button>
+            )}
+            {instagram && (
+              <Button href={instagram} intent="glass" size="lg">
+                Follow on Instagram
+              </Button>
+            )}
+          </Row>
         )}
-      </Row>
-      {hours && <Text size="small">{hours}</Text>}
-    </Stack>
+        {hours && (
+          <Text size="small" tone="inverse">
+            {hours}
+          </Text>
+        )}
+      </Stack>
+    </Panel>
   </Container>
 </Section>

@@ -85,7 +85,7 @@ test('description falls back to the hero subheadline', () => {
 test('FAQ blocks produce FAQPage structured data', () => {
   const faq = {
     discriminant: 'faq' as const,
-    value: { heading: 'FAQ', items: [{ question: 'Q?', answer: 'A.' }] },
+    value: { heading: 'FAQ', intro: '', items: [{ question: 'Q?', answer: 'A.' }] },
   };
   const page = { title: 'About', seo: emptySeo, blocks: [faq] };
   assert.ok(buildSeo(input({ page })).jsonLd.some((entry) => entry['@type'] === 'FAQPage'));

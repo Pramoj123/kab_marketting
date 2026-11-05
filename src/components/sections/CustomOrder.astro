@@ -1,82 +1,100 @@
 ---
 import {
+  Aside,
   Button,
+  Card,
   Container,
   Field,
   Fieldset,
   Grid,
   Heading,
+  Panel,
   Section,
   Stack,
   Text,
 } from '@/components/ui';
 import type { CustomOrderProps } from '@/cms/schemas';
 import { CUSTOM_ORDER_TYPES } from '@/cms/product-options';
+import { ENQUIRY_MESSAGE } from '@/lib/contact';
 import { CUSTOM_ORDER_FORM_ID, getSiteSettings } from '@/lib/site';
+import { whatsappLink } from '@/lib/whatsapp';
 
 type Props = CustomOrderProps;
 
 const { heading, intro, note } = Astro.props;
 const site = await getSiteSettings();
+const chat = whatsappLink(site.whatsappNumber, ENQUIRY_MESSAGE);
 ---
 
 <Section id={CUSTOM_ORDER_FORM_ID}>
   <Container>
-    <Stack gap="lg" width="narrow">
-      <Stack>
+    <Aside>
+      <Fragment slot="side">
         <Heading>{heading}</Heading>
         {intro && <Text size="lead">{intro}</Text>}
-      </Stack>
-      <form data-custom-order data-phone={site.whatsappNumber} novalidate class="w-full">
-        <Stack gap="lg">
-          <Fieldset legend="Your order">
-            <Grid columns={2}>
-              <Field
-                name="product"
-                label="What would you like?"
-                kind="select"
-                options={CUSTOM_ORDER_TYPES}
-                required
-                errorMessage="Choose what you would like us to make."
-              />
-              <Field
-                name="date"
-                label="Needed on"
-                kind="date"
-                required
-                hint="Most bakes need a day's notice, bento cakes two days."
-                errorMessage="Choose a date from tomorrow onwards."
-              />
-              <Field name="flavour" label="Flavour" />
-              <Field
-                name="size"
-                label="Size or quantity"
-                placeholder="Box of 6, 1 cake, 40 boxes"
-              />
-            </Grid>
-          </Fieldset>
-          <Fieldset legend="Occasion and message">
-            <Grid columns={2}>
-              <Field name="name" label="Your name" />
-              <Field
-                name="occasion"
-                label="Occasion"
-                placeholder="Birthday, anniversary, office party"
-              />
-            </Grid>
-            <Field name="message" label="Message on the cake or card" kind="textarea" />
-            <Field name="notes" label="Anything else we should know" kind="textarea" />
-          </Fieldset>
-          <Stack gap="sm">
-            <Button type="submit" size="lg">
-              Send on WhatsApp
-            </Button>
-            {note && <Text size="small">{note}</Text>}
-            <div role="status" aria-live="polite" data-status class="text-small text-ink"></div>
+        {note && <Text tone="muted">{note}</Text>}
+        {chat && (
+          <Panel size="sm">
+            <Stack>
+              <Text tone="inverse">Prefer to talk it through first?</Text>
+              <Button href={chat} intent="glass">
+                Message us on WhatsApp
+              </Button>
+            </Stack>
+          </Panel>
+        )}
+      </Fragment>
+      <Card size="lg">
+        <form data-custom-order data-phone={site.whatsappNumber} novalidate class="w-full">
+          <Stack gap="lg">
+            <Fieldset legend="Your order">
+              <Grid columns={2}>
+                <Field
+                  name="product"
+                  label="What would you like?"
+                  kind="select"
+                  options={CUSTOM_ORDER_TYPES}
+                  required
+                  errorMessage="Choose what you would like us to make."
+                />
+                <Field
+                  name="date"
+                  label="Needed on"
+                  kind="date"
+                  required
+                  hint="Most bakes need a day's notice, bento cakes two days."
+                  errorMessage="Choose a date from tomorrow onwards."
+                />
+                <Field name="flavour" label="Flavour" />
+                <Field
+                  name="size"
+                  label="Size or quantity"
+                  placeholder="Box of 6, 1 cake, 40 boxes"
+                />
+              </Grid>
+            </Fieldset>
+            <Fieldset legend="Occasion and message">
+              <Grid columns={2}>
+                <Field name="name" label="Your name" />
+                <Field
+                  name="occasion"
+                  label="Occasion"
+                  placeholder="Birthday, anniversary, office party"
+                />
+              </Grid>
+              <Field name="message" label="Message on the cake or card" kind="textarea" />
+              <Field name="notes" label="Anything else we should know" kind="textarea" />
+            </Fieldset>
+            <Stack gap="sm">
+              <Button type="submit" size="lg">
+                Send on WhatsApp
+              </Button>
+              <div role="status" aria-live="polite" data-status class="text-small text-ink"></div>
+            </Stack>
           </Stack>
-        </Stack>
-      </form>
-    </Stack>
+        </form>
+      </Card>
+    </Aside>
   </Container>
 </Section>
 

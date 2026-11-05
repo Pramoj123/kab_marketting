@@ -3,15 +3,23 @@ import { definitionList } from './list.variants';
 
 interface Props {
   items: { term: string; detail: string }[];
+  /** Raised cards with a number each (the FAQ). */
+  numbered?: boolean;
+  /** Rows rise in one after another as the list scrolls into view. */
+  stagger?: boolean;
 }
 
-const { items } = Astro.props;
-const { root, row, term, detail } = definitionList();
+const { items, numbered = false, stagger = false } = Astro.props;
+const { root, row, index, term, detail } = definitionList({ numbered });
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<dl class={root()}>
-  {items.map((item) => (
+<dl class={root()} data-stagger={stagger ? '' : undefined}>
+  {items.map((item, position) => (
     <div class={row()}>
+      <span class={index()} aria-hidden="true">
+        {pad(position + 1)}
+      </span>
       <dt class={term()}>{item.term}</dt>
       <dd class={detail()}>{item.detail}</dd>
     </div>

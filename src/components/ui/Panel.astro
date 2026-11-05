@@ -1,0 +1,13 @@
+---
+import { panel, type PanelVariants } from './layout.variants';
+
+interface Props extends PanelVariants {
+  class?: string;
+}
+
+const { size, class: className } = Astro.props;
+---
+
+<div class={panel({ size, class: className })}>
+  <slot />
+</div>

@@ -87,7 +87,10 @@ Two neighbouring sections should not share a ground.
   - One height (48px) for every md and lg button; sm (40px) for the header and inside cards.
   - On phones every md and lg button runs the full column width.
 - **Narrow content** (forms, FAQ) uses `Stack width="narrow"`, left-aligned on the page edge, never a centred column.
-- **FAQs are open in full.** No accordion.
+- **FAQs are open in full**, with no accordion. They sit in the two-column `Aside` layout: the heading and intro stay in view on the left, and the questions are numbered raised cards on the right (`DefinitionList numbered`).
+- **The custom order form** uses the same `Aside` layout: the intro, the note and a small dark "prefer to chat" `Panel` on the left, and the form in a raised card (`Card size="lg"`) on the right.
+- **Contact** is a dark `Panel` (ink ground with drifting glows) inside the page width.
+- **The 404 page** is a photo banner with "See the menu" and "Back to home".
 - **Required fields:** form errors show under the field in `text-danger` with `aria-invalid="true"`, and focus moves to the first error. Optional fields say "(optional)".
 
 ## QA checklist

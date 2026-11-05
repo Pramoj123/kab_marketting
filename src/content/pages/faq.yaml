@@ -22,12 +22,13 @@ blocks:
       secondaryCta:
         label: ''
         href: ''
-      image: null
+      image: "/images/products/double-chocolate-mini-cookies.jpg"
       imageAlt: ''
       size: "compact"
   - discriminant: "faq"
     value:
       heading: "Questions about ordering"
+      intro: "The questions people ask most before they order. Every order is confirmed with you on WhatsApp before we bake."
       items:
         - question: "How do I order?"
           answer: "Choose a size and flavour on the menu, then tap Order this bake. For custom cakes, gift boxes and bulk orders, fill in the custom order form and send it to us on WhatsApp."

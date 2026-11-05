@@ -90,3 +90,27 @@ export const banner = tv({
 });
 
 export type BannerVariants = VariantProps<typeof banner>;
+
+// Two columns from desktop: a narrower side (heading, notes) that stays in view while the main
+// column (questions, a form) scrolls. Stacks side first on smaller screens.
+export const aside = tv({
+  slots: {
+    root: 'grid w-full gap-10 lg:grid-cols-5 lg:gap-16',
+    side: 'flex flex-col gap-6 lg:sticky lg:top-28 lg:col-span-2 lg:self-start',
+    main: 'min-w-0 lg:col-span-3',
+  },
+});
+
+// The dark panel: a rounded block on the ink ground with drifting glows, inside the page width.
+export const panel = tv({
+  base: 'relative isolate animate-drift overflow-hidden rounded-tile bg-aurora-ink px-6 py-12 text-on-brand sm:px-12 sm:py-16',
+  variants: {
+    size: {
+      sm: 'px-6 py-8 sm:px-8 sm:py-8',
+      lg: '',
+    },
+  },
+  defaultVariants: { size: 'lg' },
+});
+
+export type PanelVariants = VariantProps<typeof panel>;

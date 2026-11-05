@@ -103,6 +103,7 @@ export const pageBlocks = fields.blocks(
       itemLabel: (props) => props.fields.heading.value || 'FAQ',
       schema: fields.object({
         heading: fields.text({ label: 'Heading' }),
+        intro: fields.text({ label: 'Intro', multiline: true }),
         items: fields.array(
           fields.object({
             question: fields.text({ label: 'Question' }),

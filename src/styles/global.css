@@ -234,6 +234,11 @@
 }
 
 @layer base {
+  :root {
+    /* Numbered rows (the FAQ): the number column, then the content. */
+    --grid-numbered: auto 1fr;
+  }
+
   html {
     color-scheme: light;
     scroll-behavior: smooth;

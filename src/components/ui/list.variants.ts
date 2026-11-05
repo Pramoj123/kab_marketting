@@ -29,9 +29,21 @@ export const definitionList = tv({
   slots: {
     root: 'flex flex-col',
     row: 'flex flex-col gap-2 border-b border-line py-6 first:pt-0',
+    index: 'hidden',
     term: 'font-display text-h3 text-ink',
     detail: 'max-w-measure text-ink-muted',
   },
+  variants: {
+    // numbered: each pair is a raised card with its number in pink, like the FAQ.
+    numbered: {
+      true: {
+        root: 'gap-4',
+        row: 'grid grid-cols-1 gap-x-6 gap-y-2 rounded-tile border-0 bg-surface-raised p-6 ring-1 ring-line transition duration-500 first:pt-6 hover:-translate-y-0.5 hover:ring-line-strong sm:grid-cols-(--grid-numbered) sm:p-8',
+        index: 'block font-display text-h2 text-accent-600 sm:row-span-2',
+      },
+    },
+  },
+  defaultVariants: { numbered: false },
 });
 
 export type StepListVariants = VariantProps<typeof stepList>;

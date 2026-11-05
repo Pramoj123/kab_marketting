@@ -54,6 +54,7 @@ const ctaSchema = z.object({ heading: z.string(), body: text, cta: linkSchema, .
 
 const faqSchema = z.object({
   heading: z.string(),
+  intro: text,
   items: z.array(z.object({ question: z.string(), answer: text })).default([]),
 });
 

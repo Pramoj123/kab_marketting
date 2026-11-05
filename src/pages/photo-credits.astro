@@ -1,6 +1,6 @@
 ---
 // Credits for the stand-in photographs from Wikimedia Commons. Remove each line as your own photos replace them.
-import { Container, Heading, Section, Stack, Text, TextLink } from '@/components/ui';
+import { Card, Container, Heading, Section, Stack, Text, TextLink } from '@/components/ui';
 import credits from '@/data/photo-credits.json';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { buildSeo } from '@/lib/seo';
@@ -27,11 +27,19 @@ const seo = buildSeo({
 ---
 
 <BaseLayout seo={seo} siteName={site.siteName} path={path}>
-  <Section space="compact" reveal={false}>
+  <Section tone="aurora" space="compact" reveal={false}>
     <Container>
-      <Stack gap="lg" width="narrow">
+      <Stack gap="lg" data-hero-words>
         <Heading as="h1">Photo credits</Heading>
-        <Text>Photographs from Wikimedia Commons, used under the licences named below.</Text>
+        <Text size="lead">
+          Photographs from Wikimedia Commons, used under the licences named below.
+        </Text>
+      </Stack>
+    </Container>
+  </Section>
+  <Section>
+    <Container>
+      <Card size="lg">
         <Stack>
           {credits.map((credit) => (
             <Text size="small">
@@ -40,7 +48,7 @@ const seo = buildSeo({
             </Text>
           ))}
         </Stack>
-      </Stack>
+      </Card>
     </Container>
   </Section>
 </BaseLayout>

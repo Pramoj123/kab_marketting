@@ -1,0 +1,14 @@
+---
+import { aside } from './layout.variants';
+
+const { root, side, main } = aside();
+---
+
+<div class={root()}>
+  <div class={side()}>
+    <slot name="side" />
+  </div>
+  <div class={main()}>
+    <slot />
+  </div>
+</div>
