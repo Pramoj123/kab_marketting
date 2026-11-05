@@ -10,7 +10,14 @@ export const imageField = (label: string) =>
 
 export const linkField = (label: string) =>
   fields.object(
-    { label: fields.text({ label: 'Label' }), href: fields.text({ label: 'URL or path' }) },
+    {
+      label: fields.text({ label: 'Label' }),
+      href: fields.text({
+        label: 'URL or path',
+        description:
+          'A path like /menu/, a full URL, or whatsapp to open WhatsApp with an order message.',
+      }),
+    },
     { label },
   );
 
@@ -72,3 +79,21 @@ export const navigationField = () =>
     },
     { label: 'Menus' },
   );
+
+/** A heading, an intro and a list of titled items. Used by Features and Steps. */
+export const headedItemsField = (itemsLabel: string, max?: number) =>
+  fields.object({
+    heading: fields.text({ label: 'Heading' }),
+    intro: fields.text({ label: 'Intro', multiline: true }),
+    items: fields.array(
+      fields.object({
+        title: fields.text({ label: 'Title' }),
+        description: fields.text({ label: 'Description', multiline: true }),
+      }),
+      {
+        label: itemsLabel,
+        itemLabel: (props) => props.fields.title.value,
+        ...(max ? { validation: { length: { max } } } : {}),
+      },
+    ),
+  });

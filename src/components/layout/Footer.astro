@@ -1,6 +1,9 @@
 ---
-import { Container, NavLink, Row, Stack, Text } from '@/components/ui';
-import { getFooterNavigation } from '@/lib/navigation';
+import { ActionBar, Button, Container, Heading, NavLink, Text } from '@/components/ui';
+import { footer } from '@/components/ui/shell.variants';
+import { MAIN_ACTION_LABEL, mainAction } from '@/lib/actions';
+import { instagramProfile } from '@/lib/contact';
+import { getFooterNavigation, getPrimaryNavigation } from '@/lib/navigation';
 import { getSiteSettings } from '@/lib/site';
 
 interface Props {
@@ -9,26 +12,44 @@ interface Props {
 
 const { siteName } = Astro.props;
 const year = new Date().getFullYear();
-const items = await getFooterNavigation();
-const site = await getSiteSettings();
+const [categories, help, site] = await Promise.all([
+  getFooterNavigation(),
+  getPrimaryNavigation(),
+  getSiteSettings(),
+]);
+const action = mainAction(site.whatsappNumber);
+const instagram = instagramProfile(site.socialProfiles);
+const columns = [
+  { title: 'Menu', links: categories },
+  { title: 'Help', links: help },
+  { title: 'Follow', links: instagram ? [{ label: 'Instagram', href: instagram }] : [] },
+].filter((column) => column.links.length > 0);
+const styles = footer();
+const ordersOpen = action.label === MAIN_ACTION_LABEL;
 ---
 
-<footer class="border-t border-line bg-mist">
-  <Container class="py-8">
-    <Stack gap="lg">
-      {items.length > 0 && (
-        <nav aria-label="Footer">
-          <Row gap="lg">
-            {items.map((item) => (
-              <NavLink href={item.href}>{item.label}</NavLink>
-            ))}
-          </Row>
+<footer class={styles.root()}>
+  <Container>
+    <div class={styles.close()}>
+      <Heading>Homemade bakes, delivered across Chennai</Heading>
+      <Button href={action.href} size="lg">
+        {action.label}
+      </Button>
+    </div>
+    <div class={styles.columns()}>
+      {columns.map((column) => (
+        <nav aria-label={column.title} class={styles.column()}>
+          <p class={styles.title()}>{column.title}</p>
+          {column.links.map((link) => (
+            <NavLink href={link.href}>{link.label}</NavLink>
+          ))}
         </nav>
-      )}
+      ))}
+    </div>
+    <div class={styles.legal()}>
       {site.allergenNotice && <Text size="small">{site.allergenNotice}</Text>}
-      <Text size="small">
-        © {year} {siteName}
-      </Text>
-    </Stack>
+      <Text size="small" measure={false}>{`© ${year} ${siteName}`}</Text>
+    </div>
   </Container>
 </footer>
+{ordersOpen && <ActionBar action={action} />}

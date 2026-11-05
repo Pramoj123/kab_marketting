@@ -18,7 +18,12 @@ export function whatsappLink(number: string, message: string) {
   return phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : null;
 }
 
-export const orderMessage = (productName: string) => `Hi! I'd like to order the ${productName}`;
+/** "Hi! I'd like to order the Brownie Box: Box of 6, Nutella". Blank choices are left out. */
+export function orderMessage(productName: string, choices: readonly string[] = []) {
+  const picked = choices.map((choice) => choice.trim()).filter(Boolean);
+  const base = `Hi! I'd like to order the ${productName}`;
+  return picked.length > 0 ? `${base}: ${picked.join(', ')}` : base;
+}
 
 export interface CustomOrderBrief {
   name?: string;

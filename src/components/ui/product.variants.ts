@@ -10,7 +10,7 @@ export const productCard = tv({
     body: 'flex flex-1 flex-col gap-3 p-6',
     tags: 'flex flex-wrap gap-2',
     detailLabel: 'font-medium text-ink',
-    actions: 'mt-auto flex flex-wrap gap-2 pt-2',
+    actions: 'mt-auto flex flex-col items-start gap-3 pt-2',
   },
   variants: {
     unavailable: {

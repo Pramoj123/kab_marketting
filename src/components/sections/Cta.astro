@@ -9,7 +9,7 @@ const { heading, body, cta } = Astro.props;
 
 <Section tone="band">
   <Container>
-    <Stack align="center" gap="lg">
+    <Stack gap="lg">
       <Heading>{heading}</Heading>
       {body && <Text size="lead">{body}</Text>}
       {cta.label && cta.href && (

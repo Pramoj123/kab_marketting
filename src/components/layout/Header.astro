@@ -1,6 +1,9 @@
 ---
-import { Container, NavLink, Row } from '@/components/ui';
-import { getPrimaryNavigation } from '@/lib/navigation';
+import { Button, Container, Logo, MenuSheet, NavLink } from '@/components/ui';
+import { shell } from '@/components/ui/shell.variants';
+import { MAIN_ACTION_LABEL, mainAction } from '@/lib/actions';
+import { getFooterNavigation, getPrimaryNavigation } from '@/lib/navigation';
+import { getSiteSettings } from '@/lib/site';
 
 interface Props {
   siteName: string;
@@ -8,24 +11,45 @@ interface Props {
 }
 
 const { siteName, currentPath } = Astro.props;
-const items = await getPrimaryNavigation();
+const [primary, secondary, site] = await Promise.all([
+  getPrimaryNavigation(),
+  getFooterNavigation(),
+  getSiteSettings(),
+]);
+const main = mainAction(site.whatsappNumber);
+// The order button and phone bar appear once WhatsApp ordering is switched on.
+const action = main.label === MAIN_ACTION_LABEL ? main : null;
+const styles = shell();
 ---
 
-<header class="border-b border-line bg-surface">
+<a href="#main" class={styles.skip()}>
+  Skip to content
+</a>
+<header class={styles.header()}>
   <Container>
-    <Row justify="between" class="min-h-nav py-2">
-      <NavLink href="/" current={currentPath === '/'}>
-        {siteName}
-      </NavLink>
-      <nav aria-label="Primary">
-        <Row gap="lg">
-          {items.map((item) => (
-            <NavLink href={item.href} current={currentPath === item.href}>
-              {item.label}
-            </NavLink>
-          ))}
-        </Row>
+    <div class={styles.bar()}>
+      <Logo siteName={siteName} />
+      <nav aria-label="Primary" class={styles.nav()}>
+        {primary.map((item) => (
+          <NavLink href={item.href} current={currentPath === item.href}>
+            {item.label}
+          </NavLink>
+        ))}
       </nav>
-    </Row>
+      <div class={styles.end()}>
+        {action && (
+          <Button href={action.href} size="sm" class={styles.headerAction()}>
+            {action.label}
+          </Button>
+        )}
+        <MenuSheet
+          siteName={siteName}
+          primary={primary}
+          secondary={secondary}
+          secondaryLabel="Menu by category"
+          action={action}
+        />
+      </div>
+    </div>
   </Container>
 </header>

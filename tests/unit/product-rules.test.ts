@@ -3,6 +3,7 @@ import { test } from 'node:test';
 import {
   categoryLabel,
   describeProduct,
+  productChoices,
   formatLeadTime,
   groupByCategory,
   isOrderable,
@@ -91,8 +92,29 @@ test('describes a product for its card', () => {
     { label: 'Eggless', tone: 'neutral' },
     { label: 'Order 2 days ahead', tone: 'brand' },
   ]);
-  assert.deepEqual(card.details, [{ label: 'Flavours', value: 'Biscoff, Nutella' }]);
+  assert.deepEqual(card.pickers, [
+    { name: 'flavour', label: 'Flavour', options: ['Biscoff', 'Nutella'] },
+  ]);
+  assert.deepEqual(card.details, []);
   assert.equal(card.statusLabel, '');
+});
+
+test('two or more options become a picker, one option a detail line', () => {
+  const choices = productChoices({
+    sizes: ['Box of 6'],
+    flavours: ['Fudge', 'Walnut'],
+    diet: 'both',
+  });
+  assert.deepEqual(
+    choices.pickers.map((picker) => picker.name),
+    ['flavour', 'diet'],
+  );
+  assert.deepEqual(choices.pickers[1].options, ['Eggless', 'With egg']);
+  assert.deepEqual(choices.details, [{ label: 'Size', value: 'Box of 6' }]);
+  assert.deepEqual(productChoices({ sizes: [], flavours: [], diet: 'egg' }), {
+    pickers: [],
+    details: [],
+  });
 });
 
 test('status label for unavailable products includes the note', () => {

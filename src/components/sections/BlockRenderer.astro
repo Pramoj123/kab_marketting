@@ -8,6 +8,7 @@ import Faq from './Faq.astro';
 import Features from './Features.astro';
 import Hero from './Hero.astro';
 import ProductGrid from './ProductGrid.astro';
+import Steps from './Steps.astro';
 
 interface Props {
   blocks: Block[];
@@ -32,5 +33,7 @@ const { blocks } = Astro.props;
       return <Cta {...block.value} />;
     case 'faq':
       return <Faq {...block.value} />;
+    case 'steps':
+      return <Steps {...block.value} />;
   }
 })}

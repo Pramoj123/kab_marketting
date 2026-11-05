@@ -14,7 +14,7 @@ const { heading, intro, items } = Astro.props;
         <Heading>{heading}</Heading>
         {intro && <Text size="lead">{intro}</Text>}
       </Stack>
-      <Grid>
+      <Grid columns="row">
         {items.map((item) => (
           <Card>
             <Stack gap="sm">

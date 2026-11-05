@@ -1,0 +1,13 @@
+---
+import { chip } from './badge.variants';
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<a href={href} class={chip()}>
+  <slot />
+</a>

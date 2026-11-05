@@ -1,21 +1,19 @@
 ---
-import { Container, Disclosure, Heading, Section, Stack } from '@/components/ui';
+import { Container, DefinitionList, Heading, Section, Stack } from '@/components/ui';
 import type { FaqProps } from '@/cms/schemas';
 
 type Props = FaqProps;
 
 const { heading, items } = Astro.props;
+// Answers are shown in full: people scan them, and nothing is hidden behind a click.
+const rows = items.map((item) => ({ term: item.question, detail: item.answer }));
 ---
 
 <Section tone="blush">
-  <Container width="narrow">
-    <Stack gap="lg">
+  <Container>
+    <Stack gap="lg" width="narrow">
       <Heading>{heading}</Heading>
-      <Stack>
-        {items.map((item) => (
-          <Disclosure summary={item.question}>{item.answer}</Disclosure>
-        ))}
-      </Stack>
+      <DefinitionList items={rows} />
     </Stack>
   </Container>
 </Section>

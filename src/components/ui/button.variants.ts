@@ -12,10 +12,18 @@ export const button = tv({
     size: {
       sm: 'h-control-sm px-5 text-small',
       md: 'h-control px-6 text-body',
-      lg: 'h-control-lg px-8 text-body',
+      // Same height as md: one height per button style across the site. Wider for hero and close.
+      lg: 'h-control px-8 text-body',
+    },
+    // Phones: every button runs the full column width. block keeps it full width everywhere.
+    block: {
+      true: 'w-full',
+      false: 'w-full sm:w-auto',
     },
   },
-  defaultVariants: { intent: 'primary', size: 'md' },
+  // Small buttons (header, menu sheet) keep their own width on phones.
+  compoundVariants: [{ size: 'sm', block: false, class: 'w-auto' }],
+  defaultVariants: { intent: 'primary', size: 'md', block: false },
 });
 
 export type ButtonVariants = VariantProps<typeof button>;

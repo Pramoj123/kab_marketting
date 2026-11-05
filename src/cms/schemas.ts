@@ -26,12 +26,14 @@ export const seoSchema = z
   .prefault({});
 
 const heroSchema = z.object({
+  notice: text,
   headline: z.string(),
   subheadline: text,
   primaryCta: linkSchema,
   secondaryCta: linkSchema,
   image: z.string().nullish(),
   imageAlt: text,
+  size: z.enum(['full', 'compact']).default('compact'),
 });
 
 const featuresSchema = z.object({
@@ -52,6 +54,16 @@ const productGridSchema = z.object({
   intro: text,
   category: z.enum(optionValues(PRODUCT_FILTERS)).default('all'),
   featuredOnly: z.boolean().default(false),
+  link: linkSchema.prefault({}),
+});
+
+const stepsSchema = z.object({
+  heading: z.string(),
+  intro: text,
+  items: z
+    .array(z.object({ title: z.string(), description: text }))
+    .max(4)
+    .default([]),
 });
 
 const customOrderSchema = z.object({ heading: z.string(), intro: text, note: text });
@@ -66,6 +78,7 @@ export const blockSchema = z.discriminatedUnion('discriminant', [
   z.object({ discriminant: z.literal('features'), value: featuresSchema }),
   z.object({ discriminant: z.literal('cta'), value: ctaSchema }),
   z.object({ discriminant: z.literal('faq'), value: faqSchema }),
+  z.object({ discriminant: z.literal('steps'), value: stepsSchema }),
 ]);
 
 const navigationSchema = z
@@ -122,6 +135,7 @@ export type FaqProps = z.infer<typeof faqSchema>;
 export type ProductGridProps = z.infer<typeof productGridSchema>;
 export type CustomOrderProps = z.infer<typeof customOrderSchema>;
 export type ContactProps = z.infer<typeof contactSchema>;
+export type StepsProps = z.infer<typeof stepsSchema>;
 export type PageData = z.infer<typeof pageSchema>;
 export type ProductData = z.infer<typeof productSchema>;
 export type SiteSettingsData = z.infer<typeof siteSettingsSchema>;

@@ -1,0 +1,20 @@
+---
+import { Container, Heading, Section, Stack, StepList, Text } from '@/components/ui';
+import type { StepsProps } from '@/cms/schemas';
+
+type Props = StepsProps;
+
+const { heading, intro, items } = Astro.props;
+---
+
+<Section tone="blush">
+  <Container>
+    <Stack gap="lg">
+      <Stack>
+        <Heading>{heading}</Heading>
+        {intro && <Text size="lead">{intro}</Text>}
+      </Stack>
+      <StepList items={items} />
+    </Stack>
+  </Container>
+</Section>

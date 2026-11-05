@@ -1,0 +1,17 @@
+---
+import { Image } from 'astro:assets';
+import emblem from '@/assets/logo.jpeg';
+import { logo } from './shell.variants';
+
+interface Props {
+  siteName: string;
+}
+
+const { siteName } = Astro.props;
+const { root, mark, name } = logo();
+---
+
+<a href="/" class={root()} aria-label={`${siteName} home`}>
+  <Image src={emblem} alt="" width={96} height={96} class={mark()} loading="eager" />
+  <span class={name()}>{siteName}</span>
+</a>

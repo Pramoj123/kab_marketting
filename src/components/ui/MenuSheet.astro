@@ -1,0 +1,62 @@
+---
+import type { Action } from '@/lib/actions';
+import type { NavItem } from '@/lib/navigation';
+import Button from './Button.astro';
+import Container from './Container.astro';
+import Logo from './Logo.astro';
+import { menuSheet, shell } from './shell.variants';
+
+interface Props {
+  siteName: string;
+  primary: NavItem[];
+  secondary: NavItem[];
+  secondaryLabel: string;
+  action: Action | null;
+}
+
+const { siteName, primary, secondary, secondaryLabel, action } = Astro.props;
+const { root, top, list, link, group } = menuSheet();
+const { menuButton } = shell();
+---
+
+<Button intent="secondary" size="sm" class={menuButton()} data-menu-open aria-haspopup="dialog">
+  Menu
+</Button>
+<dialog class={root()} aria-label="Site menu" data-menu-sheet>
+  <Container>
+    <div class={top()}>
+      <Logo siteName={siteName} />
+      <Button intent="secondary" size="sm" data-menu-close>
+        Close
+      </Button>
+    </div>
+    <nav aria-label="Pages" class={list()}>
+      {primary.map((item) => (
+        <a href={item.href} class={link()}>
+          {item.label}
+        </a>
+      ))}
+      {secondary.length > 0 && <p class={group()}>{secondaryLabel}</p>}
+      {secondary.map((item) => (
+        <a href={item.href} class={link()}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    {action && (
+      <Button href={action.href} size="lg" block>
+        {action.label}
+      </Button>
+    )}
+  </Container>
+</dialog>
+
+<script>
+  const sheet = document.querySelector<HTMLDialogElement>('[data-menu-sheet]');
+  document.querySelector('[data-menu-open]')?.addEventListener('click', () => sheet?.showModal());
+  // Any tap on a close button or a link closes the sheet.
+  sheet?.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('[data-menu-close], a')) sheet.close();
+  });
+</script>

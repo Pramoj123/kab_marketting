@@ -45,15 +45,34 @@ type Describable = Pick<
   'diet' | 'leadTimeDays' | 'flavours' | 'sizes' | 'availability' | 'availabilityNote'
 >;
 
+/** Egg choice offered when a product is made both ways. */
+export const DIET_CHOICES = ['Eggless', 'With egg'] as const;
+
+/**
+ * The choices a customer makes on a card. Two or more options become a picker;
+ * a single option is shown as a plain detail line.
+ */
+export function productChoices(product: Pick<ProductData, 'flavours' | 'sizes' | 'diet'>) {
+  const groups = [
+    { name: 'size', label: 'Size', options: product.sizes },
+    { name: 'flavour', label: 'Flavour', options: product.flavours },
+    {
+      name: 'diet',
+      label: 'Egg or eggless',
+      options: product.diet === 'both' ? [...DIET_CHOICES] : [],
+    },
+  ];
+  return {
+    pickers: groups.filter((group) => group.options.length > 1),
+    details: groups
+      .filter((group) => group.options.length === 1)
+      .map((group) => ({ label: group.label, value: group.options[0] })),
+  };
+}
+
 /** What a product card shows besides the name, photo and summary. */
 export function describeProduct(product: Describable) {
   const leadTime = formatLeadTime(product.leadTimeDays);
-  const details = [
-    { label: 'Flavours', items: product.flavours },
-    { label: 'Sizes', items: product.sizes },
-  ]
-    .filter((detail) => detail.items.length > 0)
-    .map((detail) => ({ label: detail.label, value: detail.items.join(', ') }));
   const availability = optionLabel(PRODUCT_AVAILABILITY, product.availability);
   const note = product.availabilityNote.trim();
 
@@ -62,7 +81,7 @@ export function describeProduct(product: Describable) {
       { label: optionLabel(PRODUCT_DIETS, product.diet), tone: 'neutral' as const },
       ...(leadTime ? [{ label: leadTime, tone: 'brand' as const }] : []),
     ],
-    details,
+    ...productChoices(product),
     statusLabel: isOrderable(product) ? '' : note ? `${availability}. ${note}` : availability,
   };
 }

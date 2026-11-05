@@ -8,55 +8,53 @@ interface Props extends FieldVariants {
   required?: boolean;
   placeholder?: string;
   hint?: string;
+  /** Shown under the field when it is required and left empty. */
+  errorMessage?: string;
 }
 
-const { label, name, kind = 'text', options = [], required, placeholder, hint } = Astro.props;
+const {
+  label,
+  name,
+  kind = 'text',
+  options = [],
+  required = false,
+  placeholder,
+  hint,
+  errorMessage = `Please fill in ${label.toLowerCase()}.`,
+} = Astro.props;
 const id = `field-${name}`;
-const hintId = hint ? `${id}-hint` : undefined;
+const hintId = `${id}-hint`;
+const errorId = `${id}-error`;
+const describedBy = [hint && hintId, required && errorId].filter(Boolean).join(' ') || undefined;
 const classes = field({ kind });
+const control = { id, name, required, 'aria-describedby': describedBy, class: classes.control() };
 ---
 
 <div class={classes.root()}>
   <label for={id} class={classes.label()}>
     {label}
+    {!required && <span class={classes.optional()}>(optional)</span>}
   </label>
   {kind === 'textarea' ? (
-    <textarea
-      id={id}
-      name={name}
-      rows={4}
-      required={required}
-      placeholder={placeholder}
-      aria-describedby={hintId}
-      class={classes.control()}
-    />
+    <textarea {...control} rows={4} placeholder={placeholder} />
   ) : kind === 'select' ? (
-    <select
-      id={id}
-      name={name}
-      required={required}
-      aria-describedby={hintId}
-      class={classes.control()}
-    >
+    <select {...control}>
       <option value="">Choose one</option>
       {options.map((option) => (
         <option value={option}>{option}</option>
       ))}
     </select>
   ) : (
-    <input
-      id={id}
-      name={name}
-      type={kind}
-      required={required}
-      placeholder={placeholder}
-      aria-describedby={hintId}
-      class={classes.control()}
-    />
+    <input {...control} type={kind} placeholder={placeholder} />
   )}
   {hint && (
     <p id={hintId} class={classes.hint()}>
       {hint}
+    </p>
+  )}
+  {required && (
+    <p id={errorId} class={classes.error()} data-error hidden>
+      {errorMessage}
     </p>
   )}
 </div>

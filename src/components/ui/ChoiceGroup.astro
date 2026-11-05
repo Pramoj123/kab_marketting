@@ -1,0 +1,32 @@
+---
+import { choiceGroup } from './form.variants';
+
+interface Props {
+  /** Unique per page, for example "<product id>-size". */
+  name: string;
+  legend: string;
+  options: string[];
+}
+
+const { name, legend, options } = Astro.props;
+const { root, legend: legendClass, options: optionsClass, option, input } = choiceGroup();
+---
+
+<fieldset class={root()}>
+  <legend class={legendClass()}>{legend}</legend>
+  <div class={optionsClass()}>
+    {options.map((value, index) => (
+      <label class={option()}>
+        <input
+          type="radio"
+          name={name}
+          value={value}
+          checked={index === 0}
+          class={input()}
+          data-choice
+        />
+        {value}
+      </label>
+    ))}
+  </div>
+</fieldset>

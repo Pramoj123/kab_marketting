@@ -1,20 +1,30 @@
 ---
 import Badge from './Badge.astro';
 import Button from './Button.astro';
+import ChoiceGroup from './ChoiceGroup.astro';
 import Heading from './Heading.astro';
 import Text from './Text.astro';
+import TextLink from './TextLink.astro';
 import type { BadgeVariants } from './badge.variants';
 import { productCard } from './product.variants';
 
 interface Props {
+  /** Unique on the page; names the radio groups. */
+  id: string;
   name: string;
   summary?: string;
   photo?: string | null;
   photoAlt?: string;
   tags?: { label: string; tone?: BadgeVariants['tone'] }[];
+  /** Choices with two or more options, shown as pickers. */
+  pickers?: { name: string; label: string; options: string[] }[];
+  /** Fixed facts, for example a single size. */
   details?: { label: string; value: string }[];
   /** Set when the product cannot be ordered, for example "Sold out. Back on Friday". */
   statusLabel?: string;
+  /** WhatsApp number, read by the script to rebuild the order link when a choice changes. */
+  phone?: string;
+  /** Link for the default choices. Null hides the button (no WhatsApp number yet). */
   orderHref?: string | null;
   orderLabel?: string;
   customHref?: string | null;
@@ -22,68 +32,95 @@ interface Props {
 }
 
 const {
+  id,
   name,
   summary,
   photo,
   photoAlt,
   tags = [],
+  pickers = [],
   details = [],
   statusLabel,
+  phone = '',
   orderHref,
-  orderLabel = 'Order on WhatsApp',
+  orderLabel = 'Order this bake',
   customHref,
-  customLabel = 'Customise',
+  customLabel = 'Customise this bake',
 } = Astro.props;
 
-const {
-  root,
-  frame,
-  media,
-  placeholder,
-  body,
-  tags: tagList,
-  detailLabel,
-  actions,
-} = productCard({
-  unavailable: Boolean(statusLabel),
-});
+const orderable = !statusLabel;
+// Pickers only make sense when the choice goes into an order link; otherwise list the options.
+const showPickers = orderable && Boolean(orderHref);
+const facts = showPickers
+  ? details
+  : [
+      ...details,
+      ...pickers.map((picker) => ({ label: picker.label, value: picker.options.join(', ') })),
+    ];
+const styles = productCard({ unavailable: !orderable });
 ---
 
-<article class={root()}>
-  <div class={frame()}>
+<article class={styles.root()} data-order-card data-phone={phone} data-product={name}>
+  <div class={styles.frame()}>
     {photo ? (
-      <img src={photo} alt={photoAlt || name} loading="lazy" decoding="async" class={media()} />
+      <img
+        src={photo}
+        alt={photoAlt || name}
+        loading="lazy"
+        decoding="async"
+        class={styles.media()}
+      />
     ) : (
-      <div class={placeholder()}>Photo coming soon</div>
+      <div class={styles.placeholder()}>Photo coming soon</div>
     )}
   </div>
-  <div class={body()}>
+  <div class={styles.body()}>
     <Heading as="h3">{name}</Heading>
     {summary && <Text>{summary}</Text>}
     {tags.length > 0 && (
-      <div class={tagList()}>
+      <div class={styles.tags()}>
         {tags.map((tag) => (
           <Badge tone={tag.tone}>{tag.label}</Badge>
         ))}
       </div>
     )}
-    {details.map((detail) => (
+    {facts.map((detail) => (
       <Text size="small">
-        <span class={detailLabel()}>{detail.label}:</span> {detail.value}
+        <span class={styles.detailLabel()}>{detail.label}:</span> {detail.value}
       </Text>
     ))}
-    <div class={actions()}>
+    {showPickers &&
+      pickers.map((picker) => (
+        <ChoiceGroup name={`${id}-${picker.name}`} legend={picker.label} options={picker.options} />
+      ))}
+    <div class={styles.actions()}>
       {statusLabel && <Badge tone="accent">{statusLabel}</Badge>}
-      {!statusLabel && orderHref && (
-        <Button href={orderHref} size="sm">
+      {orderable && orderHref && (
+        <Button href={orderHref} intent="secondary" block data-order-link>
           {orderLabel}
         </Button>
       )}
-      {!statusLabel && customHref && (
-        <Button href={customHref} intent="secondary" size="sm">
-          {customLabel}
-        </Button>
-      )}
+      {orderable && customHref && <TextLink href={customHref}>{customLabel}</TextLink>}
     </div>
   </div>
 </article>
+
+<script>
+  import { orderMessage, whatsappLink } from '@/lib/whatsapp';
+
+  // Rebuilds each card's WhatsApp link from the chosen size, flavour and egg option.
+  document.querySelectorAll<HTMLElement>('[data-order-card]').forEach((card) => {
+    const link = card.querySelector<HTMLAnchorElement>('[data-order-link]');
+    if (!link) return;
+    card.addEventListener('change', () => {
+      const choices = [...card.querySelectorAll<HTMLInputElement>('[data-choice]:checked')].map(
+        (input) => input.value,
+      );
+      const href = whatsappLink(
+        card.dataset.phone ?? '',
+        orderMessage(card.dataset.product ?? '', choices),
+      );
+      if (href) link.href = href;
+    });
+  });
+</script>

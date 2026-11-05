@@ -69,11 +69,13 @@ test('description falls back to the hero subheadline', () => {
   const hero = {
     discriminant: 'hero' as const,
     value: {
+      notice: '',
       headline: 'H',
       subheadline: 'From hero',
       primaryCta: link,
       secondaryCta: link,
       imageAlt: '',
+      size: 'compact' as const,
     },
   };
   const page = { title: 'About', seo: emptySeo, blocks: [hero] };

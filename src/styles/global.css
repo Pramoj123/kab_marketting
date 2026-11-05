@@ -65,7 +65,11 @@
   --text-h2: clamp(1.875rem, 1.457rem + 1.714vw, 3rem); /* 30 to 48 */
   --text-h2--line-height: 1.1;
   --text-h2--letter-spacing: -0.015em;
-  --text-h3: clamp(1.5rem, 1.407rem + 0.381vw, 1.75rem); /* 24 to 28, card titles, quotes */
+  --text-h3: clamp(
+    1.375rem,
+    1.236rem + 0.571vw,
+    1.75rem
+  ); /* 22 to 28, card titles; 1.3x under h2 on phones */
   --text-h3--line-height: 1.2;
   --text-h3--letter-spacing: -0.01em;
   --text-lead: clamp(1.125rem, 1.079rem + 0.19vw, 1.25rem); /* 18 to 20, intros */
@@ -78,8 +82,9 @@
   --text-label--line-height: 1.25;
 
   /* Containers and line length. */
-  --container-page: 80rem; /* 1280, the content edge on every page */
-  --container-narrow: 48rem; /* forms, FAQ */
+  /* Widths include the gutter on both sides, so a container can be w-full inside any layout. */
+  --container-page: calc(80rem + 2 * var(--spacing-gutter)); /* 1280 of content on every page */
+  --container-narrow: 48rem; /* 768: a block inside the page width, forms and FAQ, left-aligned */
   --container-measure: 62ch; /* longest comfortable line */
 
   /*
@@ -91,9 +96,13 @@
   --spacing-gutter: clamp(1.5rem, 0.2rem + 5.333vw, 5rem); /* 24 to 80: side margin */
   --spacing-stack: clamp(2rem, 1.629rem + 1.524vw, 3rem); /* 32 to 48: heading to content */
   --spacing-nav: clamp(3.5rem, 3.129rem + 1.524vw, 4.5rem); /* 56 to 72: header height */
+  --spacing-hero: calc(100svh - var(--spacing-nav)); /* a full hero fills the first screen */
+  --spacing-safe: max(0.75rem, env(safe-area-inset-bottom)); /* under the phone bar's button */
+  --spacing-bar: calc(
+    3.75rem + var(--spacing-safe)
+  ); /* phone bar height, kept free under content */
   --spacing-control-sm: 2.5rem; /* 40, buttons inside cards */
   --spacing-control: 3rem; /* 48, buttons and fields */
-  --spacing-control-lg: 3.5rem; /* 56, hero and closing actions */
 
   /* Radius: soft. Buttons and badges use rounded-full. */
   --radius-control: 0.5rem; /* 8, fields */
@@ -145,6 +154,7 @@
   html {
     color-scheme: light;
     scroll-behavior: smooth;
+    scroll-padding-top: var(--spacing-nav); /* anchors land below the sticky header */
     -webkit-text-size-adjust: 100%;
   }
 

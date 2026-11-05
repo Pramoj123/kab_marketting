@@ -1,0 +1,20 @@
+---
+import type { Action } from '@/lib/actions';
+import Button from './Button.astro';
+import { actionBar } from './shell.variants';
+
+interface Props {
+  action: Action;
+}
+
+const { action } = Astro.props;
+const { spacer, bar } = actionBar();
+---
+
+<!-- Keeps the end of the page clear of the fixed bar on phones. -->
+<div class={spacer()} aria-hidden="true"></div>
+<div class={bar()}>
+  <Button href={action.href} block>
+    {action.label}
+  </Button>
+</div>

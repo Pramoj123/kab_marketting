@@ -1,8 +1,18 @@
 ---
-import { Button, Container, Field, Grid, Heading, Section, Stack, Text } from '@/components/ui';
+import {
+  Button,
+  Container,
+  Field,
+  Fieldset,
+  Grid,
+  Heading,
+  Section,
+  Stack,
+  Text,
+} from '@/components/ui';
 import type { CustomOrderProps } from '@/cms/schemas';
 import { CUSTOM_ORDER_TYPES } from '@/cms/product-options';
-import { getSiteSettings } from '@/lib/site';
+import { CUSTOM_ORDER_FORM_ID, getSiteSettings } from '@/lib/site';
 
 type Props = CustomOrderProps;
 
@@ -10,40 +20,53 @@ const { heading, intro, note } = Astro.props;
 const site = await getSiteSettings();
 ---
 
-<Section>
-  <Container width="narrow">
-    <Stack gap="lg">
+<Section id={CUSTOM_ORDER_FORM_ID}>
+  <Container>
+    <Stack gap="lg" width="narrow">
       <Stack>
         <Heading>{heading}</Heading>
         {intro && <Text size="lead">{intro}</Text>}
       </Stack>
-      <form data-custom-order data-phone={site.whatsappNumber}>
+      <form data-custom-order data-phone={site.whatsappNumber} novalidate class="w-full">
         <Stack gap="lg">
-          <Grid columns={2}>
-            <Field name="name" label="Your name" />
-            <Field
-              name="product"
-              label="What would you like?"
-              kind="select"
-              options={CUSTOM_ORDER_TYPES}
-              required
-            />
-            <Field
-              name="occasion"
-              label="Occasion"
-              placeholder="Birthday, anniversary, office party"
-            />
-            <Field
-              name="date"
-              label="Needed on"
-              kind="date"
-              hint="Please allow the notice shown for your item."
-            />
-            <Field name="flavour" label="Flavour" />
-            <Field name="size" label="Size or quantity" />
-          </Grid>
-          <Field name="message" label="Message on the cake or card" kind="textarea" />
-          <Field name="notes" label="Anything else we should know?" kind="textarea" />
+          <Fieldset legend="Your order">
+            <Grid columns={2}>
+              <Field
+                name="product"
+                label="What would you like?"
+                kind="select"
+                options={CUSTOM_ORDER_TYPES}
+                required
+                errorMessage="Choose what you would like us to make."
+              />
+              <Field
+                name="date"
+                label="Needed on"
+                kind="date"
+                required
+                hint="Most bakes need a day's notice, bento cakes two days."
+                errorMessage="Choose the date you need it on."
+              />
+              <Field name="flavour" label="Flavour" />
+              <Field
+                name="size"
+                label="Size or quantity"
+                placeholder="Box of 6, 1 cake, 40 boxes"
+              />
+            </Grid>
+          </Fieldset>
+          <Fieldset legend="Occasion and message">
+            <Grid columns={2}>
+              <Field name="name" label="Your name" />
+              <Field
+                name="occasion"
+                label="Occasion"
+                placeholder="Birthday, anniversary, office party"
+              />
+            </Grid>
+            <Field name="message" label="Message on the cake or card" kind="textarea" />
+            <Field name="notes" label="Anything else we should know" kind="textarea" />
+          </Fieldset>
           <Stack gap="sm">
             <Button type="submit" size="lg">
               Send on WhatsApp
@@ -60,18 +83,42 @@ const site = await getSiteSettings();
 <script>
   import { customOrderMessage, whatsappLink, type CustomOrderBrief } from '@/lib/whatsapp';
 
+  type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
   const form = document.querySelector<HTMLFormElement>('[data-custom-order]');
   const status = form?.querySelector<HTMLElement>('[data-status]');
   const date = form?.querySelector<HTMLInputElement>('input[name="date"]');
 
+  // Earliest date is tomorrow, in the visitor's own time zone.
   if (date) {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    date.min = now.toISOString().slice(0, 10);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setMinutes(tomorrow.getMinutes() - tomorrow.getTimezoneOffset());
+    date.min = tomorrow.toISOString().slice(0, 10);
+  }
+
+  /** Marks each empty required field and returns the first one, or null when all are filled. */
+  function firstInvalid(fields: Control[]) {
+    let first: Control | null = null;
+    for (const control of fields) {
+      const empty = !control.value.trim();
+      const error = document.getElementById(`${control.id}-error`);
+      if (empty) control.setAttribute('aria-invalid', 'true');
+      else control.removeAttribute('aria-invalid');
+      if (error) error.hidden = !empty;
+      if (empty && !first) first = control;
+    }
+    return first;
   }
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
+    const required = [...form.querySelectorAll<Control>('[required]')];
+    const invalid = firstInvalid(required);
+    if (invalid) {
+      invalid.focus();
+      return;
+    }
     const brief = Object.fromEntries(new FormData(form)) as CustomOrderBrief;
     const link = whatsappLink(form.dataset.phone ?? '', customOrderMessage(brief));
     if (!status) return;
@@ -81,5 +128,11 @@ const site = await getSiteSettings();
     }
     status.textContent = 'Opening WhatsApp. Send the message there to place your request.';
     window.open(link, '_blank', 'noopener,noreferrer');
+  });
+
+  // Clear a field's error as soon as it is filled in.
+  form?.addEventListener('input', (event) => {
+    const control = event.target as Control;
+    if (control.required && control.value.trim()) firstInvalid([control]);
   });
 </script>

@@ -1,0 +1,15 @@
+---
+import { fieldset } from './form.variants';
+
+interface Props {
+  legend: string;
+}
+
+const { legend } = Astro.props;
+const { root, legend: legendClass } = fieldset();
+---
+
+<fieldset class={root()}>
+  <legend class={legendClass()}>{legend}</legend>
+  <slot />
+</fieldset>

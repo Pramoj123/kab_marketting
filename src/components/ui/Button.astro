@@ -1,22 +1,27 @@
 ---
+import { isExternal } from '@/lib/actions';
 import { button, type ButtonVariants } from './button.variants';
 
 interface Props extends ButtonVariants {
   href?: string;
   type?: 'button' | 'submit';
   class?: string;
+  [key: `data-${string}`]: string | boolean | undefined;
+  [key: `aria-${string}`]: string | boolean | undefined;
 }
 
-const { href, type = 'button', intent, size, class: className } = Astro.props;
-const classes = button({ intent, size, class: className });
+const { href, type = 'button', intent, size, block, class: className, ...attributes } = Astro.props;
+const classes = button({ intent, size, block, class: className });
+// WhatsApp and other sites open in a new tab so the menu stays open behind them.
+const external = href && isExternal(href) ? { target: '_blank', rel: 'noopener' } : {};
 ---
 
 {href ? (
-  <a href={href} class={classes}>
+  <a href={href} class={classes} {...external} {...attributes}>
     <slot />
   </a>
 ) : (
-  <button type={type} class={classes}>
+  <button type={type} class={classes} {...attributes}>
     <slot />
   </button>
 )}

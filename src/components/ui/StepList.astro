@@ -1,0 +1,24 @@
+---
+import Heading from './Heading.astro';
+import Text from './Text.astro';
+import { stepList } from './list.variants';
+
+interface Props {
+  items: { title: string; description: string }[];
+}
+
+const { items } = Astro.props;
+const { root, item, number } = stepList({ columns: items.length >= 4 ? 4 : 3 });
+---
+
+<ol class={root()}>
+  {items.map((step, index) => (
+    <li class={item()}>
+      <span class={number()} aria-hidden="true">
+        {index + 1}
+      </span>
+      <Heading as="h3">{step.title}</Heading>
+      {step.description && <Text>{step.description}</Text>}
+    </li>
+  ))}
+</ol>

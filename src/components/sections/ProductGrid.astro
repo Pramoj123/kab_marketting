@@ -1,5 +1,16 @@
 ---
-import { Container, Grid, Heading, ProductCard, Section, Stack, Text } from '@/components/ui';
+import {
+  Button,
+  Chip,
+  Container,
+  Grid,
+  Heading,
+  ProductCard,
+  Row,
+  Section,
+  Stack,
+  Text,
+} from '@/components/ui';
 import type { ProductGridProps } from '@/cms/schemas';
 import { describeProduct, groupByCategory, selectProducts } from '@/lib/product-rules';
 import { getPublishedProducts } from '@/lib/products';
@@ -8,25 +19,30 @@ import { orderMessage, whatsappLink } from '@/lib/whatsapp';
 
 type Props = ProductGridProps;
 
-const { heading, intro, category, featuredOnly } = Astro.props;
+const { heading, intro, category, featuredOnly, link } = Astro.props;
 
 const site = await getSiteSettings();
 const products = selectProducts(await getPublishedProducts(), { category, featuredOnly });
-// A full menu is grouped under category headings. A single category or a featured list is flat.
-const groups =
-  category === 'all' && !featuredOnly
-    ? groupByCategory(products)
-    : [{ category, label: '', products }];
+// A full menu is grouped under category headings with a jump row. A category or featured list is flat.
+const grouped = category === 'all' && !featuredOnly;
+const groups = grouped ? groupByCategory(products) : [{ category, label: '', products }];
 
-const cardProps = (product: (typeof products)[number]) => ({
-  name: product.name,
-  summary: product.summary,
-  photo: product.photo,
-  photoAlt: product.photoAlt,
-  ...describeProduct(product),
-  orderHref: whatsappLink(site.whatsappNumber, orderMessage(product.name)),
-  customHref: product.customisable ? CUSTOM_ORDER_PATH : null,
-});
+const cardProps = (product: (typeof products)[number]) => {
+  const description = describeProduct(product);
+  // The default link carries the first option of each picker, as preselected on the card.
+  const defaults = description.pickers.map((picker) => picker.options[0]);
+  return {
+    id: product.id,
+    name: product.name,
+    summary: product.summary,
+    photo: product.photo,
+    photoAlt: product.photoAlt,
+    ...description,
+    phone: site.whatsappNumber,
+    orderHref: whatsappLink(site.whatsappNumber, orderMessage(product.name, defaults)),
+    customHref: product.customisable ? CUSTOM_ORDER_PATH : null,
+  };
+};
 ---
 
 <Section>
@@ -38,17 +54,33 @@ const cardProps = (product: (typeof products)[number]) => ({
           {intro && <Text size="lead">{intro}</Text>}
         </Stack>
       )}
+      {grouped && groups.length > 1 && (
+        <nav aria-label="Menu categories">
+          <Row gap="sm">
+            {groups.map((group) => (
+              <Chip href={`#${group.category}`}>{group.label}</Chip>
+            ))}
+          </Row>
+        </nav>
+      )}
       {products.length === 0 && <Text>New bakes are coming soon. Check back shortly.</Text>}
       {groups.map((group) => (
-        <Stack>
-          {group.label && <Heading as={heading ? 'h3' : 'h2'}>{group.label}</Heading>}
-          <Grid>
-            {group.products.map((product) => (
-              <ProductCard {...cardProps(product)} />
-            ))}
-          </Grid>
-        </Stack>
+        <div id={grouped ? group.category : undefined}>
+          <Stack>
+            {group.label && <Heading as={heading ? 'h3' : 'h2'}>{group.label}</Heading>}
+            <Grid>
+              {group.products.map((product) => (
+                <ProductCard {...cardProps(product)} />
+              ))}
+            </Grid>
+          </Stack>
+        </div>
       ))}
+      {link.label && link.href && (
+        <Button href={link.href} intent="secondary">
+          {link.label}
+        </Button>
+      )}
     </Stack>
   </Container>
 </Section>

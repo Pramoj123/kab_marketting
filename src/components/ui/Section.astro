@@ -6,9 +6,9 @@ interface Props extends SectionVariants {
   class?: string;
 }
 
-const { id, tone, class: className } = Astro.props;
+const { id, tone, space, class: className } = Astro.props;
 ---
 
-<section id={id} class={section({ tone, class: className })}>
+<section id={id} class={section({ tone, space, class: className })}>
   <slot />
 </section>

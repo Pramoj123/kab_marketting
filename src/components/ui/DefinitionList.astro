@@ -1,0 +1,19 @@
+---
+import { definitionList } from './list.variants';
+
+interface Props {
+  items: { term: string; detail: string }[];
+}
+
+const { items } = Astro.props;
+const { root, row, term, detail } = definitionList();
+---
+
+<dl class={root()}>
+  {items.map((item) => (
+    <div class={row()}>
+      <dt class={term()}>{item.term}</dt>
+      <dd class={detail()}>{item.detail}</dd>
+    </div>
+  ))}
+</dl>

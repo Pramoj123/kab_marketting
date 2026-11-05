@@ -16,6 +16,7 @@ Conventions (names, styles, reuse, commits, branches): `docs/conventions.md`. Ex
 - `pnpm check` types and templates, `pnpm lint`, `pnpm format`
 - `pnpm check:naming`, `pnpm check:styles`, `pnpm check:dup`, `pnpm test`
 - `pnpm verify` runs everything CI runs
+- Dev shows `undefined` for a field the build has (stale content cache after a schema change): `astro dev stop`, `rm -rf .astro node_modules/.astro`, start again.
 
 ## Rules
 

@@ -35,6 +35,13 @@ test('order message names the product', () => {
   );
 });
 
+test('order message lists the chosen options and skips blanks', () => {
+  assert.equal(
+    orderMessage('Nutella Brownie Box', ['Box of 6', ' ', 'Eggless']),
+    "Hi! I'd like to order the Nutella Brownie Box: Box of 6, Eggless",
+  );
+});
+
 test('custom order message lists only filled-in fields', () => {
   const message = customOrderMessage({
     occasion: 'Birthday',

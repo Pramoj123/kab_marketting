@@ -1,0 +1,14 @@
+---
+import { textLink } from './text.variants';
+
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+---
+
+<a href={href} class={textLink({ class: className })}>
+  <slot />
+</a>

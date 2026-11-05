@@ -15,12 +15,12 @@ const instagram = instagramProfile(site.socialProfiles);
 
 <Section>
   <Container>
-    <Stack align="center" gap="lg">
+    <Stack gap="lg">
       <Heading>{heading}</Heading>
       {intro && <Text size="lead">{intro}</Text>}
-      <Row justify="center">
+      <Row>
         {whatsapp && (
-          <Button href={whatsapp} size="lg">
+          <Button href={whatsapp} intent="secondary" size="lg">
             Message us on WhatsApp
           </Button>
         )}
