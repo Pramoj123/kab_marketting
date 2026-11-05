@@ -13,29 +13,42 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "Custom orders and gifting"
-      subheadline: "Celebration cakes, gift boxes and bulk orders, made to your brief."
+      notice: "Order custom cakes 2 days ahead."
+      headline: "Custom cakes and gift boxes in Chennai"
+      subheadline: "Bento cakes with your message, gift boxes for family and friends, and bulk orders for offices and events."
       primaryCta:
-        label: ''
-        href: ''
+        label: "Start a custom order"
+        href: "#order-form"
       secondaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       image: null
       imageAlt: ''
+      size: "compact"
   - discriminant: "features"
     value:
-      heading: "Made for the moment"
-      intro: "Tell us what you have in mind and we will shape it around you."
+      heading: "What we make to order"
+      intro: "Tell us the occasion and we will suggest what fits."
       items:
-        - title: "Bento cakes"
-          description: "Single-serve cakes with your message, colours and flavour."
+        - title: "Bento cakes with your message"
+          description: "Single-serve cakes in your flavour, colours and words."
         - title: "Gift boxes and hampers"
           description: "Brownies, brookies and cookies packed together for gifting."
-        - title: "Bulk and corporate orders"
-          description: "Boxes for offices, events and parties. Tell us the quantity and the date."
+        - title: "Bulk and office orders"
+          description: "Boxes for teams, events and parties. Share the quantity and date."
+  - discriminant: "steps"
+    value:
+      heading: "How custom orders work"
+      intro: ""
+      items:
+        - title: "Fill in the form"
+          description: "Tell us what you would like and when you need it."
+        - title: "Send it on WhatsApp"
+          description: "The form opens WhatsApp with your details already filled in."
+        - title: "Confirm and pay the advance"
+          description: "We reply with the price and delivery charge. Pay by UPI to confirm."
   - discriminant: "customOrder"
     value:
-      heading: "Tell us what you would like"
-      intro: "Fill in what you can and send it to us on WhatsApp. We will take it from there."
-      note: "We confirm the price, availability and delivery on WhatsApp. An advance payment confirms your order."
+      heading: "Custom order form"
+      intro: "Fill in what you know. We will ask about anything else on WhatsApp."
+      note: "We confirm the price, availability and delivery on WhatsApp. An advance payment by UPI confirms your order."

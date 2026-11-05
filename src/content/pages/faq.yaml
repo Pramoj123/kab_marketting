@@ -13,8 +13,9 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "FAQ and delivery"
-      subheadline: "Everything you need to know about ordering from us."
+      notice: "Delivery across Chennai."
+      headline: "Ordering, delivery and payment"
+      subheadline: "How to order, how much notice we need, where we deliver and how to pay."
       primaryCta:
         label: ''
         href: ''
@@ -23,12 +24,13 @@ blocks:
         href: ''
       image: null
       imageAlt: ''
+      size: "compact"
   - discriminant: "faq"
     value:
-      heading: "Common questions"
+      heading: "Questions about ordering"
       items:
         - question: "How do I order?"
-          answer: "Pick a treat on the menu and tap Order to message us on WhatsApp. For custom cakes, gift boxes and bulk orders, fill in the custom order form and send it to us on WhatsApp."
+          answer: "Choose a size and flavour on the menu, then tap Order this bake. For custom cakes, gift boxes and bulk orders, fill in the custom order form and send it to us on WhatsApp."
         - question: "How much does it cost?"
           answer: "Prices depend on the item, size and design. Message us on WhatsApp and we will share the price."
         - question: "Where do you deliver?"
@@ -45,6 +47,6 @@ blocks:
           answer: "Please tell us about any allergies when you order. Our bakes are made in a home kitchen that also handles ingredients such as wheat, milk, eggs and nuts."
   - discriminant: "contact"
     value:
-      heading: "Get in touch"
-      intro: "Message us on WhatsApp for orders and questions."
+      heading: "Questions on WhatsApp"
+      intro: "Message us for anything not answered here."
       hours: ''

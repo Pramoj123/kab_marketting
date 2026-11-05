@@ -13,26 +13,31 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "Brownies"
-      subheadline: "Fudgy, glossy and made to share. Choose your flavour and box size."
+      notice: "Order 1 day ahead."
+      headline: "Homemade brownies in Chennai"
+      subheadline: "Fudgy brownie boxes in fudge, Nutella and Biscoff flavours. Choose your flavour and box size."
       primaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       secondaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       image: null
       imageAlt: ''
+      size: "compact"
   - discriminant: "productGrid"
     value:
-      heading: ''
-      intro: ''
+      heading: ""
+      intro: ""
       category: "brownies"
       featuredOnly: false
+      link:
+        label: ""
+        href: ""
   - discriminant: "cta"
     value:
-      heading: "Planning something special?"
-      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      heading: "Custom cakes and gift boxes"
+      body: "Bento cakes with your message, gift boxes and bulk orders for offices and events."
       cta:
-        label: "Start a custom order"
+        label: "Order a custom cake"
         href: "/custom-order/"

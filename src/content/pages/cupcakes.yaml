@@ -13,26 +13,31 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "Cupcakes"
-      subheadline: "Soft, fresh cupcakes with swirled frosting, boxed and ready to share."
+      notice: "Order 1 day ahead."
+      headline: "Homemade cupcakes in Chennai"
+      subheadline: "Soft cupcakes with swirled buttercream, in boxes of four or six."
       primaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       secondaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       image: null
       imageAlt: ''
+      size: "compact"
   - discriminant: "productGrid"
     value:
-      heading: ''
-      intro: ''
+      heading: ""
+      intro: ""
       category: "cupcakes"
       featuredOnly: false
+      link:
+        label: ""
+        href: ""
   - discriminant: "cta"
     value:
-      heading: "Planning something special?"
-      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      heading: "Custom cakes and gift boxes"
+      body: "Bento cakes with your message, gift boxes and bulk orders for offices and events."
       cta:
-        label: "Start a custom order"
+        label: "Order a custom cake"
         href: "/custom-order/"

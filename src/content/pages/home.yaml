@@ -13,37 +13,53 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "Homemade bakes, made with love."
-      subheadline: "Brownies, brookies, mini cookies, bento cakes and cupcakes, baked fresh at home in Chennai."
+      notice: "Order 1 day ahead. Bento cakes need 2 days."
+      headline: "Homemade brownies, cookies and cakes in Chennai"
+      subheadline: "Brownies, brookies, mini cookies, bento cakes and cupcakes, baked to order in our home kitchen and delivered across Chennai."
       primaryCta:
-        label: "View the menu"
-        href: "/menu/"
+        label: "Order on WhatsApp"
+        href: "whatsapp"
       secondaryCta:
-        label: "Order a custom cake"
-        href: "/custom-order/"
+        label: "See the menu"
+        href: "/menu/"
       image: null
       imageAlt: ''
+      size: "full"
   - discriminant: "productGrid"
     value:
-      heading: "Fresh from our kitchen"
-      intro: "A few favourites to start with. See the full menu for everything we bake."
+      heading: "From the menu"
+      intro: "A few of our bakes to start with."
       category: "all"
       featuredOnly: true
+      link:
+        label: "See the menu"
+        href: "/menu/"
+  - discriminant: "steps"
+    value:
+      heading: "How ordering works"
+      intro: "No app or account needed. Everything happens in one WhatsApp chat."
+      items:
+        - title: "Choose your bake"
+          description: "Pick a size and flavour on the menu."
+        - title: "Send the order on WhatsApp"
+          description: "Tap Order this bake. Your choices are already in the message."
+        - title: "Confirm and pay the advance"
+          description: "We reply with the price and delivery charge. Pay the advance by UPI and we bake it fresh."
   - discriminant: "features"
     value:
-      heading: "Why you will love us"
-      intro: "Small details that make every box feel special."
+      heading: "Baked by hand at home"
+      intro: "A home kitchen, not a factory, so every box is made for one order."
       items:
-        - title: "Baked at home"
-          description: "Every order is baked in our home kitchen, not in a factory."
-        - title: "Made fresh to order"
-          description: "We bake after you order, so your treats arrive fresh."
-        - title: "Made for your moments"
-          description: "From a thank-you box to a birthday cake, we make it personal."
+        - title: "Starts after you order"
+          description: "We bake once your order is confirmed, so it reaches you fresh."
+        - title: "Made for your occasion"
+          description: "Bento cakes and gift boxes can carry your message and colours."
+        - title: "Delivered across Chennai"
+          description: "We arrange delivery to your door and confirm the charge on WhatsApp."
   - discriminant: "cta"
     value:
-      heading: "Planning something special?"
-      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      heading: "Custom cakes and gift boxes"
+      body: "Bento cakes with your message, gift boxes and bulk orders for offices and events."
       cta:
-        label: "Start a custom order"
+        label: "Order a custom cake"
         href: "/custom-order/"

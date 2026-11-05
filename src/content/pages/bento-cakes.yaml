@@ -13,26 +13,31 @@ seo:
 blocks:
   - discriminant: "hero"
     value:
-      headline: "Bento cakes"
-      subheadline: "Single-serve cakes in a box, made for birthdays, anniversaries and thank-yous. Add your own message."
+      notice: "Order 2 days ahead."
+      headline: "Bento cakes in Chennai"
+      subheadline: "Single-serve cakes in a box, with your message on top. Order 2 days ahead."
       primaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       secondaryCta:
-        label: ''
-        href: ''
+        label: ""
+        href: ""
       image: null
       imageAlt: ''
+      size: "compact"
   - discriminant: "productGrid"
     value:
-      heading: ''
-      intro: ''
+      heading: ""
+      intro: ""
       category: "bento-cakes"
       featuredOnly: false
+      link:
+        label: ""
+        href: ""
   - discriminant: "cta"
     value:
-      heading: "Planning something special?"
-      body: "Bento cakes, gift boxes and bulk orders can be made to your brief."
+      heading: "Custom cakes and gift boxes"
+      body: "Bento cakes with your message, gift boxes and bulk orders for offices and events."
       cta:
-        label: "Start a custom order"
+        label: "Order a custom cake"
         href: "/custom-order/"
