@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
@@ -17,6 +17,25 @@ export default defineConfig({
   site: process.env.SITE_URL ?? 'http://localhost:4321',
   adapter: isDevServer ? undefined : cloudflare(),
   integrations: [react(), keystatic(), sitemap()],
+  // Self-hosted at build time from Google Fonts. Tokens in src/styles/global.css read these variables.
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Instrument Serif',
+      cssVariable: '--font-instrument-serif',
+      weights: [400],
+      styles: ['normal', 'italic'],
+      fallbacks: ['Georgia', 'serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Instrument Sans',
+      cssVariable: '--font-instrument-sans',
+      weights: ['400 600'],
+      styles: ['normal'],
+      fallbacks: ['system-ui', 'sans-serif'],
+    },
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

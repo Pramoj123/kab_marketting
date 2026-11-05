@@ -1,4 +1,4 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from './tv';
 
 export const text = tv({
   base: 'text-pretty',
@@ -8,12 +8,17 @@ export const text = tv({
       muted: 'text-ink-muted',
     },
     size: {
-      small: 'text-sm leading-6',
-      base: 'text-base leading-7',
-      lead: 'text-lg leading-8 sm:text-xl',
+      label: 'text-label font-medium',
+      small: 'text-small',
+      base: 'text-body',
+      lead: 'text-lead',
+    },
+    // Caps the line length at the comfortable measure. Off only for text that must fill its box.
+    measure: {
+      true: 'max-w-measure',
     },
   },
-  defaultVariants: { tone: 'muted', size: 'base' },
+  defaultVariants: { tone: 'muted', size: 'base', measure: true },
 });
 
 export type TextVariants = VariantProps<typeof text>;

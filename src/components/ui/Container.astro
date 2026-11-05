@@ -1,13 +1,13 @@
 ---
-import { container } from './layout.variants';
+import { container, type ContainerVariants } from './layout.variants';
 
-interface Props {
+interface Props extends ContainerVariants {
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { width, class: className } = Astro.props;
 ---
 
-<div class={container({ class: className })}>
+<div class={container({ width, class: className })}>
   <slot />
 </div>

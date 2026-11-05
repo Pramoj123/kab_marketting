@@ -1,39 +1,178 @@
 @import 'tailwindcss';
 
 /*
- * Design tokens. This is the only place raw color and size values may appear.
- * Components use the generated utilities (bg-brand-600, py-section, rounded-card, ...).
+ * Kookies & Brookies design tokens: soft-futurist editorial.
+ * This is the only place raw colour, size, font and motion values may appear.
+ * Rules for using them: docs/design-system.md.
+ *
+ * Tailwind's stock colours, font sizes, fonts, radii, shadows and container sizes are reset,
+ * so only the tokens below generate utilities. A class like text-sm or bg-red-500 produces nothing.
  */
 @theme {
-  /* Kookies & Brookies palette, sampled by eye from public/images/logo.jpeg. Confirm against the source file. */
-  /* Brand blue: buttons, links. White text on brand-600 is about 5:1. */
-  --color-brand-50: oklch(0.96 0.015 255);
-  --color-brand-600: oklch(0.55 0.11 262);
-  --color-brand-700: oklch(0.47 0.11 262);
-  --color-on-brand: oklch(0.99 0 0);
-  /* Accent pink: decoration, icons, large type only. About 3.4:1 on white, too low for body text. */
-  --color-accent-50: oklch(0.97 0.015 0);
-  --color-accent-500: oklch(0.7 0.17 5);
-  --color-ink: oklch(0.35 0.08 263);
-  --color-ink-muted: oklch(0.5 0.05 263);
-  --color-surface: oklch(0.995 0.002 0);
-  --color-surface-muted: oklch(0.97 0.015 0);
-  --color-line: oklch(0.91 0.02 280);
+  --color-*: initial;
+  --text-*: initial;
+  --font-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --container-*: initial;
 
-  /* Fallback stacks until web fonts are chosen and loaded. */
-  --font-display: ui-serif, Georgia, 'Times New Roman', serif;
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --container-page: 72rem;
-  --spacing-section: 5rem;
-  --radius-card: 0.75rem;
+  /* Grounds. Warm ivory, never pure white. */
+  --color-surface: oklch(0.985 0.006 75); /* #fdfaf6 page ground */
+  --color-surface-raised: oklch(0.995 0.003 75); /* #fffdfb cards, fields */
+  --color-blush: oklch(0.965 0.018 5); /* #ffeff2 soft pink section */
+  --color-mist: oklch(0.965 0.016 255); /* #ecf4fe soft blue section, footer */
+
+  /* Ink. Deep navy from the logo, never black. */
+  --color-ink: oklch(0.31 0.065 263); /* #1e2f51 12.7:1 on surface: all reading text */
+  --color-ink-muted: oklch(0.47 0.04 263); /* #4f5b72 6.5:1: meta, hints, labels */
+  --color-line: color-mix(in oklch, var(--color-ink) 14%, transparent); /* hairlines */
+  --color-line-strong: color-mix(
+    in oklch,
+    var(--color-ink) 28%,
+    transparent
+  ); /* field and button borders */
+
+  /* Brand blue: the one action colour (primary button, links, focus). Hue kept below 270, never violet. */
+  --color-brand-50: oklch(0.965 0.016 255);
+  --color-brand-100: oklch(0.92 0.035 258);
+  --color-brand-600: oklch(0.53 0.12 262); /* #446ab1 5.1:1 on surface; white on it 5.3:1 */
+  --color-brand-700: oklch(0.46 0.115 262); /* #335698 hover */
+  --color-brand-800: oklch(0.38 0.1 263); /* #254077 pressed */
+  --color-on-brand: oklch(0.995 0.003 75);
+
+  /* Pink accent: hearts, marks, tints. 500 is decoration only (2.8:1); 600 is the only pink for text. */
+  --color-accent-50: oklch(0.965 0.018 5);
+  --color-accent-100: oklch(0.93 0.04 5);
+  --color-accent-300: oklch(0.83 0.1 5);
+  --color-accent-500: oklch(0.7 0.17 5); /* #f26a90 */
+  --color-accent-600: oklch(0.58 0.18 5); /* #cb3e6c 4.5:1 on surface */
+
+  /* Status: sold out, form errors, confirmations. All 4.9:1 or more on every ground. */
+  --color-success: oklch(0.5 0.12 150);
+  --color-warning: oklch(0.53 0.13 60);
+  --color-danger: oklch(0.52 0.18 25);
+
+  /*
+   * Type scale. Fluid from 390px to 1440px wide. Each size carries its line height and tracking.
+   * Display face at weight 400 only: size and tight tracking carry headlines, never bold.
+   */
+  --text-display: clamp(2.5rem, 1.757rem + 3.048vw, 4.5rem); /* 40 to 72, hero h1 */
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.02em;
+  --text-h1: clamp(2.25rem, 1.786rem + 1.905vw, 3.5rem); /* 36 to 56, page h1 */
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.018em;
+  --text-h2: clamp(1.875rem, 1.457rem + 1.714vw, 3rem); /* 30 to 48 */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.5rem, 1.407rem + 0.381vw, 1.75rem); /* 24 to 28, card titles, quotes */
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lead: clamp(1.125rem, 1.079rem + 0.19vw, 1.25rem); /* 18 to 20, intros */
+  --text-lead--line-height: 1.55;
+  --text-body: 1rem; /* 16, everything people read */
+  --text-body--line-height: 1.625;
+  --text-small: 0.875rem; /* 14, meta only, never paragraphs */
+  --text-small--line-height: 1.43;
+  --text-label: 0.8125rem; /* 13, labels and badges, the minimum size */
+  --text-label--line-height: 1.25;
+
+  /* Containers and line length. */
+  --container-page: 80rem; /* 1280, the content edge on every page */
+  --container-narrow: 48rem; /* forms, FAQ */
+  --container-measure: 62ch; /* longest comfortable line */
+
+  /*
+   * Spacing. Tailwind's 4px scale (p-1 = 4px ... p-32 = 128px) for small gaps,
+   * plus semantic rhythm tokens, fluid from phone to desktop.
+   */
+  --spacing-section-top: clamp(6rem, 5.443rem + 2.286vw, 7.5rem); /* 96 to 120: the h2 sits here */
+  --spacing-section-bottom: clamp(3rem, 2.443rem + 2.286vw, 4.5rem); /* 48 to 72 */
+  --spacing-gutter: clamp(1.5rem, 0.2rem + 5.333vw, 5rem); /* 24 to 80: side margin */
+  --spacing-stack: clamp(2rem, 1.629rem + 1.524vw, 3rem); /* 32 to 48: heading to content */
+  --spacing-nav: clamp(3.5rem, 3.129rem + 1.524vw, 4.5rem); /* 56 to 72: header height */
+  --spacing-control-sm: 2.5rem; /* 40, buttons inside cards */
+  --spacing-control: 3rem; /* 48, buttons and fields */
+  --spacing-control-lg: 3.5rem; /* 56, hero and closing actions */
+
+  /* Radius: soft. Buttons and badges use rounded-full. */
+  --radius-control: 0.5rem; /* 8, fields */
+  --radius-panel: 0.75rem; /* 12, panels, disclosure */
+  --radius-card: 1.25rem; /* 20, cards and photographs */
+
+  /* Motion: quiet, short, one curve. */
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: var(--ease-soft);
+}
+
+/* Font families read the variables injected by Astro's <Font /> (astro.config.mjs). */
+@theme inline {
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+ * Aurora gradients, built only from colour tokens. The one sanctioned exception to flat grounds:
+ * bg-aurora in the hero, bg-aurora-band in at most one brand band per page. Never over a photograph.
+ */
+@utility bg-aurora {
+  background-color: var(--color-surface);
+  background-image:
+    radial-gradient(
+      60% 80% at 12% 0%,
+      color-mix(in oklch, var(--color-accent-100) 90%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      55% 70% at 92% 8%,
+      color-mix(in oklch, var(--color-brand-100) 85%, transparent),
+      transparent 70%
+    );
+}
+
+@utility bg-aurora-band {
+  background-color: var(--color-blush);
+  background-image: linear-gradient(
+    120deg,
+    var(--color-accent-100) 0%,
+    var(--color-surface) 50%,
+    var(--color-brand-100) 100%
+  );
 }
 
 @layer base {
   html {
+    color-scheme: light;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-surface font-sans text-ink antialiased;
+    @apply bg-surface font-sans text-body text-ink antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-100);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
   }
 }

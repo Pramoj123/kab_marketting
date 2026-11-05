@@ -37,10 +37,12 @@ const {
 
 const {
   root,
+  frame,
   media,
   placeholder,
   body,
   tags: tagList,
+  detailLabel,
   actions,
 } = productCard({
   unavailable: Boolean(statusLabel),
@@ -48,11 +50,13 @@ const {
 ---
 
 <article class={root()}>
-  {photo ? (
-    <img src={photo} alt={photoAlt || name} loading="lazy" decoding="async" class={media()} />
-  ) : (
-    <div class={placeholder()}>Photo coming soon</div>
-  )}
+  <div class={frame()}>
+    {photo ? (
+      <img src={photo} alt={photoAlt || name} loading="lazy" decoding="async" class={media()} />
+    ) : (
+      <div class={placeholder()}>Photo coming soon</div>
+    )}
+  </div>
   <div class={body()}>
     <Heading as="h3">{name}</Heading>
     {summary && <Text>{summary}</Text>}
@@ -65,7 +69,7 @@ const {
     )}
     {details.map((detail) => (
       <Text size="small">
-        <span class="font-semibold text-ink">{detail.label}:</span> {detail.value}
+        <span class={detailLabel()}>{detail.label}:</span> {detail.value}
       </Text>
     ))}
     <div class={actions()}>

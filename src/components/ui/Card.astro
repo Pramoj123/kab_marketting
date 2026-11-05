@@ -1,13 +1,13 @@
 ---
-import { card } from './surface.variants';
+import { card, type CardVariants } from './surface.variants';
 
-interface Props {
+interface Props extends CardVariants {
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { interactive, class: className } = Astro.props;
 ---
 
-<div class={card({ class: className })}>
+<div class={card({ interactive, class: className })}>
   <slot />
 </div>

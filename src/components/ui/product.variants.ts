@@ -1,13 +1,15 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from './tv';
 
 export const productCard = tv({
   slots: {
-    root: 'flex flex-col overflow-hidden rounded-card border border-line bg-surface shadow-sm',
-    media: 'aspect-4/3 w-full object-cover',
-    placeholder:
-      'flex aspect-4/3 w-full items-center justify-center bg-accent-50 text-sm text-ink-muted',
-    body: 'flex flex-1 flex-col gap-3 p-5',
+    root: 'group flex flex-col overflow-hidden rounded-card border border-line bg-surface-raised',
+    // The frame clips the photo so its hover zoom stays inside.
+    frame: 'aspect-4/3 overflow-hidden bg-blush',
+    media: 'size-full object-cover transition duration-500 group-hover:scale-103',
+    placeholder: 'flex size-full items-center justify-center text-small text-ink-muted',
+    body: 'flex flex-1 flex-col gap-3 p-6',
     tags: 'flex flex-wrap gap-2',
+    detailLabel: 'font-medium text-ink',
     actions: 'mt-auto flex flex-wrap gap-2 pt-2',
   },
   variants: {

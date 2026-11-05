@@ -11,7 +11,7 @@ const site = await getSiteSettings();
 ---
 
 <Section>
-  <Container>
+  <Container width="narrow">
     <Stack gap="lg">
       <Stack>
         <Heading>{heading}</Heading>
@@ -49,7 +49,7 @@ const site = await getSiteSettings();
               Send on WhatsApp
             </Button>
             {note && <Text size="small">{note}</Text>}
-            <div role="status" aria-live="polite" data-status class="text-sm text-ink"></div>
+            <div role="status" aria-live="polite" data-status class="text-small text-ink"></div>
           </Stack>
         </Stack>
       </form>

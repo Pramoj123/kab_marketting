@@ -1,19 +1,20 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from './tv';
 
+// Fields are 48px tall with 16px text (no zoom on phones) and 13px labels. Focus ring comes from global.css.
 export const field = tv({
   slots: {
     root: 'flex flex-col gap-2',
-    label: 'text-sm font-semibold text-ink',
+    label: 'text-label font-medium text-ink',
     control:
-      'w-full rounded-md border border-line bg-surface px-3 text-base text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600',
-    hint: 'text-sm text-ink-muted',
+      'w-full rounded-control border border-line-strong bg-surface-raised px-4 text-body text-ink transition-colors placeholder:text-ink-muted hover:border-ink',
+    hint: 'text-small text-ink-muted',
   },
   variants: {
     kind: {
-      text: { control: 'h-11' },
-      date: { control: 'h-11' },
-      select: { control: 'h-11' },
-      textarea: { control: 'py-2' },
+      text: { control: 'h-control' },
+      date: { control: 'h-control' },
+      select: { control: 'h-control' },
+      textarea: { control: 'py-3' },
     },
   },
   defaultVariants: { kind: 'text' },

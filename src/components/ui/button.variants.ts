@@ -1,17 +1,18 @@
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from './tv';
 
+// One button pair for the whole site: a filled primary for the main action, an outlined secondary.
+// Hover steps up 1px, press settles back and scales down slightly. Focus ring comes from global.css.
 export const button = tv({
-  base: 'inline-flex items-center justify-center rounded-md font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600',
+  base: 'inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition hover:-translate-y-px active:translate-y-0 active:scale-98',
   variants: {
     intent: {
-      primary: 'bg-brand-600 text-on-brand hover:bg-brand-700',
-      secondary: 'border border-line bg-surface text-ink hover:bg-surface-muted',
-      ghost: 'text-brand-600 hover:bg-brand-50',
+      primary: 'bg-brand-600 text-on-brand hover:bg-brand-700 active:bg-brand-800',
+      secondary: 'border border-line-strong text-ink hover:border-ink hover:bg-surface-raised',
     },
     size: {
-      sm: 'h-9 px-3 text-sm',
-      md: 'h-11 px-5 text-base',
-      lg: 'h-12 px-6 text-lg',
+      sm: 'h-control-sm px-5 text-small',
+      md: 'h-control px-6 text-body',
+      lg: 'h-control-lg px-8 text-body',
     },
   },
   defaultVariants: { intent: 'primary', size: 'md' },

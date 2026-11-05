@@ -11,9 +11,9 @@ const { siteName, currentPath } = Astro.props;
 const items = await getPrimaryNavigation();
 ---
 
-<header>
+<header class="border-b border-line bg-surface">
   <Container>
-    <Row justify="between" class="py-4">
+    <Row justify="between" class="min-h-nav py-2">
       <NavLink href="/" current={currentPath === '/'}>
         {siteName}
       </NavLink>

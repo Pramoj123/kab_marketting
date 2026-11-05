@@ -1,4 +1,5 @@
 ---
+import { Font } from 'astro:assets';
 import '@/styles/global.css';
 import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
@@ -18,7 +19,9 @@ const { seo, siteName, path } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <Font cssVariable="--font-instrument-serif" preload={[{ style: 'normal' }]} />
+    <Font cssVariable="--font-instrument-sans" preload />
     <Seo seo={seo} />
   </head>
   <body>
