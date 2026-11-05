@@ -15,7 +15,7 @@ blocks:
     value:
       notice: "Order 2 days ahead."
       headline: "Bento cakes in Chennai"
-      subheadline: "Single-serve cakes in a box, with your message on top. Order 2 days ahead."
+      subheadline: "Single-serve cakes in a box, with your message, colours and flavour."
       primaryCta:
         label: ""
         href: ""
